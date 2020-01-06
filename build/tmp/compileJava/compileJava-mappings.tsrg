@@ -1,0 +1,5 @@
+com/lolpop/templateutilities/clientcommands/mixin/ClientCommandSourceMixin mc field_210248_b
+com/lolpop/templateutilities/clientcommands/mixin/NetworkHandlerMixin commandDispatcher field_195517_n
+com/lolpop/templateutilities/clientcommands/mixin/PlayerMixin mc field_71159_c
+com/lolpop/templateutilities/clientcommands/mixin/PlayerMixin connection field_71174_a
+com/lolpop/templateutilities/clientcommands/mixin/PlayerMixin sendMessage (Lnet/minecraft/util/text/ITextComponent;)V func_145747_a

@@ -1,0 +1,20 @@
+{
+  "mappings": {
+    "com/lolpop/templateutilities/clientcommands/mixin/NetworkHandlerMixin": {
+      "handleCommandList": "Lnet/minecraft/client/network/play/ClientPlayNetHandler;func_195511_a(Lnet/minecraft/network/play/server/SCommandListPacket;)V"
+    },
+    "com/lolpop/templateutilities/clientcommands/mixin/PlayerMixin": {
+      "sendChatMessage": "Lnet/minecraft/client/entity/player/ClientPlayerEntity;func_71165_d(Ljava/lang/String;)V"
+    }
+  },
+  "data": {
+    "searge": {
+      "com/lolpop/templateutilities/clientcommands/mixin/NetworkHandlerMixin": {
+        "handleCommandList": "Lnet/minecraft/client/network/play/ClientPlayNetHandler;func_195511_a(Lnet/minecraft/network/play/server/SCommandListPacket;)V"
+      },
+      "com/lolpop/templateutilities/clientcommands/mixin/PlayerMixin": {
+        "sendChatMessage": "Lnet/minecraft/client/entity/player/ClientPlayerEntity;func_71165_d(Ljava/lang/String;)V"
+      }
+    }
+  }
+}
