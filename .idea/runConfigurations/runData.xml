@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="runData" type="Application" factoryName="Application" singleton="true">
+    <envs>
+      <env name="MOD_CLASSES" value="templateutilities%%C:\Users\Jura\git\ForgeTemplateUtilities\build\resources\main;templateutilities%%C:\Users\Jura\git\ForgeTemplateUtilities\build\classes\java\main" />
+      <env name="MCP_MAPPINGS" value="stable_53-1.14.2" />
+      <env name="MCP_VERSION" value="20190829.143755" />
+      <env name="FORGE_VERSION" value="28.1.99" />
+      <env name="FORGE_GROUP" value="net.minecraftforge" />
+      <env name="target" value="fmluserdevdata" />
+      <env name="MC_VERSION" value="1.14.4" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="net.minecraftforge.userdev.LaunchTesting" />
+    <option name="PROGRAM_PARAMETERS" value="--mod codeutilities --all --output C:\Users\Jura\git\CodeUtilities\src\generated\resources" />
+    <option name="VM_PARAMETERS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks=":prepareRunData" externalProjectPath="$PROJECT_DIR$" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.lolpop.templateutilities.clientcommands.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "main.refmap.json",
+  "mixins": [
+    "ClientCommandSourceMixin",
+    "NetworkHandlerMixin",
+    "PlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

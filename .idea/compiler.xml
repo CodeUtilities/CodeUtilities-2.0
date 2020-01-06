@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="CodeUtilities.main" target="1.8" />
+      <module name="CodeUtilities.test" target="1.8" />
+      <module name="ForgeTemplateUtilities.main" target="1.8" />
+      <module name="ForgeTemplateUtilities.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
