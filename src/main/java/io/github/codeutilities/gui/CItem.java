@@ -46,6 +46,10 @@ public class CItem extends WItem {
         this.scale = scale;
     }
 
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         MinecraftClient mc = CodeUtilities.mc;
