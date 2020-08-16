@@ -30,6 +30,7 @@ public class CustomHeadSearchGui extends LightweightGuiDescription {
     public CustomHeadSearchGui() {
         WPlainPanel root = new WPlainPanel();
         root.setSize(256, 240);
+        
 
         CTextField searchBox = new CTextField(
             new LiteralText("Search... (" + allHeads.size() + " Heads)"));
@@ -89,7 +90,7 @@ public class CustomHeadSearchGui extends LightweightGuiDescription {
                     continue;
                 }
 
-                JsonArray heads = JsonParser.parseString(response).getAsJsonArray();
+                JsonArray heads = new JsonParser().parse(response).getAsJsonArray();
                 for (JsonElement head : heads) {
                     allHeads.add(head.getAsJsonObject());
                 }
