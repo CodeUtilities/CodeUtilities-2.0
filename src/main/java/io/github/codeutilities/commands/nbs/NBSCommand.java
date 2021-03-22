@@ -64,7 +64,7 @@ public class NBSCommand extends Command {
                                         if (file.exists()) {
                                             loadNbs(file, childName);
                                         } else {
-                                            ChatUtil.sendMessage("The file §6" + childName + "§c was not found.", ChatType.FAIL);
+                                            ChatUtil.sendMessage("The file" + childName + "was not found.", ChatType.FAIL);
                                         }
                                     } else {
                                         ChatUtil.sendTranslateMessage("codeutilities.command.require_creative_mode", ChatType.FAIL);
@@ -82,7 +82,7 @@ public class NBSCommand extends Command {
                                 stack.setCustomName(new LiteralText("§b§lFunction §3» §bCodeUtilities§5 Music Player"));
                                 stack.addEnchantment(Enchantments.LURE, 1);
                                 stack.addHideFlag(ItemStack.TooltipSection.ENCHANTMENTS);
-                                ChatUtil.sendMessage("You received the §dMusic Player§b! Place it down in your codespace and open the chest to get functions!",
+                                ChatUtil.sendMessage("You received the Music Player! Place it down in your codespace and open the chest to get functions!",
                                         ChatType.INFO_BLUE);
                                 ItemUtil.giveCreativeItem(stack, true);
                             } else {
