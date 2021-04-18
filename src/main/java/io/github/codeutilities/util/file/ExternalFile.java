@@ -15,6 +15,14 @@ public enum ExternalFile {
             .isDirectory(false)
             .setName("Templates")
             .setFileType("nbt")
+<<<<<<< HEAD
+=======
+            .buildFile()),
+    PLOTS_DB(new ExternalFileBuilder()
+            .isDirectory(false)
+            .setName("Plots")
+            .setFileType("nbt")
+>>>>>>> 0bee843 (Initial commit)
             .buildFile());
 
     private final File file;

@@ -44,11 +44,18 @@ public class CommandHandler implements ClientCommandPlugin, IManager<Command> {
                 new ColorCommand(),
                 new EditItemCommand(),
                 new CopyTextCommand(),
+<<<<<<< HEAD
                 new GradientCommand(),
                 new ConfigCommand()
         );
 
         if (CodeUtilsConfig.getBool("dfCommands")) {
+=======
+                new GradientCommand()
+        );
+
+        if (CodeUtilsConfig.dfCommands) {
+>>>>>>> 0bee843 (Initial commit)
             register(
                     new GiveCommand(),
                     new NodeCommand(),
@@ -62,7 +69,12 @@ public class CommandHandler implements ClientCommandPlugin, IManager<Command> {
                     new ImageHologramCommand(),
                     new ImageParticleCommand(),
                     new SchemCommand(),
+<<<<<<< HEAD
                     new RelativeLocCommand()
+=======
+                    new RelativeLocCommand(),
+                    new PlotsCommand()
+>>>>>>> 0bee843 (Initial commit)
             );
         }
     }

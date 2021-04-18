@@ -49,7 +49,11 @@ public class MixinItemSlotUpdate {
                     DFInfo.currentState = DFInfo.State.LOBBY;
 
                     // Auto fly
+<<<<<<< HEAD
                     if (CodeUtilsConfig.getBool("autofly")) {
+=======
+                    if (CodeUtilsConfig.autofly) {
+>>>>>>> 0bee843 (Initial commit)
                         if (System.currentTimeMillis() > lobbyTime) { // theres a bug with /fly running twice this is a temp fix.
                             mc.player.sendChatMessage("/fly");
                             ChatReceivedEvent.cancelFlyMsg = true;
@@ -59,7 +63,11 @@ public class MixinItemSlotUpdate {
                     }
 
                     // Auto LagSlayer
+<<<<<<< HEAD
                     if (CPU_UsageText.lagSlayerEnabled && CodeUtilsConfig.getBool("autolagslayer")) {
+=======
+                    if (CPU_UsageText.lagSlayerEnabled && CodeUtilsConfig.autolagslayer) {
+>>>>>>> 0bee843 (Initial commit)
                         mc.player.sendChatMessage("/lagslayer");
                         ChatReceivedEvent.cancelLagSlayerMsg = true;
                     }
@@ -79,7 +87,11 @@ public class MixinItemSlotUpdate {
                     DFInfo.plotCorner = mc.player.getPos().add(10, -50, -10);
 
                     // Auto LagSlayer
+<<<<<<< HEAD
                     if (!CPU_UsageText.lagSlayerEnabled && CodeUtilsConfig.getBool("autolagslayer")) {
+=======
+                    if (!CPU_UsageText.lagSlayerEnabled && CodeUtilsConfig.autolagslayer) {
+>>>>>>> 0bee843 (Initial commit)
                         mc.player.sendChatMessage("/lagslayer");
                         ChatReceivedEvent.cancelLagSlayerMsg = true;
                     }
@@ -93,6 +105,7 @@ public class MixinItemSlotUpdate {
                         new Thread(() -> {
                             try {
                                 Thread.sleep(10);
+<<<<<<< HEAD
                                 if (CodeUtilsConfig.getBool("autoRC")) {
                                     mc.player.sendChatMessage("/rc");
                                 }
@@ -101,6 +114,16 @@ public class MixinItemSlotUpdate {
                                     ChatReceivedEvent.cancelTimeMsg = true;
                                 }
                                 if (CodeUtilsConfig.getBool("autonightvis")) {
+=======
+                                if (CodeUtilsConfig.autoRC) {
+                                    mc.player.sendChatMessage("/rc");
+                                }
+                                if (CodeUtilsConfig.autotime) {
+                                    mc.player.sendChatMessage("/time " + CodeUtilsConfig.autotimeval);
+                                    ChatReceivedEvent.cancelTimeMsg = true;
+                                }
+                                if (CodeUtilsConfig.autonightvis) {
+>>>>>>> 0bee843 (Initial commit)
                                     mc.player.sendChatMessage("/nightvis");
                                     ChatReceivedEvent.cancelNVisionMsg = true;
                                 }

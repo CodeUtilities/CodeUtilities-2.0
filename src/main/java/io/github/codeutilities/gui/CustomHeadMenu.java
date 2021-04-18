@@ -28,7 +28,11 @@ public class CustomHeadMenu extends LightweightGuiDescription implements IMenu, 
     private static final List<String> categories = new ArrayList<>();
     private static final HashMap<String, Integer> categoryCount = new HashMap<>();
     private static CustomHeadMenu instance;
+<<<<<<< HEAD
     private final int headMenuMaxRender = CodeUtilsConfig.getInt("headMenuMaxRender");
+=======
+    private final int headMenuMaxRender = CodeUtilsConfig.headMenuMaxRender;
+>>>>>>> 0bee843 (Initial commit)
 
     private ItemScrollablePanel panel;
     private WButton current;

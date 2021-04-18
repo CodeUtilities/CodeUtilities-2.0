@@ -10,4 +10,8 @@ public class ModMenuIntegration implements ModMenuApi {
         return CodeUtilsConfig::getScreen;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0bee843 (Initial commit)
