@@ -27,13 +27,8 @@ public class ColorsCommand extends Command {
     }
 
     private void showColorPalette(float saturation) {
-<<<<<<< HEAD
-        int maxColors = CodeUtilsConfig.getInt("colorMaxRender");
-        int lines = CodeUtilsConfig.getInt("colorLines");
-=======
         int maxColors = CodeUtilsConfig.colorMaxRender;
         int lines = CodeUtilsConfig.colorLines;
->>>>>>> 0bee843 (Initial commit)
 
         for (int j = 0; j < lines; j++) {
             Text base = new LiteralText("");

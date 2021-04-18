@@ -53,11 +53,7 @@ public class CodeUtilities implements ModInitializer {
         initializer.add(new PlayerlistStarServer());
 
         // Initialize only if the config value is true.
-<<<<<<< HEAD
-        initializer.addIf(new SocketHandler(), CodeUtilsConfig.getBool("itemApi"));
-=======
         initializer.addIf(new SocketHandler(), CodeUtilsConfig.itemApi);
->>>>>>> 0bee843 (Initial commit)
         MC.send(CosmeticHandler.INSTANCE::load);
     }
 

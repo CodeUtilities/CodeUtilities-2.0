@@ -42,20 +42,12 @@ public class SignBlockEntityRenderMixin {
      */
     @Overwrite
     public void render(SignBlockEntity signBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
-<<<<<<< HEAD
-        if (!signBlockEntity.getPos().isWithinDistance(mc.cameraEntity.getBlockPos(), CodeUtilsConfig.getInt("signRenderDistance")))
-=======
         if (!signBlockEntity.getPos().isWithinDistance(mc.cameraEntity.getBlockPos(), CodeUtilsConfig.signRenderDistance))
->>>>>>> 0bee843 (Initial commit)
             return;
 
         TextRenderer textRenderer = mc.textRenderer;
 
-<<<<<<< HEAD
-        if (FuncSearchUtil.shouldGlow(signBlockEntity) && DFInfo.currentState == DFInfo.State.DEV && CodeUtilsConfig.getBool("functionProcessSearch") && mc.player.isCreative()) {
-=======
         if (FuncSearchUtil.shouldGlow(signBlockEntity) && DFInfo.currentState == DFInfo.State.DEV && CodeUtilsConfig.functionProcessSearch && mc.player.isCreative()) {
->>>>>>> 0bee843 (Initial commit)
             double distance = Math.sqrt(signBlockEntity.getPos().getSquaredDistance(mc.cameraEntity.getBlockPos()));
             double dist = MathHelper.clamp(distance, 1, 15);
 

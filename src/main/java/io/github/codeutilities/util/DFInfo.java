@@ -8,10 +8,7 @@ public class DFInfo {
     public static final String IP = "mcdiamondfire.com";
     public static String patchId = "5.3";
     public static State currentState = null;
-<<<<<<< HEAD
-=======
     public static boolean isInBeta = false;
->>>>>>> 0bee843 (Initial commit)
     public static Vec3d plotCorner = null;
 
     public static boolean isPatchNewer(String base, String target) {

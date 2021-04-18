@@ -21,11 +21,7 @@ public class CosmeticHandler implements ILoader {
     private final HashSet<UUID> specialUsers = new HashSet<>();
 
     public void applyCosmetics(UUID uuid) {
-<<<<<<< HEAD
-        if (CodeUtilsConfig.getStr("cosmeticType").equals("Disabled")) {
-=======
         if (CodeUtilsConfig.cosmeticType == CodeUtilsConfig.CosmeticType.Disabled) {
->>>>>>> 0bee843 (Initial commit)
             return;
         }
 
@@ -51,11 +47,7 @@ public class CosmeticHandler implements ILoader {
     private JsonObject getPlayerCosmetics(UUID uuid) {
         JsonObject playerCosmetics = getObject("https://codeutilities.github.io/data/cosmetics/players/" + uuid.toString() + ".json");
         if (playerCosmetics == null) {
-<<<<<<< HEAD
-            if (!CodeUtilsConfig.getStr("cosmeticType").equals("Disabled")) {
-=======
             if (CodeUtilsConfig.cosmeticType != CodeUtilsConfig.CosmeticType.No_Event_Cosmetics) {
->>>>>>> 0bee843 (Initial commit)
                 if (CACHED_DEFAULTS == null) {
                     CACHED_DEFAULTS = getObject("https://codeutilities.github.io/data/cosmetics/players/default.json");
                 }

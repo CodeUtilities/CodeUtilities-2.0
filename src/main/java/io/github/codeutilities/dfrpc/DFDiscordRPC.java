@@ -161,17 +161,10 @@ public class DFDiscordRPC implements ILoader {
         if (firstUpdate) {
             time = OffsetDateTime.now();
         }
-<<<<<<< HEAD
-        if (CodeUtilsConfig.getBool("discordRPCShowElapsed")) presence.setStartTimestamp(time);
-        oldMode = mode;
-
-        if (CodeUtilsConfig.getBool("discordRPC")) client.sendRichPresence(presence.build());
-=======
         if (CodeUtilsConfig.discordRPCShowElapsed) presence.setStartTimestamp(time);
         oldMode = mode;
 
         if (CodeUtilsConfig.discordRPC) client.sendRichPresence(presence.build());
->>>>>>> 0bee843 (Initial commit)
     }
 
     public DFRPCThread getThread() {
@@ -203,11 +196,7 @@ public class DFDiscordRPC implements ILoader {
                     }
                 }
 
-<<<<<<< HEAD
-                if (!CodeUtilsConfig.getBool("discordRPC")) {
-=======
                 if (!CodeUtilsConfig.discordRPC) {
->>>>>>> 0bee843 (Initial commit)
                     firstLocate = true;
                     firstUpdate = true;
                     try {
@@ -244,19 +233,11 @@ public class DFDiscordRPC implements ILoader {
 
         public void locateRequest() {
             if (mc.player != null) {
-<<<<<<< HEAD
-                if (CodeUtilsConfig.getBool("discordRPC")) {
-                    mc.player.sendChatMessage("/locate");
-                }
-                locating = true;
-                for (int i = 0; i < CodeUtilsConfig.getInt("discordRPCTimeout"); i++) {
-=======
                 if (CodeUtilsConfig.discordRPC) {
                     mc.player.sendChatMessage("/locate");
                 }
                 locating = true;
                 for (int i = 0; i < CodeUtilsConfig.discordRPCTimeout; i++) {
->>>>>>> 0bee843 (Initial commit)
                     try {
                         DFRPCThread.sleep(1);
                     } catch (InterruptedException e) {

@@ -10,10 +10,7 @@
     "messages.MixinGameMessageListener",
     "messages.MixinPlayerChatMessage",
     "packet.MixinTimeUpdateListener",
-<<<<<<< HEAD
-=======
     "packet.MixinInventoryPacketListener",
->>>>>>> 0bee843 (Initial commit)
     "player.MixinPlayerListEntry",
     "player.MixinPlayerListHud",
     "player.TextureMapAccessor",

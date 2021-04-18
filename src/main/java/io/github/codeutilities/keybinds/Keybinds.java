@@ -205,30 +205,18 @@ public class Keybinds implements ClientModInitializer {
 
             // fs normal
             while (fs_normal.wasPressed()) {
-<<<<<<< HEAD
-                sendChat("/fs " + CodeUtilsConfig.getInt("fsNormal"));
-=======
                 sendChat("/fs " + CodeUtilsConfig.fsNormal);
->>>>>>> 0bee843 (Initial commit)
                 FlightspeedToggle.fs_is_normal = true;
             }
 
             // fs med
             while (fs_med.wasPressed()) {
-<<<<<<< HEAD
-                sendChat("/fs " + CodeUtilsConfig.getInt("fsMed"));
-=======
                 sendChat("/fs " + CodeUtilsConfig.fsMed);
->>>>>>> 0bee843 (Initial commit)
             }
 
             // fs fast
             while (fs_fast.wasPressed()) {
-<<<<<<< HEAD
-                sendChat("/fs " + CodeUtilsConfig.getInt("fsFast"));
-=======
                 sendChat("/fs " + CodeUtilsConfig.fsFast);
->>>>>>> 0bee843 (Initial commit)
             }
 
             // toggle fs normal med
@@ -288,11 +276,7 @@ public class Keybinds implements ClientModInitializer {
 
             // search
             while (searchFunction.wasPressed()) {
-<<<<<<< HEAD
-                if (CodeUtilsConfig.getBool("functionProcessSearch") && DFInfo.isOnDF() && DFInfo.currentState == DFInfo.State.DEV && mc.player.isCreative()) {
-=======
                 if (CodeUtilsConfig.functionProcessSearch && DFInfo.isOnDF() && DFInfo.currentState == DFInfo.State.DEV && mc.player.isCreative()) {
->>>>>>> 0bee843 (Initial commit)
                     BlockEntity blockEntity = mc.world.getBlockEntity(new BlockPos(mc.crosshairTarget.getPos()));
 
                     if (blockEntity != null) {
