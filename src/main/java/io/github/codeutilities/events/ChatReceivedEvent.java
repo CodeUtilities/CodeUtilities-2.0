@@ -70,7 +70,27 @@ public class ChatReceivedEvent {
                 }
             }
         }
-
+        //New format Lagslayer enable/disable
+        if (text.matches("Error: You must be in a plot to use this command!")) {
+            if (cancelLagSlayerMsg) cancel = true;
+            cancelLagSlayerMsg = false;
+        }
+        if (text.matches("Error: You can't monitor a plot you aren't subscribed to.")) {
+            if (cancelLagSlayerMsg) cancel = true;
+            cancelLagSlayerMsg = false;
+        }
+        if (text.matches("^\\[LagSlayer\\] Stopped monitoring plot .*$")) {
+            CPU_UsageText.monitorPlotId = "";
+            CPU_UsageText.lagSlayerEnabled = false;
+            if (cancelLagSlayerMsg) cancel = true;
+            cancelLagSlayerMsg = false;
+        }
+        if (text.matches("^\\[LagSlayer\\] Now monitoring plot .*$")) {
+            CPU_UsageText.monitorPlotId = text.replaceAll("\\[LagSlayer\\] Now monitoring plot ID: ", "");
+            CPU_UsageText.lagSlayerEnabled = true;
+            if (cancelLagSlayerMsg) cancel = true;
+        }
+        
         //LagSlayer enable/disable
         if (text.matches("^\\[LagSlayer\\] Now monitoring plot ID: .*$")) {
             CPU_UsageText.monitorPlotId = text.replaceAll("\\[LagSlayer\\] Now monitoring plot ID: ", "");
@@ -81,7 +101,6 @@ public class ChatReceivedEvent {
             if (cancelLagSlayerMsg) cancel = true;
             cancelLagSlayerMsg = false;
         }
-
         if (text.matches("^\\[LagSlayer\\] No longer monitoring plot ID: .*$")) {
             CPU_UsageText.monitorPlotId = "";
             CPU_UsageText.lagSlayerEnabled = false;
