@@ -32,16 +32,17 @@ public class ItemdataCommand extends Command {
 
                         LiteralText msg1 = new LiteralText("§5Click here to copy a ");
                         LiteralText msg2 = new LiteralText("§d§lFormatted§5, ");
-                        LiteralText msg3 = new LiteralText("§d§lUnformatted");
-                        LiteralText msg4 = new LiteralText("§5 or ");
-                        LiteralText msg5 = new LiteralText("§d§l/dfgive");
-                        LiteralText msg6 = new LiteralText("§5 version!");
-
+                        LiteralText msg3 = new LiteralText("§d§lUnformatted, ");
+                        LiteralText msg4 = new LiteralText("§d§l/dfgive");
+                        LiteralText msg5 = new LiteralText("§5 or ");
+                        LiteralText msg6 = new LiteralText("§d§l/dfgive clipboard");
+                        LiteralText msg7 = new LiteralText("§5 version!");
                         msg2.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + formatted)));
                         msg3.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + formatted)));
-                        msg5.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + "/dfgive " + Registry.ITEM.getId(item.getItem()) + unformatted + " 1")));
-
-                        this.sendMessage(mc, msg1.append(msg2).append(msg3).append(msg4).append(msg5).append(msg6));
+                        msg4.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + "/dfgive " + Registry.ITEM.getId(item.getItem()) + unformatted + " 1")));
+                        msg6.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + Registry.ITEM.getId(item.getItem()) + unformatted + " 1")));
+                        
+                        this.sendMessage(mc, msg1.append(msg2).append(msg3).append(msg4).append(msg5).append(msg6).append(msg7);
 
                     } else {
                         ChatUtil.sendMessage("No NBT data found!", ChatType.FAIL);
