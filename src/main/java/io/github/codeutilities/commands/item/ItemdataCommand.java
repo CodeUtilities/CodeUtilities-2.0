@@ -37,8 +37,9 @@ public class ItemdataCommand extends Command {
                         LiteralText msg5 = new LiteralText("§5 or ");
                         LiteralText msg6 = new LiteralText("§d§l/dfgive clipboard");
                         LiteralText msg7 = new LiteralText("§5 version!");
+                        
                         msg2.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + formatted)));
-                        msg3.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + formatted)));
+                        msg3.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + unformatted)));
                         msg4.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + "/dfgive " + Registry.ITEM.getId(item.getItem()) + unformatted + " 1")));
                         msg6.styled((style) -> style.withClickEvent(new ClickEvent(Action.RUN_COMMAND, "/copytxt " + Registry.ITEM.getId(item.getItem()) + unformatted + " 1")));
                         
