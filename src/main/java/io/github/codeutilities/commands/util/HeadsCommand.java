@@ -12,7 +12,7 @@ public class HeadsCommand extends Command {
 
     @Override
     public void register(MinecraftClient mc, CommandDispatcher<CottonClientCommandSource> cd) {
-        cd.register(ArgBuilder.literal("heads").executes(ctx -> {
+        cd.register(ArgBuilder.literal("cheads").executes(ctx -> {
             if (this.isCreative(mc)) {
                 CustomHeadMenu headMenu = CustomHeadMenu.getInstance();
                 headMenu.scheduleOpenGui(headMenu, "");
