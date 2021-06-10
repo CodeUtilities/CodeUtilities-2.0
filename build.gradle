@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.6-SNAPSHOT'
+    id 'fabric-loom' version '0.8-SNAPSHOT'
     id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.openjfx.javafxplugin' version '0.0.9'
@@ -24,10 +24,13 @@ repositories {
     maven {
         url "https://maven.shedaniel.me/"
     }
+	maven {
+		url "https://maven.terraformersmc.com/"
+	}
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -38,10 +41,10 @@ minecraft {
 
 dependencies {
     //dfrpc
-    compile 'com.jagrosh:DiscordIPC:0.4'
+    compileOnly 'com.jagrosh:DiscordIPC:0.4'
 
     //websocket client
-    compile "org.java-websocket:Java-WebSocket:1.5.1"
+    compileOnly "org.java-websocket:Java-WebSocket:1.5.1"
 
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -50,18 +53,18 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     //https://github.com/CottonMC/LibGui/releases //API
-    modImplementation "io.github.cottonmc:LibGui:3.2.2+1.16.3"
+    modImplementation "io.github.cottonmc:LibGui:4.0.0+1.17"
     modImplementation "javax.websocket:javax.websocket-api:1.1"
     modImplementation "org.glassfish.tyrus:tyrus-server:1.1"
     modImplementation "org.glassfish.tyrus:tyrus-client:1.1"
     modImplementation "org.glassfish.tyrus:tyrus-container-grizzly:1.1"
     modImplementation 'io.socket:socket.io-client:2.0.0'
-	modImplementation "io.github.prospector:modmenu:1.16.9"
-	modImplementation "me.shedaniel.cloth:cloth-config-fabric:4.11.19"
+	modImplementation "com.terraformersmc:modmenu:2.0.0-beta.7"
+	modImplementation "me.shedaniel.cloth:cloth-config-fabric:5.0.34"
 
     //include "com.google.code.gson:gson:2.8.6"
-    include "io.github.cottonmc:LibGui:3.2.2+1.16.3"
-	include "me.shedaniel.cloth:cloth-config-fabric:4.11.19"
+    include "io.github.cottonmc:LibGui:4.0.0+1.17"
+	include "me.shedaniel.cloth:cloth-config-fabric:5.0.34"
     //websocket things
     include "javax.websocket:javax.websocket-api:1.1"
     include "org.glassfish.tyrus:tyrus-websocket-core:1.1"
@@ -73,7 +76,7 @@ dependencies {
     include "org.glassfish.grizzly:grizzly-http-server:2.3.3"
     include "org.glassfish.grizzly:grizzly-http:2.3.3"
     include "org.glassfish.grizzly:grizzly-framework:2.3.3"
-    compile 'io.socket:socket.io-client:2.0.0'
+    compileOnly 'io.socket:socket.io-client:2.0.0'
 
     // API stuff
     include 'javax.websocket:javax.websocket-api:1.1'
@@ -90,9 +93,6 @@ dependencies {
     include 'org.glassfish.grizzly:grizzly-http-server:2.3.3'
     include 'org.glassfish.grizzly:grizzly-http:2.3.3'
 
-    //https://github.com/natanfudge/Not-Enough-Crashes //API
-    //modRuntime "com.lettuce.fudge:notenoughcrashes:2.1.4+1.16.4"
-    //https://github.com/SuperCoder7979/databreaker
     modRuntime("com.github.SuperCoder7979:databreaker:0.2.6") {
         exclude module: "fabric-loader"
     }
@@ -122,17 +122,17 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-    from sourceSets.main.allSource
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
 }
 
 jar {
-    from "LICENSE"
-    from {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
 }
 
 // configure the maven publication
