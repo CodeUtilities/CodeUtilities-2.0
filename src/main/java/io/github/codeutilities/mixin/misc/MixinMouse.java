@@ -8,7 +8,7 @@ import net.minecraft.client.Mouse;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
@@ -63,11 +63,11 @@ public class MixinMouse {
                                     cd = System.currentTimeMillis() + 250;
                                     ItemStack itemStack = slot.getStack().copy();
 
-                                    CompoundTag tag = itemStack.getTag();
+                                    NbtCompound tag = itemStack.getTag();
 
                                     if (tag == null) return;
 
-                                    CompoundTag publicBukkitValues = tag.getCompound("PublicBukkitValues");
+                                    NbtCompound publicBukkitValues = tag.getCompound("PublicBukkitValues");
                                     String varItem = publicBukkitValues.getString("hypercube:varitem");
 
                                     JsonObject parsedJson = CodeUtilities.JSON_PARSER.parse(varItem).getAsJsonObject();

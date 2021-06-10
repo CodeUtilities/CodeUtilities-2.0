@@ -8,7 +8,7 @@ import io.github.codeutilities.util.chat.ChatUtil;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.ClickEvent.Action;
 import net.minecraft.text.LiteralText;
@@ -21,7 +21,7 @@ public class ItemdataCommand extends Command {
         cd.register(ArgBuilder.literal("itemdata")
                 .executes(ctx -> {
                     ItemStack item = mc.player.getMainHandStack();
-                    CompoundTag nbt = item.getTag();
+                    NbtCompound nbt = item.getTag();
                     if (nbt != null) {
                         ChatUtil.sendMessage(String.format("§5----------§dItem Data for %s§5----------", item.getName().getString()));
                         mc.player.sendMessage(nbt.toText("  ", 0), false);

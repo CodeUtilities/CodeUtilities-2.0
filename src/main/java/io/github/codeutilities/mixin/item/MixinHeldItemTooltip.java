@@ -9,7 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.Formatting;
@@ -48,12 +48,12 @@ public class MixinHeldItemTooltip {
                 if (ItemUtil.isVar(itemStack, "var")) {
                     variableStack = itemStack;
 
-                    CompoundTag tag = itemStack.getTag();
+                    NbtCompound tag = itemStack.getTag();
                     if (tag == null) {
                         return;
                     }
 
-                    CompoundTag publicBukkitNBT = tag.getCompound("PublicBukkitValues");
+                    NbtCompound publicBukkitNBT = tag.getCompound("PublicBukkitValues");
                     if (publicBukkitNBT == null) {
                         return;
                     }

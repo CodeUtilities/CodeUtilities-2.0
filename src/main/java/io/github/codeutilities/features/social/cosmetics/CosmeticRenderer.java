@@ -13,7 +13,7 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.math.Vec3f;
 
 public class CosmeticRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
@@ -29,8 +29,8 @@ public class CosmeticRenderer extends FeatureRenderer<AbstractClientPlayerEntity
                 BakedModel model = cosmeticModel.model;
                 JsonObject attributes = cosmeticModel.attributes;
 
-                Vector3f translation = model.getTransformation().head.translation;
-                Vector3f scale = model.getTransformation().head.scale;
+                Vec3f translation = model.getTransformation().head.translation;
+                Vec3f scale = model.getTransformation().head.scale;
                 ModelPart head = getContextModel().head;
                 float scalex = scale.getX() - 0.333333333f;
                 float scaley = scale.getY() - 0.333333333f;
@@ -58,15 +58,15 @@ public class CosmeticRenderer extends FeatureRenderer<AbstractClientPlayerEntity
     public void rotate(MatrixStack matrix, float pivotX, float pivotY, float pivotZ, float pitch, float yaw, float roll) {
         matrix.translate(pivotX, pivotY, pivotZ);
         if (roll != 0.0F) {
-            matrix.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(roll));
+            matrix.multiply(Vec3f.POSITIVE_Z.getRadialQuaternion(roll));
         }
 
         if (yaw != 0.0F) {
-            matrix.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(yaw));
+            matrix.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion(yaw));
         }
 
         if (pitch != 0.0F) {
-            matrix.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(pitch));
+            matrix.multiply(Vec3f.POSITIVE_X.getRadialQuaternion(pitch));
         }
         matrix.translate(pivotX * -1, pivotY * -1, pivotZ * -1);
     }

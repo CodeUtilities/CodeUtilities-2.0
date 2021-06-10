@@ -3,7 +3,7 @@ package io.github.codeutilities.mixin.screen;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.config.menu.ConfigScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.options.OptionsScreen;
+import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.LiteralText;
 import org.spongepowered.asm.mixin.Mixin;

@@ -26,7 +26,7 @@ public class MixinPlayerListHud {
         if(CodeUtilitiesServer.getUserAmount() == 0) return;
         
         UUID id = entry.getProfile().getId();
-        Text name = entry.getDisplayName() != null ? this.spectatorFormat(entry, entry.getDisplayName().shallowCopy()) : this.spectatorFormat(entry, Team.modifyText(entry.getScoreboardTeam(), new LiteralText(entry.getProfile().getName())));
+        Text name = entry.getDisplayName() != null ? this.spectatorFormat(entry, entry.getDisplayName().shallowCopy()) : this.spectatorFormat(entry, Team.decorateName(entry.getScoreboardTeam(), new LiteralText(entry.getProfile().getName())));
         User user = CodeUtilitiesServer.getUser(id.toString());
 
         if (user != null) {

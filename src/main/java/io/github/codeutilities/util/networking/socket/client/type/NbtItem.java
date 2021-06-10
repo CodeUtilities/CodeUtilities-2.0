@@ -18,7 +18,7 @@ public class NbtItem extends SocketItem {
     public ItemStack getItem(String data) throws Exception {
         ItemStack stack;
         try {
-            stack = ItemStack.fromTag(new StringNbtReader(new StringReader(data)).parseCompoundTag());
+            stack = ItemStack.fromNbt(new StringNbtReader(new StringReader(data)).parseCompound());
         } catch (RuntimeException | CommandSyntaxException e) {
             throw new IOException("Failed to parse provided NBT data.");
         }

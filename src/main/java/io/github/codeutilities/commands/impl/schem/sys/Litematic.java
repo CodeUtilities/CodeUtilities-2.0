@@ -11,10 +11,10 @@ import io.github.codeutilities.util.templates.TemplateUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtIo;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.LiteralText;
 import org.apache.commons.io.FilenameUtils;
 
@@ -31,12 +31,12 @@ public class Litematic {
         try {
             InputStream inputStream = new FileInputStream(file);
 
-            CompoundTag tag = NbtIo.readCompressed(inputStream);
+            NbtCompound tag = NbtIo.readCompressed(inputStream);
 
             Schematic schematicData = new Schematic();
 
-            CompoundTag metadata = tag.getCompound("Metadata");
-            CompoundTag enclosingsize = metadata.getCompound("EnclosingSize");
+            NbtCompound metadata = tag.getCompound("Metadata");
+            NbtCompound enclosingsize = metadata.getCompound("EnclosingSize");
             int width = enclosingsize.getInt("x");
             int height = enclosingsize.getInt("y");
             int length = enclosingsize.getInt("z");
@@ -49,14 +49,14 @@ public class Litematic {
             long created = metadata.getLong("TimeCreated");
             long modified = metadata.getLong("TimeModified");
 
-            CompoundTag regions = tag.getCompound("Regions");
-            CompoundTag litematicdata = regions.getCompound(name);
-            CompoundTag position = litematicdata.getCompound("Position");
+            NbtCompound regions = tag.getCompound("Regions");
+            NbtCompound litematicdata = regions.getCompound(name);
+            NbtCompound position = litematicdata.getCompound("Position");
             int offsetx = position.getInt("x");
             int offsety = position.getInt("y");
             int offsetz = position.getInt("z");
-            CompoundTag size = litematicdata.getCompound("Size");
-            ListTag palette = litematicdata.getList("BlockStatePalette", 10);
+            NbtCompound size = litematicdata.getCompound("Size");
+            NbtList palette = litematicdata.getList("BlockStatePalette", 10);
             long[] longblockstates = litematicdata.getLongArray("BlockStates");
             int nbits = (int) Math.max(Math.ceil(log2(palette.size())), 2) + 1;
             LitematicaBitArray arr = new LitematicaBitArray(nbits, volume, longblockstates);
@@ -73,7 +73,7 @@ public class Litematic {
             MinecraftClient.getInstance().player.sendMessage(new LiteralText("§9Created §b" + new Date(created) + " §9Last Modified §b" + new Date(modified)), false);
             MinecraftClient.getInstance().player.sendMessage(new LiteralText("§8§m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m §m"), false);
 
-            for (Tag block : palette) {
+            for (NbtElement block : palette) {
                 JsonParser parser = CodeUtilities.JSON_PARSER;
                 JsonElement blockjson = parser.parse(block.toString());
                 JsonObject properties = blockjson.getAsJsonObject().getAsJsonObject("Properties");

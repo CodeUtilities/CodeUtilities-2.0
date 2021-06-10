@@ -11,9 +11,9 @@ import io.github.codeutilities.util.networking.State;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,8 +45,8 @@ public class MixinPlayerChatMessage {
             if (!string.startsWith("/")) {
                 ItemStack mainHand = minecraftClient.player.inventory.getMainHandStack();
                 if (mainHand.hasTag()) {
-                    CompoundTag tag = mainHand.getTag();
-                    CompoundTag publicBukkitValues = tag.getCompound("PublicBukkitValues");
+                    NbtCompound tag = mainHand.getTag();
+                    NbtCompound publicBukkitValues = tag.getCompound("PublicBukkitValues");
                     if (tag.contains("PublicBukkitValues") && publicBukkitValues.contains("hypercube:varitem")) {
                         if ((string.endsWith(" -l") || string.endsWith(" -s") || string.endsWith(" -g")) && Config.getBoolean("quickVarScope")) {
                             String varItem = publicBukkitValues.getString("hypercube:varitem");
@@ -80,10 +80,10 @@ public class MixinPlayerChatMessage {
                                         mainHand.setTag(tag);
 
                                         mainHand.getTag().remove("display");
-                                        CompoundTag display = new CompoundTag();
-                                        ListTag lore = new ListTag();
+                                        NbtCompound display = new NbtCompound();
+                                        NbtList lore = new NbtList();
                                         display.putString("Name", String.format("{\"extra\":[{\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false,\"color\":\"white\",\"text\":\"%s\"}],\"text\":\"\"}", name));
-                                        lore.add(StringTag.of(String.format("{\"extra\":[{\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false,\"color\":\"%s\",\"text\":\"%s\"}],\"text\":\"\"}", displayScopeColor, displayScope)));
+                                        lore.add(NbtString.of(String.format("{\"extra\":[{\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false,\"color\":\"%s\",\"text\":\"%s\"}],\"text\":\"\"}", displayScopeColor, displayScope)));
                                         display.put("Lore", lore);
                                         mainHand.getTag().put("display", display);
 
