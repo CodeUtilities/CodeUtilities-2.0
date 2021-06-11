@@ -1,12 +1,14 @@
-package io.github.codeutilities.config.types;
+//TODO: Update to 1.17
 
-import io.github.codeutilities.config.structure.ConfigSetting;
-
-public class DoubleSetting extends ConfigSetting<Double> {
-    public DoubleSetting() {
-    }
-
-    public DoubleSetting(String key, Double defaultValue) {
-        super(key, defaultValue);
-    }
-}
+//package io.github.codeutilities.config.types;
+//
+//import io.github.codeutilities.config.structure.ConfigSetting;
+//
+//public class DoubleSetting extends ConfigSetting<Double> {
+//    public DoubleSetting() {
+//    }
+//
+//    public DoubleSetting(String key, Double defaultValue) {
+//        super(key, defaultValue);
+//    }
+//}

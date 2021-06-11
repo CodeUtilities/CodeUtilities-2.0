@@ -1,16 +1,18 @@
-package io.github.codeutilities.events.register;
+//TODO: Update to 1.17
 
-import io.github.codeutilities.events.interfaces.OtherEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.ActionResult;
-
-public class TickEvent {
-    public TickEvent() {
-        OtherEvents.TICK.register(this::run);
-    }
-
-    private ActionResult run(MinecraftClient client) {
-        
-        return ActionResult.PASS;
-    }
-}
+//package io.github.codeutilities.events.register;
+//
+//import io.github.codeutilities.events.interfaces.OtherEvents;
+//import net.minecraft.client.MinecraftClient;
+//import net.minecraft.util.ActionResult;
+//
+//public class TickEvent {
+//    public TickEvent() {
+//        OtherEvents.TICK.register(this::run);
+//    }
+//
+//    private ActionResult run(MinecraftClient client) {
+//
+//        return ActionResult.PASS;
+//    }
+//}

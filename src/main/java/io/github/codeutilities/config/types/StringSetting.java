@@ -1,12 +1,14 @@
-package io.github.codeutilities.config.types;
+//TODO: Update to 1.17
 
-import io.github.codeutilities.config.structure.ConfigSetting;
-
-public class StringSetting extends ConfigSetting<String> {
-    public StringSetting() {
-    }
-
-    public StringSetting(String key, String defaultValue) {
-        super(key, defaultValue);
-    }
-}
+//package io.github.codeutilities.config.types;
+//
+//import io.github.codeutilities.config.structure.ConfigSetting;
+//
+//public class StringSetting extends ConfigSetting<String> {
+//    public StringSetting() {
+//    }
+//
+//    public StringSetting(String key, String defaultValue) {
+//        super(key, defaultValue);
+//    }
+//}

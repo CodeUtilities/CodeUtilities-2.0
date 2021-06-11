@@ -14,17 +14,12 @@
   "license": "MIT",
   "icon": "assets/codeutilities/icon.png",
   "entrypoints": {
-    "cotton-client-commands": [
-      "io.github.codeutilities.commands.sys.CommandHandler"
-    ],
     "main": [
       "io.github.codeutilities.CodeUtilities"
     ],
     "modmenu": [
-      "io.github.codeutilities.config.ModMenuIntegration"
     ],
     "client": [
-      "io.github.codeutilities.features.keybinds.Keybinds"
     ],
     "server": []
   },

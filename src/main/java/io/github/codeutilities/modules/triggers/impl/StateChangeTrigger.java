@@ -1,20 +1,22 @@
-package io.github.codeutilities.modules.triggers.impl;
+//TODO: Update to 1.17
 
-import io.github.codeutilities.modules.triggers.Trigger;
-
-public class StateChangeTrigger extends Trigger {
-
-    @Override
-    public String getId() {
-        return "stateChange";
-    }
-
-    @Override
-    public String[] getEventVars() {
-        return new String[]{
-                "from",
-                "to"
-        };
-    }
-
-}
+//package io.github.codeutilities.modules.triggers.impl;
+//
+//import io.github.codeutilities.modules.triggers.Trigger;
+//
+//public class StateChangeTrigger extends Trigger {
+//
+//    @Override
+//    public String getId() {
+//        return "stateChange";
+//    }
+//
+//    @Override
+//    public String[] getEventVars() {
+//        return new String[]{
+//                "from",
+//                "to"
+//        };
+//    }
+//
+//}

@@ -1,4 +1,6 @@
-package io.github.codeutilities.config.structure;
+//TODO: Update to 1.17
 
-public interface IAdvancedSetting {
-}
+//package io.github.codeutilities.config.structure;
+//
+//public interface IAdvancedSetting {
+//}

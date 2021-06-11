@@ -1,13 +1,15 @@
-package io.github.codeutilities.util.translation;
+//TODO: Update to 1.17
 
-import net.minecraft.text.TranslatableText;
-
-public interface ITranslatable {
-    default TranslatableText getTranslation(String key) {
-        return ITranslatable.get(key);
-    }
-
-    static TranslatableText get(String key) {
-        return new TranslatableText(key);
-    }
-}
+//package io.github.codeutilities.util.translation;
+//
+//import net.minecraft.text.TranslatableText;
+//
+//public interface ITranslatable {
+//    default TranslatableText getTranslation(String key) {
+//        return ITranslatable.get(key);
+//    }
+//
+//    static TranslatableText get(String key) {
+//        return new TranslatableText(key);
+//    }
+//}
