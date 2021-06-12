@@ -3,6 +3,8 @@ package io.github.codeutilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
+import io.github.codeutilities.commands.sys.CommandHandler;
+import io.github.codeutilities.config.Config;
 import io.github.codeutilities.config.internal.ConfigFile;
 import io.github.codeutilities.config.internal.ConfigInstruction;
 import io.github.codeutilities.config.internal.gson.ConfigSerializer;
@@ -21,7 +23,20 @@ import io.github.codeutilities.config.types.IntegerSetting;
 import io.github.codeutilities.config.types.LongSetting;
 import io.github.codeutilities.config.types.StringSetting;
 import io.github.codeutilities.config.types.list.StringListSetting;
+import io.github.codeutilities.events.EventHandler;
+import io.github.codeutilities.events.interfaces.OtherEvents;
+import io.github.codeutilities.features.external.AudioHandler;
+import io.github.codeutilities.features.external.DFDiscordRPC;
+import io.github.codeutilities.features.social.cosmetics.CosmeticHandler;
+import io.github.codeutilities.features.social.tab.Client;
+import io.github.codeutilities.modules.actions.Action;
+import io.github.codeutilities.modules.triggers.Trigger;
+import io.github.codeutilities.util.actiondump.ActionDump;
 import io.github.codeutilities.util.file.FileUtil;
+import io.github.codeutilities.util.gui.menus.CustomHeadMenu;
+import io.github.codeutilities.util.networking.State;
+import io.github.codeutilities.util.networking.socket.SocketHandler;
+import io.github.codeutilities.util.templates.TemplateStorageHandler;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -31,6 +46,7 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import org.apache.logging.log4j.Level;
@@ -90,38 +106,40 @@ public class CodeUtilities implements ModInitializer {
         }
 
         // Load modules
-//        Action.cacheActions();
-//        Trigger.cacheTriggers();
-//        Module.loadModules();
+        Action.cacheActions();
+        Trigger.cacheTriggers();
+
+        //TODO: make this look less ugly
+        io.github.codeutilities.modules.Module.loadModules();
 
         // Initialize.
         CodeInitializer initializer = new CodeInitializer();
         initializer.add(new ConfigFile());
         initializer.add(new ConfigManager());
-//        initializer.add(new TemplateStorageHandler());
-//        initializer.add(new CustomHeadMenu());
-//        initializer.add(new DFDiscordRPC());
-//        initializer.add(new Client());
-//        initializer.add(new ActionDump());
-//        initializer.add(new EventHandler());
-//        initializer.add(new State.Locater());
-//        initializer.add(new CommandHandler());
+        initializer.add(new TemplateStorageHandler());
+        initializer.add(new CustomHeadMenu());
+//        initializer.add(new DFDiscordRPC()); TODO: update discordrpc
+        initializer.add(new Client());
+        initializer.add(new ActionDump());
+        initializer.add(new EventHandler());
+        initializer.add(new State.Locater());
+        initializer.add(new CommandHandler());
 
         // Initializes only if the given condition is met. (this case: config value)
-        // initializer.addIf(new AudioHandler(), Config.getBoolean("audio"));
-//        initializer.addIf(new SocketHandler(), Config.getBoolean("itemApi"));
-//        MC.send(CosmeticHandler.INSTANCE::load);
+         initializer.addIf(new AudioHandler(), Config.getBoolean("audio"));
+        initializer.addIf(new SocketHandler(), Config.getBoolean("itemApi"));
+        MC.send(CosmeticHandler.INSTANCE::load);
 
-//        ClientTickEvents.START_CLIENT_TICK
-//            .register(client -> OtherEvents.TICK.invoker().tick(client));
+        ClientTickEvents.START_CLIENT_TICK
+            .register(client -> OtherEvents.TICK.invoker().tick(client));
 
         log(Level.INFO, "Initialized successfully!");
     }
 
     public void onClose() {
         ConfigFile.getInstance().save();
-//        TemplateStorageHandler.getInstance().save();
-//        CosmeticHandler.INSTANCE.shutdownExecutorService();
+        TemplateStorageHandler.getInstance().save();
+        CosmeticHandler.INSTANCE.shutdownExecutorService();
         log(Level.INFO,"Closed");
     }
 

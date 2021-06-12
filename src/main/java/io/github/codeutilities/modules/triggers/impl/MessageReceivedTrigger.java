@@ -1,22 +1,20 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.modules.triggers.impl;
 
-//package io.github.codeutilities.modules.triggers.impl;
-//
-//import io.github.codeutilities.modules.triggers.Trigger;
-//
-//public class MessageReceivedTrigger extends Trigger {
-//
-//    @Override
-//    public String[] getEventVars() {
-//        return new String[]{
-//                "message",
-//                "messageWithoutColor"
-//        };
-//    }
-//
-//    @Override
-//    public String getId() {
-//        return "messageReceived";
-//    }
-//
-//}
+import io.github.codeutilities.modules.triggers.Trigger;
+
+public class MessageReceivedTrigger extends Trigger {
+
+    @Override
+    public String[] getEventVars() {
+        return new String[]{
+                "message",
+                "messageWithoutColor"
+        };
+    }
+
+    @Override
+    public String getId() {
+        return "messageReceived";
+    }
+
+}

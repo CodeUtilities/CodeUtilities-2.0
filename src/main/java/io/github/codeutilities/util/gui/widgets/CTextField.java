@@ -1,53 +1,27 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.util.gui.widgets;
 
-//package io.github.codeutilities.util.gui.widgets;
-//
-//import com.mojang.blaze3d.platform.GlStateManager;
-//import com.mojang.blaze3d.systems.RenderSystem;
-//import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
-//import io.github.cottonmc.cotton.gui.widget.WTextField;
-//import net.minecraft.client.MinecraftClient;
-//import net.minecraft.client.font.TextRenderer;
-//import net.minecraft.client.render.BufferBuilder;
-//import net.minecraft.client.render.Tessellator;
-//import net.minecraft.client.render.VertexFormats;
-//import net.minecraft.client.util.math.MatrixStack;
-//import net.minecraft.text.Text;
-//import org.lwjgl.opengl.GL11;
-//
-//public class CTextField extends WTextField {
-//
-//    private TextRenderer font;
-//
-//    public CTextField(Text suggestion) {
-//        this.suggestion = suggestion;
-//    }
-//
-//    @Override
-//    public void onKeyPressed(int ch, int key, int modifiers) {
-//        super.onKeyPressed(ch, key, modifiers);
-//        if (onChanged != null) {
-//            onChanged.accept(text);
-//        }
-//    }
-//
-//    @Override
-//    public void onCharTyped(char ch) {
-//        super.onCharTyped(ch);
-//        if (onChanged != null) {
-//            onChanged.accept(text);
-//        }
-//    }
-//
-//    public CTextField setMaxLength(int max) {
-//        this.maxLength = max;
-//        if (this.text.length() > max) {
-//            this.text = this.text.substring(0, max);
-//            this.onChanged.accept(this.text);
-//        }
-//        return this;
-//    }
-//
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
+import io.github.cottonmc.cotton.gui.widget.WTextField;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import org.lwjgl.opengl.GL11;
+
+public class CTextField extends WTextField {
+
+    private TextRenderer font;
+
+    public CTextField(Text suggestion) {
+        setSuggestion(suggestion);
+    }
+
+    //TODO: figure out what this is for and update it to 1.17
 //    @Override
 //    protected void renderTextField(MatrixStack matrices, int x, int y) {
 //        if (this.font==null) this.font = MinecraftClient.getInstance().textRenderer;
@@ -152,4 +126,4 @@
 //        RenderSystem.disableColorLogicOp();
 //        RenderSystem.enableTexture();
 //    }
-//}
+}

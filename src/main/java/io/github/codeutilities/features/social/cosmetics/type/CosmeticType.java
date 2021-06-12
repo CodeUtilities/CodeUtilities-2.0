@@ -1,23 +1,21 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.features.social.cosmetics.type;
 
-//package io.github.codeutilities.features.social.cosmetics.type;
-//
-//import java.util.UUID;
-//
-//public interface CosmeticType {
-//
-//    String getName();
-//
-//    void applyCosmetic(UUID playerEntity, String cosmeticId);
-//
-//    void invalidateCache();
-//
-//    CapeCosmetic CAPE = new CapeCosmetic();
-//    HatCosmetic HAT = new HatCosmetic();
-//
-//    CosmeticType[] REGISTERED_COSMETICS = {
-//            CAPE,
-//            HAT
-//    };
-//
-//}
+import java.util.UUID;
+
+public interface CosmeticType {
+
+    String getName();
+
+    void applyCosmetic(UUID playerEntity, String cosmeticId);
+
+    void invalidateCache();
+
+    CapeCosmetic CAPE = new CapeCosmetic();
+    HatCosmetic HAT = new HatCosmetic();
+
+    CosmeticType[] REGISTERED_COSMETICS = {
+            CAPE,
+            HAT
+    };
+
+}

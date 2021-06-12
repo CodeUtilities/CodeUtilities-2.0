@@ -1,49 +1,48 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.mixin.item;
 
-//package io.github.codeutilities.mixin.item;
-//
-//import io.github.codeutilities.CodeUtilities;
-//import io.github.codeutilities.config.Config;
-//import io.github.codeutilities.events.register.ReceiveChatMessageEvent;
-//import io.github.codeutilities.features.keybinds.FlightspeedToggle;
-//import io.github.codeutilities.util.gui.CPU_UsageText;
-//import io.github.codeutilities.util.networking.DFInfo;
-//import io.github.codeutilities.util.networking.State;
-//import io.github.codeutilities.util.templates.TemplateStorageHandler;
-//import io.github.codeutilities.util.templates.TemplateUtils;
-//import net.minecraft.client.MinecraftClient;
-//import net.minecraft.client.network.ClientPlayNetworkHandler;
-//import net.minecraft.item.ItemStack;
-//import net.minecraft.nbt.NbtCompound;
-//import net.minecraft.nbt.NbtList;
-//import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-//import org.apache.logging.log4j.Level;
-//import org.spongepowered.asm.mixin.Mixin;
-//import org.spongepowered.asm.mixin.injection.At;
-//import org.spongepowered.asm.mixin.injection.Inject;
-//import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//
-//@Mixin(ClientPlayNetworkHandler.class)
-//public class MixinItemSlotUpdate {
-//    final MinecraftClient mc = MinecraftClient.getInstance();
-//    private long lobbyTime = System.currentTimeMillis() - 1000;
-//    private long lastDevCheck = 0;
-//
-//    @Inject(method = "onScreenHandlerSlotUpdate", at = @At("HEAD"))
-//    public void onScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, CallbackInfo ci) {
-//        if (packet.getSyncId() == 0) {
-//            ItemStack stack = packet.getItemStack();
-//            if (TemplateUtils.isTemplate(stack)) {
-//                TemplateStorageHandler.addTemplate(stack);
-//            }
-//
-//            NbtCompound nbt = stack.getOrCreateTag();
-//            NbtCompound display = nbt.getCompound("display");
-//            NbtList lore = display.getList("Lore", 8);
-//            if (mc.player == null) {
-//                return;
-//            }
-//
+import io.github.codeutilities.CodeUtilities;
+import io.github.codeutilities.config.Config;
+import io.github.codeutilities.events.register.ReceiveChatMessageEvent;
+import io.github.codeutilities.features.keybinds.FlightspeedToggle;
+import io.github.codeutilities.util.gui.CPU_UsageText;
+import io.github.codeutilities.util.networking.DFInfo;
+import io.github.codeutilities.util.networking.State;
+import io.github.codeutilities.util.templates.TemplateStorageHandler;
+import io.github.codeutilities.util.templates.TemplateUtils;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
+import org.apache.logging.log4j.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(ClientPlayNetworkHandler.class)
+public class MixinItemSlotUpdate {
+    final MinecraftClient mc = MinecraftClient.getInstance();
+    private long lobbyTime = System.currentTimeMillis() - 1000;
+    private long lastDevCheck = 0;
+
+    @Inject(method = "onScreenHandlerSlotUpdate", at = @At("HEAD"))
+    public void onScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, CallbackInfo ci) {
+        if (packet.getSyncId() == 0) {
+            ItemStack stack = packet.getItemStack();
+            if (TemplateUtils.isTemplate(stack)) {
+                TemplateStorageHandler.addTemplate(stack);
+            }
+
+            NbtCompound nbt = stack.getOrCreateTag();
+            NbtCompound display = nbt.getCompound("display");
+            NbtList lore = display.getList("Lore", 8);
+            if (mc.player == null) {
+                return;
+            }
+
+            //TODO: figure out what NbtList.toText() is in 1.17 and update it
 //            if (DFInfo.isOnDF() && stack.getName().getString().contains("◇ Game Menu ◇")
 //                    && lore.toText().getString().contains("\"Click to open the Game Menu.\"")
 //                    && lore.toText().getString().contains("\"Hold and type in chat to search.\"")) {
@@ -113,7 +112,7 @@
 //                    }
 //                }
 //            }
-//        }
-//    }
-//
-//}
+        }
+    }
+
+}

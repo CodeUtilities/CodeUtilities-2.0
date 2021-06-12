@@ -1,44 +1,45 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.features.social.cosmetics;
 
-//package io.github.codeutilities.features.social.cosmetics;
-//
-//import net.fabricmc.api.EnvType;
-//import net.fabricmc.api.Environment;
-//import net.minecraft.client.model.ModelPart;
-//import net.minecraft.client.network.AbstractClientPlayerEntity;
-//import net.minecraft.client.render.RenderLayer;
-//import net.minecraft.client.render.VertexConsumer;
-//import net.minecraft.client.render.VertexConsumerProvider;
-//import net.minecraft.client.render.entity.LivingEntityRenderer;
-//import net.minecraft.client.render.entity.feature.FeatureRenderer;
-//import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-//import net.minecraft.client.render.entity.model.PlayerEntityModel;
-//import net.minecraft.client.util.math.MatrixStack;
-//import net.minecraft.util.Identifier;
-//import net.minecraft.util.math.MathHelper;
-//
-//@Environment(EnvType.CLIENT)
-//public class BlazeCosmeticRenderer extends
-//        FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
-//
-//    private static final Identifier blazeTexture = new Identifier(
-//            "minecraft:textures/entity/blaze.png");
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+
+@Environment(EnvType.CLIENT)
+public class BlazeCosmeticRenderer extends
+        FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
+
+    private static final Identifier blazeTexture = new Identifier(
+            "minecraft:textures/entity/blaze.png");
 //    private final ModelPart[] rods;
-//    private int sneakTime = 0;
-//    private int lastTick = 0;
-//
-//    public BlazeCosmeticRenderer(
-//            FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> featureRendererContext) {
-//        super(featureRendererContext);
+    private int sneakTime = 0;
+    private int lastTick = 0;
+
+    public BlazeCosmeticRenderer(
+            FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> featureRendererContext) {
+        super(featureRendererContext);
+
+        //TODO: update to 1.17
+
 //        this.rods = new ModelPart[12];
 //        for (int i = 0; i < this.rods.length; ++i) {
 //            this.rods[i] = new ModelPart(64, 32, 0, 16);
 //            this.rods[i].addCuboid(0.0F, 0.0F, 0.0F, 2.0F, 8.0F, 2.0F);
 //        }
-//    }
-//
-//    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, float h, float j, float k, float l) {
-//        //if(!ModConfig.getConfig().cosmetics) return;
+    }
+
+    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, float h, float j, float k, float l) {
+        //if(!ModConfig.getConfig().cosmetics) return;
 //        if ("BlazeMCworld".equals(abstractClientPlayerEntity.getName().getString())
 //                && abstractClientPlayerEntity.hasSkinTexture() && !abstractClientPlayerEntity
 //                .isInvisible()) {
@@ -79,8 +80,8 @@
 //            matrixStack.pop();
 //
 //        }
-//    }
-//
+    }
+
 //    public void setAngels(float animationProgress) {
 //        float f = animationProgress * 3.1415927F * -0.1F;
 //
@@ -113,4 +114,4 @@
 //            f += Math.PI / 2;
 //        }
 //    }
-//}
+}

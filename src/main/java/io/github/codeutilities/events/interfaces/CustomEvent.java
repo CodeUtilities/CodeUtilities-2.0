@@ -1,36 +1,34 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.events.interfaces;
 
-//package io.github.codeutilities.events.interfaces;
+import net.minecraft.util.ActionResult;
+
+public interface CustomEvent {
+//    Event<CustomEvent> EVENT = EventFactory.createArrayBacked(CustomEvent.class,
+//            (listeners) -> (player, sheep) -> {
+//                for (CustomEvent listener : listeners) {
+//                    ActionResult result = listener.interact(player, sheep);
 //
-//import net.minecraft.util.ActionResult;
+//                    if(result != ActionResult.PASS) {
+//                        return result;
+//                    }
+//                }
 //
-//public interface CustomEvent {
-////    Event<CustomEvent> EVENT = EventFactory.createArrayBacked(CustomEvent.class,
-////            (listeners) -> (player, sheep) -> {
-////                for (CustomEvent listener : listeners) {
-////                    ActionResult result = listener.interact(player, sheep);
-////
-////                    if(result != ActionResult.PASS) {
-////                        return result;
-////                    }
-////                }
-////
-////                return ActionResult.PASS;
-////            });
-//
-//    interface Interaction {
-//        ActionResult run(CustomEvent listener);
-//    }
-//
-//    static ActionResult makeEvent(CustomEvent[] listeners, Interaction interaction) {
-//        for (CustomEvent listener : listeners) {
-//            ActionResult result = interaction.run(listener);
-//
-//            if (result != ActionResult.PASS) {
-//                return result;
-//            }
-//        }
-//
-//        return ActionResult.PASS;
-//    }
-//}
+//                return ActionResult.PASS;
+//            });
+
+    interface Interaction {
+        ActionResult run(CustomEvent listener);
+    }
+
+    static ActionResult makeEvent(CustomEvent[] listeners, Interaction interaction) {
+        for (CustomEvent listener : listeners) {
+            ActionResult result = interaction.run(listener);
+
+            if (result != ActionResult.PASS) {
+                return result;
+            }
+        }
+
+        return ActionResult.PASS;
+    }
+}
