@@ -1,14 +1,12 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.config.types;
 
-//package io.github.codeutilities.config.types;
-//
-//import io.github.codeutilities.config.structure.ConfigSetting;
-//
-//public class LongSetting extends ConfigSetting<Long> {
-//    public LongSetting() {
-//    }
-//
-//    public LongSetting(String key, Long defaultValue) {
-//        super(key, defaultValue);
-//    }
-//}
+import io.github.codeutilities.config.structure.ConfigSetting;
+
+public class LongSetting extends ConfigSetting<Long> {
+    public LongSetting() {
+    }
+
+    public LongSetting(String key, Long defaultValue) {
+        super(key, defaultValue);
+    }
+}

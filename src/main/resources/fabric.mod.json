@@ -18,6 +18,7 @@
       "io.github.codeutilities.CodeUtilities"
     ],
     "modmenu": [
+      "io.github.codeutilities.config.ModMenuIntegration"
     ],
     "client": [
     ],

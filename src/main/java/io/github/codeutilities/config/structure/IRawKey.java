@@ -1,15 +1,13 @@
-//TODO: Update to 1.17
+package io.github.codeutilities.config.structure;
 
-//package io.github.codeutilities.config.structure;
-//
-//import java.util.Optional;
-//
-//public interface IRawKey<T> {
-//    default T setKeyName(String key) {
-//        return null;
-//    }
-//
-//    default Optional<String> getKeyName() {
-//        return Optional.empty();
-//    }
-//}
+import java.util.Optional;
+
+public interface IRawKey<T> {
+    default T setKeyName(String key) {
+        return null;
+    }
+
+    default Optional<String> getKeyName() {
+        return Optional.empty();
+    }
+}
