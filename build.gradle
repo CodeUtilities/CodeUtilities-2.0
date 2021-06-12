@@ -93,9 +93,10 @@ dependencies {
     include 'org.glassfish.grizzly:grizzly-http-server:2.3.3'
     include 'org.glassfish.grizzly:grizzly-http:2.3.3'
 
-    modRuntime("com.github.SuperCoder7979:databreaker:0.2.6") {
-        exclude module: "fabric-loader"
-    }
+    //TODO: wait for databreaker to update to 1.17
+//    modRuntime("com.github.SuperCoder7979:databreaker:0.2.6") {
+//        exclude module: "fabric-loader"
+//    }
 }
 
 javafx {
