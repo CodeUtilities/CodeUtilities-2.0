@@ -6,6 +6,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.lwjgl.opengl.GL11;
 
 public class BlendableTexturedButtonWidget extends TexturedButtonWidget {
 
@@ -23,8 +24,9 @@ public class BlendableTexturedButtonWidget extends TexturedButtonWidget {
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        //TODO: figure out what color4f is now and update to 1.17
-//        RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
+        // This does a bit of messing with gl but its the best equivalent we've got.
+        RenderSystem.assertThread(RenderSystem::isOnGameThread);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         super.renderButton(matrices, mouseX, mouseY, delta);

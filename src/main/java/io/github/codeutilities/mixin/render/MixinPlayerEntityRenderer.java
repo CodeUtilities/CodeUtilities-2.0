@@ -24,7 +24,6 @@ public abstract class MixinPlayerEntityRenderer extends LivingEntityRenderer<Abs
         super(ctx, model, shadowRadius);
     }
 
-    //TODO: figure out what method this changed to
     @Inject(method = "<init>", at = @At("RETURN"))
     public void init(Context ctx, boolean slim, CallbackInfo ci) {
         this.addFeature(new CosmeticRenderer(this));
