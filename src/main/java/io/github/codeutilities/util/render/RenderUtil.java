@@ -1,6 +1,5 @@
 package io.github.codeutilities.util.render;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.*;
