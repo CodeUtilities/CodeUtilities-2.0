@@ -16,6 +16,7 @@ import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer.SignModel;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -114,7 +115,7 @@ public class MixinSignBlockEntityRender {
             OrderedText orderedText = orderedTexts[s];
             float t = (float)(-textRenderer.getWidth(orderedText) / 2);
             if (bl2) {
-                textRenderer.method_37296(orderedText, t, (float)(s * 10 - 20), q, m, matrixStack.peek().getModel(), vertexConsumerProvider, r);
+                textRenderer.drawWithOutline(orderedText, t, (float)(s * 10 - 20), q, m, matrixStack.peek().getModel(), vertexConsumerProvider, r);
             } else {
                 textRenderer.draw(orderedText, t, (float)(s * 10 - 20), q, false, matrixStack.peek().getModel(), vertexConsumerProvider, false, 0, r);
             }
