@@ -16,7 +16,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
+import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -65,19 +65,16 @@ public class MixinGameMessageListener {
         }
     }
 
-    @Inject(method = "onTitle", at = @At("HEAD"), cancellable = true)
-    private void onTitle(TitleS2CPacket packet, CallbackInfo ci) {
+    @Inject(method = "onOverlayMessage", at = @At("HEAD"), cancellable = true)
+    private void onTitle(OverlayMessageS2CPacket packet, CallbackInfo ci) {
         //Figure out how to check the action of a packet and update to 1.17
-//        TitleS2CPacket.Action action = packet.getAction();
-//        if (minecraftClient.player == null) return;
-//        if (action == TitleS2CPacket.Action.ACTIONBAR) {
-//            if (packet.getText().getString().matches("^CPU Usage: \\[▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮\\] \\(.*%\\)$")) {
-//                if (Config.getBoolean("cpuOnScreen")) {
-//                    CPU_UsageText.updateCPU(packet);
-//                    ci.cancel();
-//                }
-//            }
-//        }
+        if (minecraftClient.player == null) return;
+        if (packet.getMessage().getString().matches("^CPU Usage: \\[▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮\\] \\(.*%\\)$")) {
+            if (Config.getBoolean("cpuOnScreen")) {
+                CPU_UsageText.updateCPU(packet);
+                ci.cancel();
+            }
+        }
     }
 
     private void updateVersion(Text component) {

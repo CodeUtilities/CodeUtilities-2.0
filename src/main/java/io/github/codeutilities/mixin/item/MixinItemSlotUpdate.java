@@ -42,7 +42,6 @@ public class MixinItemSlotUpdate {
                 return;
             }
 
-            //TODO: figure out what NbtList.toText() is in 1.17 and update it
             if (DFInfo.isOnDF() && stack.getName().getString().contains("◇ Game Menu ◇")
                     && lore.toString().contains("\"Click to open the Game Menu.\"")
                     && lore.toString().contains("\"Hold and type in chat to search.\"")) {

@@ -7,7 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
+import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.Level;
@@ -26,11 +26,11 @@ public class CPU_UsageText {
         throw new RuntimeException("CPU_UsageText is a static class !");
     }
 
-    public static void updateCPU(TitleS2CPacket packet) {
-        JsonArray msgArray = Text.Serializer.toJsonTree(packet.getTitle()).getAsJsonObject().getAsJsonArray("extra");
+    public static void updateCPU(OverlayMessageS2CPacket packet) {
+        JsonArray msgArray = Text.Serializer.toJsonTree(packet.getMessage()).getAsJsonObject().getAsJsonArray("extra");
         JsonObject msgPart = msgArray.get(2).getAsJsonObject();
 
-        barsText = packet.getTitle();
+        barsText = packet.getMessage();
 
         int sibs = barsText.getSiblings().size();
 
