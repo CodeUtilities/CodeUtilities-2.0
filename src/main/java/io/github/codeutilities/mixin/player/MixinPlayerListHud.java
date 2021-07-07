@@ -13,12 +13,15 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerListHud.class)
-public class MixinPlayerListHud {
+public abstract class MixinPlayerListHud {
+
+    @Shadow protected abstract Text applyGameModeFormatting(PlayerListEntry entry, MutableText name);
 
     @Inject(method = "getPlayerName", at = @At("RETURN"), cancellable = true)
     public void getPlayerName(PlayerListEntry entry, CallbackInfoReturnable<Text> cir) {
@@ -27,19 +30,15 @@ public class MixinPlayerListHud {
 
         UUID id = entry.getProfile().getId();
 
-        Text name = entry.getDisplayName();//temporary until below todo is done
-        //TODO: update this long code line ot 1.17
-//        Text name = entry.getDisplayName() != null ? this.spectatorFormat(entry, entry.getDisplayName().shallowCopy()) : this.spectatorFormat(entry, Team.modifyText(entry.getScoreboardTeam(), new LiteralText(entry.getProfile().getName())));
+        Text name = entry.getDisplayName() != null
+                ? this.applyGameModeFormatting(entry, entry.getDisplayName().shallowCopy())
+                : this.applyGameModeFormatting(entry, Team.decorateName(entry.getScoreboardTeam(), new LiteralText(entry.getProfile().getName())));
         User user = CodeUtilitiesServer.getUser(id.toString());
 
         if (user != null) {
             LiteralText star = new LiteralText(user.getStar());
-            name = star.shallowCopy().append(name);
+            name = star.append(name);
         }
         cir.setReturnValue(name);
-    }
-
-    private Text spectatorFormat(PlayerListEntry playerListEntry, MutableText mutableText) {
-        return playerListEntry.getGameMode() == GameMode.SPECTATOR ? mutableText.formatted(Formatting.ITALIC) : mutableText;
     }
 }
