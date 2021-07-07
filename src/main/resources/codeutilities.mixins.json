@@ -16,7 +16,6 @@
     "player.MixinMinecraftClient",
     "player.MixinPlayerListEntry",
     "player.MixinPlayerListHud",
-    "player.MixinPlayerSkinProvider",
     "player.TextureMapAccessor",
     "render.InGameHudMixin",
     "render.MixinChestBlockEntityRenderer",
