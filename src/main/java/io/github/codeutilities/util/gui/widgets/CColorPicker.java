@@ -145,11 +145,9 @@ public class CColorPicker extends WWidget {
             ColorsGui.getGUI().bInput.setDisabledColor((0xFF3d0000));
         }
 
-
-        //TODO: update to 1.17
-//        ColorsGui.getGUI().previewText.setColor(color.getRGB(), color.getRGB());
+        ColorsGui.getGUI().previewText.setColor(color.getRGB(), color.getRGB());
         Color rectcolor = Color.getHSBColor(pickedColor.getHue(), 0f, 1 - pickedColor.getBrightness());
-//        ColorsGui.getGUI().previewTextRect.setColor(new Color(rectcolor.getRed(), rectcolor.getGreen(), rectcolor.getBlue(), 100), new Color(rectcolor.getRed(), rectcolor.getGreen(), rectcolor.getBlue(), 100));
+        ColorsGui.getGUI().previewTextRect.setColor(new Color(rectcolor.getRed(), rectcolor.getGreen(), rectcolor.getBlue(), 100), new Color(rectcolor.getRed(), rectcolor.getGreen(), rectcolor.getBlue(), 100));
 
         super.tick();
     }
