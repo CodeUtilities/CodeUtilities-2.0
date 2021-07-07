@@ -14,7 +14,6 @@ public class CImage extends WWidget {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        //TODO: update to 1.17
-//        ScreenDrawing.texturedRect(x, y, getWidth(), getHeight(), identifier, 0, 0, 1, 1, 0xffffff, 1f);
+        ScreenDrawing.texturedRect(matrices, x, y, getWidth(), getHeight(), identifier, 0, 0, 1, 1, 0xffffff, 1f);
     }
 }
