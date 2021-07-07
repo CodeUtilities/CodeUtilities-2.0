@@ -2,6 +2,7 @@ package io.github.codeutilities.util.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -24,9 +25,8 @@ public class BlendableTexturedButtonWidget extends TexturedButtonWidget {
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        // This does a bit of messing with gl but its the best equivalent we've got.
         RenderSystem.assertThread(RenderSystem::isOnGameThread);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         super.renderButton(matrices, mouseX, mouseY, delta);
