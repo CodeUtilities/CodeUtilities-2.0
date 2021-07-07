@@ -20,7 +20,6 @@ public class MixinOptionsScreen extends Screen {
 
     @Inject(method = "init()V", at = @At("RETURN"))
     protected void init(CallbackInfo callbackInfo) {
-        //TODO: update to 1.17
-//        this.addButton(new ButtonWidget(this.width / 2 - 75, this.height / 6 + 144 - 6, 150, 20, new LiteralText("CodeUtilities"), (buttonWidget) -> CodeUtilities.MC.openScreen(ConfigScreen.getScreen(CodeUtilities.MC.currentScreen))));
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 75, this.height / 6 + 144 - 6, 150, 20, new LiteralText("CodeUtilities"), (buttonWidget) -> CodeUtilities.MC.openScreen(ConfigScreen.getScreen(CodeUtilities.MC.currentScreen))));
     }
 }
