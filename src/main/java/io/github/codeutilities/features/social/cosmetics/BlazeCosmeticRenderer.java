@@ -47,8 +47,8 @@ public class BlazeCosmeticRenderer extends
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, float h, float j, float k, float l) {
         if(!Config.getBoolean("cosmeticsEnabled")) return;
         if ("184c84ee-c445-4772-8d19-9e409031f0db".equals(abstractClientPlayerEntity.getUuidAsString())
-                && abstractClientPlayerEntity.hasSkinTexture() && !abstractClientPlayerEntity
-                .isInvisible()) {
+                && abstractClientPlayerEntity.hasSkinTexture()
+                && !abstractClientPlayerEntity.isInvisible()) {
             VertexConsumer vertexConsumer = vertexConsumerProvider
                     .getBuffer(RenderLayer.getEntitySolid(blazeTexture));
             int m = LivingEntityRenderer.getOverlay(abstractClientPlayerEntity, 0.0F);

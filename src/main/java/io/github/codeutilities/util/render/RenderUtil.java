@@ -7,8 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Matrix4f;
 
 public class RenderUtil extends DrawableHelper {
-    public static void drawRect(MatrixStack matrices, int left, int top, int right, int bottom, Color color)
-    {
+    public static void drawRect(MatrixStack matrices, int left, int top, int right, int bottom, Color color) {
         DrawableHelper.fill(matrices, left, top, right, bottom, color.getRGB());
     }
 
