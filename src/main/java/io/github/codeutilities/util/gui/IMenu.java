@@ -9,7 +9,7 @@ public interface IMenu {
     default void scheduleOpenGui(LightweightGuiDescription gui, String... args) {
         try{
             this.open(args);
-            MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().openScreen(new CottonClientScreen(gui)));
+            MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().setScreen(new CottonClientScreen(gui)));
         }catch(Exception e){
             e.printStackTrace();
         }

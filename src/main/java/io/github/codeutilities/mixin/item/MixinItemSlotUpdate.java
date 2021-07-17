@@ -35,7 +35,7 @@ public class MixinItemSlotUpdate {
                 TemplateStorageHandler.addTemplate(stack);
             }
 
-            NbtCompound nbt = stack.getOrCreateTag();
+            NbtCompound nbt = stack.getOrCreateNbt();
             NbtCompound display = nbt.getCompound("display");
             NbtList lore = display.getList("Lore", 8);
             if (mc.player == null) {

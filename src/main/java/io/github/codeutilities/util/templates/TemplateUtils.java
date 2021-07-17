@@ -33,7 +33,7 @@ public class TemplateUtils {
 
         // Assign the bukkit container to the item. (Contains the template data)
         itemNBT.put("PublicBukkitValues", publicBukkitNBT);
-        stack.setTag(itemNBT);
+        stack.setNbt(itemNBT);
         stack.setCustomName(name);
     }
 
@@ -50,7 +50,7 @@ public class TemplateUtils {
     }
 
     public static JsonObject fromItemStack(ItemStack stack) {
-        NbtCompound tag = stack.getTag();
+        NbtCompound tag = stack.getNbt();
         NbtCompound publicBukkitNBT = tag.getCompound("PublicBukkitValues");
         String template = publicBukkitNBT.getString("hypercube:codetemplatedata");
         return CodeUtilities.JSON_PARSER.parse(template).getAsJsonObject();
@@ -61,7 +61,7 @@ public class TemplateUtils {
             return false;
         }
 
-        NbtCompound tag = stack.getTag();
+        NbtCompound tag = stack.getNbt();
         if (tag == null) {
             return false;
         }

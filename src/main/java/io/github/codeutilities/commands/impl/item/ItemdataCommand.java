@@ -22,7 +22,7 @@ public class ItemdataCommand extends Command {
         cd.register(ArgBuilder.literal("itemdata")
                 .executes(ctx -> {
                     ItemStack item = mc.player.getMainHandStack();
-                    NbtCompound nbt = item.getTag();
+                    NbtCompound nbt = item.getNbt();
                     if (nbt != null) {
                         ChatUtil.sendMessage(String.format("§5----------§dItem Data for %s§5----------", item.getName().getString()));
 

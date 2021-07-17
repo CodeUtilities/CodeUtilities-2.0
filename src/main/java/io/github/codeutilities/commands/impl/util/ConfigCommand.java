@@ -13,7 +13,7 @@ public class ConfigCommand extends Command {
     public void register(MinecraftClient mc, CommandDispatcher<FabricClientCommandSource> cd) {
         cd.register(ArgBuilder.literal("cuconfig")
                 .executes(ctx -> {
-                    CodeUtilities.MC.openScreen(ConfigScreen.getScreen(CodeUtilities.MC.currentScreen));
+                    CodeUtilities.MC.setScreen(ConfigScreen.getScreen(CodeUtilities.MC.currentScreen));
                     return 1;
                 })
         );

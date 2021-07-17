@@ -215,7 +215,7 @@ public class CustomHeadMenu extends LightweightGuiDescription implements IMenu, 
                 Properties.put("textures", textures);
                 SkullOwner.put("Properties", Properties);
                 nbt.put("SkullOwner", SkullOwner);
-                item.setTag(nbt);
+                item.setNbt(nbt);
                 items.add(item);
             }
         } catch (Exception e) {
