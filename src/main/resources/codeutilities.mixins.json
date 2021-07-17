@@ -11,7 +11,7 @@
     "messages.MixinPlayerChatMessage",
     "misc.MixinMouse",
     "misc.MixinWindow",
-    "packet.MixinInventoryPacketListener",
+    "packet.MixinClientPlayNetworkHandler",
     "player.ChatHudMixin",
     "player.MixinMinecraftClient",
     "player.MixinPlayerListEntry",

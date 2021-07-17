@@ -1,30 +1,33 @@
 package io.github.codeutilities.util.networking;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TPSUtil {
 
-    public static float TPS = 0.0f;
     private static long lastTpsTimestamp = 0;
+    private static List<Long> measurements = new ArrayList<>();
 
-    public static void calculateTps(long packetTimestamp) {
-        if (!RenderSystem.isOnRenderThread()) {
-            return;
+    public static void addTick() {
+        synchronized (measurements) {
+            measurements.add(System.currentTimeMillis());
+
+            if (measurements.size() > 15) measurements.remove(0);
         }
+    }
 
-        if (lastTpsTimestamp == 0) {
-            lastTpsTimestamp = packetTimestamp;
-            return;
+    public static void reset() {
+        synchronized (measurements) {
+            measurements.clear();
         }
-        if (packetTimestamp - lastTpsTimestamp == 0) {
-            lastTpsTimestamp = packetTimestamp;
-            return;
-        }
+    }
 
-        long milliDiff = packetTimestamp - lastTpsTimestamp;
-        float secDiff = milliDiff / 1000f;
+    public static double calculateTps() {
+        long current = measurements.get(measurements.size() - 1);
+        long previous = measurements.get(0);
 
-        TPS = 20.0f / secDiff;
-        lastTpsTimestamp = packetTimestamp;
+        double secDiff = Math.max((current - previous) / (1000.0 * (measurements.size() - 1)), 1.0);
+
+        return 20.0f / secDiff;
     }
 }

@@ -8,12 +8,14 @@ import io.github.codeutilities.util.file.ExternalFile;
 import io.github.codeutilities.util.misc.ItemUtil;
 import io.github.codeutilities.util.networking.DFInfo;
 import io.github.codeutilities.util.networking.State;
+import io.github.codeutilities.util.networking.TPSUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.packet.s2c.play.InventoryS2CPacket;
+import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(ClientPlayNetworkHandler.class)
-public class MixinInventoryPacketListener {
+public class MixinClientPlayNetworkHandler {
     private static final File FILE = ExternalFile.PLOTS_DB.getFile();
     private NbtCompound lastTag = null;
 
@@ -64,5 +66,10 @@ public class MixinInventoryPacketListener {
             e.printStackTrace();
             ChatUtil.sendMessage("Failed to save plots data!", ChatType.FAIL);
         }
+    }
+
+    @Inject(method = "onWorldTimeUpdate", at = @At("RETURN"))
+    public void onWorldTimeUpdate(WorldTimeUpdateS2CPacket packet, CallbackInfo ci) {
+        TPSUtil.addTick();
     }
 }
