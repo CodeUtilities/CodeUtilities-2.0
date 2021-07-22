@@ -19,6 +19,7 @@ import java.util.UUID;
 
 @Mixin(PlayerListHud.class)
 public abstract class MixinPlayerListHud {
+    private static Text SPACE = Text.of(" ");
 
     @Shadow protected abstract Text applyGameModeFormatting(PlayerListEntry entry, MutableText name);
 
@@ -35,9 +36,14 @@ public abstract class MixinPlayerListHud {
         User user = CodeUtilitiesServer.getUser(id.toString());
 
         if (user != null) {
-            LiteralText star = new LiteralText(user.getStar());
-            name = star.append(name);
+            LiteralText star = new LiteralText(user.getStar().strip());
+            if (Config.getBoolean("relocateTabStars")) {
+                name = name.shallowCopy().append(SPACE).append(star);
+            } else {
+                name = star.append(SPACE).append(name);
+            }
         }
+
         cir.setReturnValue(name);
     }
 }

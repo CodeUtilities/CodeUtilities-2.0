@@ -2,14 +2,14 @@ package io.github.codeutilities.mod.features.social.tab;
 
 import com.google.gson.JsonObject;
 
-public class User{
+public class User {
     private final String username;
     private final String version;
     private final String role;
     private final String star;
     private final String uuid;
 
-    User(JsonObject json){
+    User(JsonObject json) {
         this.username = json.get("username").getAsString();
         this.version = json.get("version").getAsString();
         this.role = json.get("role").getAsString();
