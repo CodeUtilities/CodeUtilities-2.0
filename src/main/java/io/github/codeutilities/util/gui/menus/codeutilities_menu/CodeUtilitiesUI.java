@@ -58,7 +58,7 @@ public class CodeUtilitiesUI extends LightweightGuiDescription implements IMenu 
         WButton options = new WButton(new LiteralText("Options"));
         options.setOnClick(() -> {
             MinecraftClient mc = MinecraftClient.getInstance();
-            mc.openScreen(ConfigScreen.getScreen(MinecraftClient.getInstance().currentScreen));
+            mc.setScreen(ConfigScreen.getScreen(MinecraftClient.getInstance().currentScreen));
         });
         panel.add(options, 60, 214, 100, 20);
     }

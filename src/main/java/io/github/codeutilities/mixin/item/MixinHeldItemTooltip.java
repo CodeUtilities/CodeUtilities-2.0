@@ -47,7 +47,7 @@ public class MixinHeldItemTooltip {
                 if (ItemUtil.isVar(itemStack, "var")) {
                     variableStack = itemStack;
 
-                    NbtCompound tag = itemStack.getTag();
+                    NbtCompound tag = itemStack.getNbt();
                     if (tag == null) {
                         return;
                     }

@@ -44,8 +44,8 @@ public class MixinPlayerChatMessage {
         if (minecraftClient.player != null) {
             if (!string.startsWith("/")) {
                 ItemStack mainHand = minecraftClient.player.getInventory().getMainHandStack();
-                if (mainHand.hasTag()) {
-                    NbtCompound tag = mainHand.getTag();
+                if (mainHand.hasNbt()) {
+                    NbtCompound tag = mainHand.getNbt();
                     NbtCompound publicBukkitValues = tag.getCompound("PublicBukkitValues");
                     if (tag.contains("PublicBukkitValues") && publicBukkitValues.contains("hypercube:varitem")) {
                         if ((string.endsWith(" -l") || string.endsWith(" -s") || string.endsWith(" -g")) && Config.getBoolean("quickVarScope")) {
@@ -77,15 +77,15 @@ public class MixinPlayerChatMessage {
                                         jsonObject.add("data", data);
                                         publicBukkitValues.putString("hypercube:varitem", jsonObject.toString());
                                         tag.put("PublicBukkitValues", publicBukkitValues);
-                                        mainHand.setTag(tag);
+                                        mainHand.setNbt(tag);
 
-                                        mainHand.getTag().remove("display");
+                                        mainHand.getNbt().remove("display");
                                         NbtCompound display = new NbtCompound();
                                         NbtList lore = new NbtList();
                                         display.putString("Name", String.format("{\"extra\":[{\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false,\"color\":\"white\",\"text\":\"%s\"}],\"text\":\"\"}", name));
                                         lore.add(NbtString.of(String.format("{\"extra\":[{\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false,\"color\":\"%s\",\"text\":\"%s\"}],\"text\":\"\"}", displayScopeColor, displayScope)));
                                         display.put("Lore", lore);
-                                        mainHand.getTag().put("display", display);
+                                        mainHand.getNbt().put("display", display);
 
                                         ci.cancel();
                                         minecraftClient.interactionManager.clickCreativeStack(mainHand, minecraftClient.player.getInventory().selectedSlot + 36);

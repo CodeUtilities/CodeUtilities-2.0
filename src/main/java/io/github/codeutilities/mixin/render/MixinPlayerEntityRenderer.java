@@ -4,6 +4,7 @@ import io.github.codeutilities.features.social.cosmetics.BlazeCosmeticRenderer;
 import io.github.codeutilities.features.social.cosmetics.CosmeticRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.EntityRendererFactory.Context;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
@@ -23,9 +24,8 @@ public abstract class MixinPlayerEntityRenderer extends LivingEntityRenderer<Abs
         super(ctx, model, shadowRadius);
     }
 
-    //TODO: figure out what method this changed to
-//    @Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRenderDispatcher;Z)V", at = @At("RETURN"))
-    public void init(EntityRenderDispatcher dispatcher, boolean bl, CallbackInfo ci) {
+    @Inject(method = "<init>", at = @At("RETURN"))
+    public void init(Context ctx, boolean slim, CallbackInfo ci) {
         this.addFeature(new CosmeticRenderer(this));
         this.addFeature(new BlazeCosmeticRenderer(this));
     }

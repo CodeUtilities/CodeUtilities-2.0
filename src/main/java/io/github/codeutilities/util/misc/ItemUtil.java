@@ -82,7 +82,7 @@ public class ItemUtil {
     }
 
     public static List<ItemStack> fromItemContainer(ItemStack container) {
-        NbtList nbt = container.getOrCreateTag().getCompound("BlockEntityTag").getList("Items", 10);
+        NbtList nbt = container.getOrCreateNbt().getCompound("BlockEntityTag").getList("Items", 10);
         return fromListTag(nbt);
     }
 
@@ -94,31 +94,31 @@ public class ItemUtil {
         NbtList loreTag = new NbtList();
         for(Text lore : lores) {
             if(lore == null){
-                itemStack.getSubTag("display").put("Lore", loreTag);
+                itemStack.getSubNbt("display").put("Lore", loreTag);
                 return;
             }
             loreTag.add(NbtString.of("{\"extra\":[{\"bold\":" + lore.getStyle().isBold() + ",\"italic\":" + lore.getStyle().isItalic() + ",\"underlined\":" + lore.getStyle().isUnderlined() + ",\"strikethrough\":" + lore.getStyle().isStrikethrough() + ",\"obfuscated\":" + lore.getStyle().isObfuscated() + ",\"color\":\"" + lore.getStyle().getColor() + "\",\"text\":\"" + lore.getString() + "\"}],\"text\":\"\"}"));
         }
-        itemStack.getSubTag("display").put("Lore", loreTag);
+        itemStack.getSubNbt("display").put("Lore", loreTag);
     }
 
     public static ItemStack setLore(ItemStack itemStack, String[] lores){
         NbtList loreTag = new NbtList();
         for(String lore : lores) {
             if(lore == null){
-                itemStack.getSubTag("display").put("Lore", loreTag);
+                itemStack.getSubNbt("display").put("Lore", loreTag);
                 return itemStack;
             }
             loreTag.add(NbtString.of(lore));
         }
-        itemStack.getSubTag("display").put("Lore", loreTag);
+        itemStack.getSubNbt("display").put("Lore", loreTag);
         return itemStack;
     }
 
     public static ItemStack addLore(ItemStack itemStack, String[] lores){
         NbtList loreTag = new NbtList();
-        if(itemStack.getOrCreateSubTag("display").contains("Lore")){
-            loreTag = itemStack.getSubTag("display").getList("Lore", 8);
+        if(itemStack.getOrCreateSubNbt("display").contains("Lore")){
+            loreTag = itemStack.getSubNbt("display").getList("Lore", 8);
         }
         for(String lore : lores) {
             if(lore == null){
@@ -126,7 +126,7 @@ public class ItemUtil {
             }
             loreTag.add(NbtString.of(lore));
         }
-        itemStack.getSubTag("display").put("Lore", loreTag);
+        itemStack.getSubNbt("display").put("Lore", loreTag);
         return itemStack;
     }
 
@@ -142,13 +142,13 @@ public class ItemUtil {
         }
 
         NbtCompound nbt = StringNbtReader.parse("{SkullOwner:{Id:" + StringUtil.genDummyIntArray() + ",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
-        item.setTag(nbt);
+        item.setNbt(nbt);
         ItemUtil.giveCreativeItem(item, true);
     }
 
     public static boolean isVar(ItemStack stack, String type) {
         try {
-            NbtCompound tag = stack.getTag();
+            NbtCompound tag = stack.getNbt();
             if (tag == null) {
                 return false;
             }

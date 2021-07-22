@@ -3,11 +3,11 @@ package io.github.codeutilities.util.gui.menus;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.util.gui.IMenu;
 import io.github.codeutilities.util.gui.widgets.CItem;
-import io.github.codeutilities.util.gui.widgets.CTextField;
 import io.github.codeutilities.util.misc.StringUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
+import io.github.cottonmc.cotton.gui.widget.WTextField;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ public class ItemEditorGui extends LightweightGuiDescription implements IMenu {
         root.add(icon, 0, 0, 20, 20);
 
         //Item Name
-        CTextField name = new CTextField(new LiteralText(""));
+        WTextField name = new WTextField(new LiteralText(""));
         name.setMaxLength(Integer.MAX_VALUE);
         name.setSuggestion(new TranslatableText(item[0].getItem().getTranslationKey()));
         name.setText(StringUtil.textToString(item[0].getName()).replaceAll("§", "&"));
@@ -62,7 +62,7 @@ public class ItemEditorGui extends LightweightGuiDescription implements IMenu {
         root.add(save, 190, 220, 70, 20);
 
         //Item Material
-        CTextField material = new CTextField(new LiteralText(""));
+        WTextField material = new WTextField(new LiteralText(""));
         material.setMaxLength(Integer.MAX_VALUE);
         material.setText(item[0].getItem().toString());
         material.setChangedListener(s -> {
@@ -70,7 +70,7 @@ public class ItemEditorGui extends LightweightGuiDescription implements IMenu {
             if (newMat != Items.AIR) {
                 save.setEnabled(true);
                 ItemStack newItem = new ItemStack(newMat, item[0].getCount());
-                newItem.setTag(item[0].getOrCreateTag());
+                newItem.setNbt(item[0].getOrCreateNbt());
                 item[0] = newItem;
                 icon.setItems(Collections.singletonList(item[0]));
             } else save.setEnabled(false);

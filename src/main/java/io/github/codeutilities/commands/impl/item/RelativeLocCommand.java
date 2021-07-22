@@ -79,7 +79,7 @@ public class RelativeLocCommand extends Command {
 
         itemNBT.putInt("CustomModelData", 500);
 
-        item.setTag(itemNBT);
+        item.setNbt(itemNBT);
 
         NbtCompound display = new NbtCompound();
         NbtList lore = new NbtList();
@@ -110,7 +110,7 @@ public class RelativeLocCommand extends Command {
         craftLore(rot_right, lore, lore1);
 
         display.put("Lore", lore);
-        item.getTag().put("display", display);
+        item.getNbt().put("display", display);
 
         ItemUtil.giveCreativeItem(item, true);
         return 1;

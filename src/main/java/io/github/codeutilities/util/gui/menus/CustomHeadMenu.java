@@ -5,12 +5,12 @@ import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.config.Config;
 import io.github.codeutilities.util.file.ILoader;
 import io.github.codeutilities.util.gui.IMenu;
-import io.github.codeutilities.util.gui.widgets.CTextField;
 import io.github.codeutilities.util.gui.widgets.ItemScrollablePanel;
 import io.github.codeutilities.util.networking.WebUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.WTextField;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -35,7 +35,7 @@ public class CustomHeadMenu extends LightweightGuiDescription implements IMenu, 
     private ItemScrollablePanel panel;
     private WButton current;
     private String searchQuery = "";
-    private CTextField searchBox;
+    private WTextField searchBox;
     private String lastQuery = "";
 
     public static CustomHeadMenu getInstance() {
@@ -49,7 +49,7 @@ public class CustomHeadMenu extends LightweightGuiDescription implements IMenu, 
         WPlainPanel root = new WPlainPanel();
         root.setSize(350, 220);
 
-        searchBox = new CTextField(
+        searchBox = new WTextField(
                 new LiteralText("Search... (" + allHeads.size() + " Heads)"));
         searchBox.setMaxLength(100);
         root.add(searchBox, 100, 0, 250, 0);
@@ -215,7 +215,7 @@ public class CustomHeadMenu extends LightweightGuiDescription implements IMenu, 
                 Properties.put("textures", textures);
                 SkullOwner.put("Properties", Properties);
                 nbt.put("SkullOwner", SkullOwner);
-                item.setTag(nbt);
+                item.setNbt(nbt);
                 items.add(item);
             }
         } catch (Exception e) {

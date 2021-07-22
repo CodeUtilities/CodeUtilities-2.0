@@ -14,7 +14,7 @@ public class PlotItem extends CItem {
     @Override
     public InputResult onClick(int x, int y, int button) {
         ItemStack item = getItems().get(0);
-        NbtList lore = item.getOrCreateSubTag("display").getList("Lore", 8);
+        NbtList lore = item.getOrCreateSubNbt("display").getList("Lore", 8);
         JsonObject line = (JsonObject) CodeUtilities.JSON_PARSER.parse(lore.getString(lore.size() - 2));
         line = (JsonObject) line.getAsJsonArray("extra").get(0);
         String id = line.get("text").getAsString();

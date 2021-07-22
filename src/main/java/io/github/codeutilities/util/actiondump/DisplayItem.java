@@ -236,7 +236,7 @@ public class DisplayItem {
             }
             ItemUtil.setLore(itemStack, fullLore);
 
-            itemStack.getTag().putInt("HideFlags", 127);
+            itemStack.getNbt().putInt("HideFlags", 127);
 
             return itemStack;
         }catch(Exception e){

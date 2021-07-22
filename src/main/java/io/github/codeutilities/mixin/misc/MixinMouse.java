@@ -63,7 +63,7 @@ public class MixinMouse {
                                     cd = System.currentTimeMillis() + 250;
                                     ItemStack itemStack = slot.getStack().copy();
 
-                                    NbtCompound tag = itemStack.getTag();
+                                    NbtCompound tag = itemStack.getNbt();
 
                                     if (tag == null) return;
 
@@ -118,7 +118,7 @@ public class MixinMouse {
                                         publicBukkitValues.putString("hypercube:varitem", parsedJson.toString());
                                         tag.put("PublicBukkitValues", publicBukkitValues);
 
-                                        itemStack.setTag(tag);
+                                        itemStack.setNbt(tag);
                                         itemStack.setCustomName(new LiteralText(name)
                                                 .styled(style -> style.withColor(TextColor.fromFormatting(Formatting.RED)).withItalic(false)));
 

@@ -22,7 +22,7 @@ public class SendTemplateCommand extends AbstractTemplateCommand {
 
     @Override
     protected void withTemplate(ItemStack stack) {
-        NbtCompound rawNBT = MinecraftClient.getInstance().player.getMainHandStack().getTag();
+        NbtCompound rawNBT = MinecraftClient.getInstance().player.getMainHandStack().getNbt();
         JsonObject bukkitValues = CodeUtilities.JSON_PARSER.parse(rawNBT.get("PublicBukkitValues").toString()).getAsJsonObject();
         JsonObject templateData = CodeUtilities.JSON_PARSER.parse(bukkitValues.get("hypercube:codetemplatedata").getAsString().replace("\\", "")).getAsJsonObject();
         try {
