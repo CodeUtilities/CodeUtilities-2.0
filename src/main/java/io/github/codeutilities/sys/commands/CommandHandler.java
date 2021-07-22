@@ -13,7 +13,7 @@ import io.github.codeutilities.mod.commands.item.UnpackCommand;
 import io.github.codeutilities.mod.commands.item.template.SendTemplateCommand;
 import io.github.codeutilities.mod.commands.item.template.WebviewCommand;
 import io.github.codeutilities.mod.commands.other.NBSCommand;
-import io.github.codeutilities.mod.commands.SchemCommand;
+import io.github.codeutilities.mod.commands.other.SchemCommand;
 import io.github.codeutilities.mod.commands.other.CodeUtilitiesCommand;
 import io.github.codeutilities.mod.commands.text.ColorCommand;
 import io.github.codeutilities.mod.commands.text.ColorsCommand;

@@ -1,4 +1,4 @@
-package io.github.codeutilities.mod.commands;
+package io.github.codeutilities.mod.commands.other;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
