@@ -23,7 +23,8 @@
     "render.MixinPlayerEntityRenderer",
     "render.MixinSignBlockEntityRender",
     "screen.MixinOptionsScreen",
-    "screen.MixinTitleScreen"
+    "screen.MixinTitleScreen",
+    "screen.MixinChatScreen"
   ],
   "client": [],
   "server": [],

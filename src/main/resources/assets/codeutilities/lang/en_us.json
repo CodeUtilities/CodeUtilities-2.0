@@ -99,6 +99,8 @@
 
     "config.codeutilities.option.cmdLoadPlots": "/plots loading",
     "config.codeutilities.option.cmdLoadPlots.tooltip": "Should plots be cached or not for /plots.",
+    "config.codeutilities.option.longerDFCmds": "Allow longer command length when in dev mode.",
+    "config.codeutilities.option.longerDFCmds.tooltip": "Allows longer chat length when using command in dev mode on DiamondFire.",
 
     "config.codeutilities.option.socialFeatures": "Enable Social Features",
     "config.codeutilities.option.codeUtilsChat": "CodeUtilities Chat",
