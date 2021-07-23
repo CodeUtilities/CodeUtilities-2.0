@@ -17,6 +17,7 @@ public class MiscellaneousGroup extends ConfigGroup {
         // Non sub-grouped
         this.register(new BooleanSetting("itemApi", true));
         this.register(new BooleanSetting("quickVarScope", true));
+        this.register(new BooleanSetting("destroyItemReset", false));
 
         // Discord
         ConfigSubGroup discord = new ConfigSubGroup("discordrpc");
