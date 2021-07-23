@@ -38,5 +38,6 @@ public class CommandsGroup extends ConfigGroup {
 
         // Non sub-grouped
         this.register(new BooleanSetting("cmdLoadPlots", true));
+        this.register(new BooleanSetting("longerDFCmds", true));
     }
 }
