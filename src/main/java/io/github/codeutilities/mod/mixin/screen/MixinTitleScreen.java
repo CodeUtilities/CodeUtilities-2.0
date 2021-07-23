@@ -36,7 +36,7 @@ public class MixinTitleScreen extends Screen {
 
         if (Config.getBoolean("dfButton")) {
             if (!Config.getBoolean("dfNodeButtons")) {
-                this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 205, y + spacingY, 20, 20, 0, 0, 20, identifier_main, 20, 40,
+                this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104, y + spacingY, 20, 20, 0, 0, 20, identifier_main, 20, 40,
                         (button) -> {
                             MinecraftClient mc = MinecraftClient.getInstance();
                             ServerInfo serverInfo = new ServerInfo("DF", "mcdiamondfire.com:25565", false);
@@ -46,49 +46,49 @@ public class MixinTitleScreen extends Screen {
         }
 
         if (Config.getBoolean("dfNodeButtons")) {
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 205, y + spacingY - 44, 20, 20, 0, 0, 20, identifier_main, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104, y + spacingY - 44, 20, 20, 0, 0, 20, identifier_main, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF", "mcdiamondfire.com:25565", false);
                         ConnectScreen.connect(mc.currentScreen, mc, ServerAddress.parse(serverInfo.address), serverInfo);
                     }));
 
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 227, y + spacingY - 44, 20, 20, 0, 0, 20, identifier_beta, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104 + 22, y + spacingY - 44, 20, 20, 0, 0, 20, identifier_beta, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF Beta", "beta.mcdiamondfire.com:25565", false);
                         ConnectScreen.connect(mc.currentScreen, mc, ServerAddress.parse(serverInfo.address), serverInfo);
                     }));
 
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 205, y + spacingY - 22, 20, 20, 0, 0, 20, identifier_node1, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104, y + spacingY - 22, 20, 20, 0, 0, 20, identifier_node1, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF Node1", "node1.mcdiamondfire.com:25565", false);
                         ConnectScreen.connect(mc.currentScreen, mc, ServerAddress.parse(serverInfo.address), serverInfo);
                     }));
 
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 227, y + spacingY - 22, 20, 20, 0, 0, 20, identifier_node2, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104 + 22, y + spacingY - 22, 20, 20, 0, 0, 20, identifier_node2, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF Node2", "node2.mcdiamondfire.com:25565", false);
                         ConnectScreen.connect(mc.currentScreen, mc, ServerAddress.parse(serverInfo.address), serverInfo);
                     }));
 
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 205, y + spacingY, 20, 20, 0, 0, 20, identifier_node3, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104, y + spacingY, 20, 20, 0, 0, 20, identifier_node3, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF Node3", "node3.mcdiamondfire.com:25565", false);
                         ConnectScreen.connect(mc.currentScreen, mc, ServerAddress.parse(serverInfo.address), serverInfo);
                     }));
 
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 227, y + spacingY, 20, 20, 0, 0, 20, identifier_node4, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104 + 22, y + spacingY, 20, 20, 0, 0, 20, identifier_node4, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF Node4", "node4.mcdiamondfire.com:25565", false);
                         ConnectScreen.connect(mc.currentScreen, mc, ServerAddress.parse(serverInfo.address), serverInfo);
                     }));
 
-            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 - 100 + 205, y + spacingY + 23, 20, 20, 0, 0, 20, identifier_node5, 20, 40,
+            this.addDrawableChild(new BlendableTexturedButtonWidget(this.width / 2 + 104, y + spacingY + 23, 20, 20, 0, 0, 20, identifier_node5, 20, 40,
                     (button) -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
                         ServerInfo serverInfo = new ServerInfo("DF Node5", "node5.mcdiamondfire.com:25565", false);

@@ -12,6 +12,12 @@ public class ScreenGroup extends ConfigGroup {
 
     @Override
     public void initialize() {
+        // Tablist stars
+        ConfigSubGroup tablistStars = new ConfigSubGroup("tablist_stars");
+        tablistStars.register(new BooleanSetting("loadTabStars", true));
+        tablistStars.register(new BooleanSetting("relocateTabStars", false));
+        this.register(tablistStars);
+
         // World Rendering
         ConfigSubGroup worldRendering = new ConfigSubGroup("world_rendering");
         worldRendering.register(new BooleanSetting("chestReplacement", false));
@@ -26,6 +32,5 @@ public class ScreenGroup extends ConfigGroup {
         this.register(new BooleanSetting("cpuOnScreen", true));
         this.register(new BooleanSetting("f3Tps", true));
         this.register(new BooleanSetting("cosmeticsEnabled", true));
-        this.register(new BooleanSetting("loadTabStars", true));
     }
 }

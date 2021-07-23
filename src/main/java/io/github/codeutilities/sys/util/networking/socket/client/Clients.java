@@ -1,5 +1,7 @@
 package io.github.codeutilities.sys.util.networking.socket.client;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.sys.util.misc.ItemUtil;
@@ -13,19 +15,14 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.sound.SoundEvents;
 
-import java.io.Closeable;
-import java.io.IOException;
-
 @Environment(EnvType.CLIENT)
-public abstract class Client implements Closeable {
+public class Clients {
 
-    public abstract void sendData(String string) throws IOException;
-
-    public void acceptData(String line) {
+    public static String acceptData(String line) {
         JsonObject result = new JsonObject();
         try {
             if (line == null) {
-                return;
+                return null;
             }
             ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
@@ -55,16 +52,7 @@ public abstract class Client implements Closeable {
             result.addProperty("error", e.getMessage());
         }
 
-        try {
-            sendData(result.toString());
-        } catch (IOException ioException) {
-            SocketHandler.getInstance().unregister(this);
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return result.toString();
     }
 
 }
