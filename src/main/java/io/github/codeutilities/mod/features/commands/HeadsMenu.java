@@ -119,8 +119,8 @@ public class HeadsMenu extends LightweightGuiDescription implements IMenu, ILoad
                     String response = WebUtil.getString(db);
                     String cat = StringUtils.substringBetween(db, "?cat=", "&tags=true");
 
-                    if (cat.equals("food-drinks")) {
-                        cat = "food & drinks";
+                    if (cat.contains("-")) {
+                        cat = cat.replace("-", " & ");
                     }
 
                     cat = WordUtils.capitalize(cat);
