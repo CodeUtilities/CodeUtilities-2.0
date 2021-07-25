@@ -33,6 +33,7 @@ public class CapeCosmetic implements CosmeticType {
             }
 
             getTextures(entry).put(MinecraftProfileTexture.Type.CAPE, identifier);
+            getTextures(entry).put(MinecraftProfileTexture.Type.ELYTRA, identifier);
             return;
         }
 
