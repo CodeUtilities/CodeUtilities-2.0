@@ -4,47 +4,55 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.sys.util.chat.TextUtil;
+import io.github.codeutilities.sys.util.TextUtil;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.concurrent.FutureTask;
+import java.util.function.Consumer;
 import net.minecraft.client.MinecraftClient;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 public class CodeUtilitiesServer extends WebSocketClient {
-    private static List<User> users = Collections.emptyList();
+
+    private static JsonArray users = new JsonArray();
+    private static HashMap<String, Requester> requests = new HashMap<>();
+    private final CodeUtilitiesServer instance;
 
     public CodeUtilitiesServer(URI serverUri) {
         super(serverUri);
+        this.instance = this;
     }
 
     @Override
-    public void onOpen(ServerHandshake handshake) {}
+    public void onOpen(ServerHandshake handshakedata) {
+
+    }
 
     @Override
     public void onMessage(String message) {
         JsonObject jsonObject = CodeUtilities.JSON_PARSER.parse(message).getAsJsonObject();
-        if (jsonObject.get("type").getAsString().equals("users")) {
-            List<User> users2 = new ArrayList<>();
-            for (JsonElement element :
-                    jsonObject.get("content").getAsJsonArray()) {
-                users2.add(new User(element.getAsJsonObject()));
-            }
-
-            users = users2;
-        } else if (jsonObject.get("type").getAsString().equals("chat")) {
+        Message msg = new Message(jsonObject.get("type").getAsString(), jsonObject.get("content"), jsonObject.get("id").getAsString());
+        if(msg.getType().equals("users")){
+            users = msg.getContent().getAsJsonArray();
+        }
+        if(msg.getType().equals("chat")){
             if(MinecraftClient.getInstance().player != null){
-                MinecraftClient.getInstance().player.sendMessage(TextUtil.colorCodesToTextComponent(jsonObject.get("content").getAsString()), false);
+                MinecraftClient.getInstance().player.sendMessage(TextUtil.colorCodesToTextComponent(msg.getContent().getAsString()), false);
             }
+        }
+        Requester req = requests.get(msg.getId());
+        if(req != null) {
+            requests.remove(msg.getId());
+            req.run(new Message(msg.getType(), msg.getContent(), msg.getId()));
         }
     }
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        users = Collections.emptyList();
+        users = new JsonArray();
     }
 
     @Override
@@ -54,15 +62,18 @@ public class CodeUtilitiesServer extends WebSocketClient {
 
     public static User getUser(String query){
         query = query.replaceAll("-", "");
-        for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            if(query.length() <= 16 && user.getUsername().equals(query)) return user;
-            else if (user.getUuid().equals(query)) return user;
+        String mode = "uuid";
+        if(query.length() <= 16) mode = "username";
+        for(JsonElement jsonElement : users){
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            if(jsonObject.get(mode).getAsString().equals(query)){
+                return new User(jsonObject);
+            }
         }
         return null;
     }
 
-    public static List<User> getUsers() {
+    public static JsonArray getUsers() {
         return users;
     }
 
@@ -70,5 +81,29 @@ public class CodeUtilitiesServer extends WebSocketClient {
         return users.size();
     }
 
-}
+    public static void requestMessage(Message message, Requester request) {
+        if(Client.client.isOpen()){
+            requests.put(message.getId(), request);
+            Client.client.send(message.build());
+        }
+    }
 
+    public static String requestURL(String url) {
+        try {
+            FutureTask<Object> ft = new FutureTask<>(() -> {
+            }, new Object());
+            String[] response = new String[1];
+            requestMessage(new Message("req-proxy",url),msg -> {
+                response[0] = msg.getContent().getAsString();
+                System.out.println("Response: " + response[0]);
+                ft.run();
+            });
+            ft.get();
+            return response[0];
+        } catch (Exception err) {
+            err.printStackTrace();
+            return "";
+        }
+    }
+
+}

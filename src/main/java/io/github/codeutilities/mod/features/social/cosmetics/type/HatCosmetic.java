@@ -3,7 +3,7 @@ package io.github.codeutilities.mod.features.social.cosmetics.type;
 import com.google.gson.JsonObject;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.features.social.cosmetics.CosmeticModel;
-import io.github.codeutilities.sys.util.networking.WebUtil;
+import io.github.codeutilities.sys.networking.WebUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;

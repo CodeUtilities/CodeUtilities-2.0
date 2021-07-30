@@ -1,9 +1,9 @@
 package io.github.codeutilities.mod.features.keybinds;
 
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.sys.util.networking.DFInfo;
-import io.github.codeutilities.sys.util.networking.State;
-import io.github.codeutilities.sys.util.templates.SearchUtil;
+import io.github.codeutilities.sys.player.DFInfo;
+import io.github.codeutilities.sys.networking.State;
+import io.github.codeutilities.sys.hypercube.templates.SearchUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
