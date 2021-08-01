@@ -2,21 +2,18 @@ package io.github.codeutilities.sys.util;
 
 import com.google.gson.JsonArray;
 import io.github.codeutilities.CodeUtilities;
-import it.unimi.dsi.fastutil.Hash;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
 
 public class StringUtil {
 
@@ -137,7 +134,6 @@ public class StringUtil {
         return arr;
     }
 
-
     //theres probably a 1 method way but i dont feel like doing research
     public static String generateKey(int length) {
         String[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890".split("");
@@ -148,5 +144,4 @@ public class StringUtil {
         }
         return returnval;
     }
-
 }

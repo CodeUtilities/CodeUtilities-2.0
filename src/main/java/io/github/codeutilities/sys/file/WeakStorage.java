@@ -17,6 +17,7 @@ import java.util.Map;
  */
 public class WeakStorage<K, V> implements Closeable {
 
+    // TODO remove?
     private final long dataTimeout;
     /**
      * The amount of time between data timeout checks, in milliseconds.

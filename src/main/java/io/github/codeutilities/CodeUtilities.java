@@ -18,6 +18,7 @@ import io.github.codeutilities.mod.config.internal.gson.types.list.StringListSer
 import io.github.codeutilities.mod.config.structure.ConfigManager;
 import io.github.codeutilities.mod.config.types.BooleanSetting;
 import io.github.codeutilities.mod.config.types.DoubleSetting;
+import io.github.codeutilities.mod.config.types.EnumSetting;
 import io.github.codeutilities.mod.config.types.FloatSetting;
 import io.github.codeutilities.mod.config.types.IntegerSetting;
 import io.github.codeutilities.mod.config.types.LongSetting;
@@ -25,18 +26,18 @@ import io.github.codeutilities.mod.config.types.StringSetting;
 import io.github.codeutilities.mod.config.types.list.StringListSetting;
 import io.github.codeutilities.mod.events.EventHandler;
 import io.github.codeutilities.mod.events.interfaces.OtherEvents;
+import io.github.codeutilities.mod.features.commands.HeadsMenu;
 import io.github.codeutilities.mod.features.external.AudioHandler;
-import io.github.codeutilities.mod.features.social.cosmetics.CosmeticHandler;
-import io.github.codeutilities.mod.features.social.tab.Client;
 import io.github.codeutilities.mod.features.modules.Module;
 import io.github.codeutilities.mod.features.modules.actions.Action;
 import io.github.codeutilities.mod.features.modules.triggers.Trigger;
-import io.github.codeutilities.sys.hypercube.codeaction.ActionDump;
+import io.github.codeutilities.mod.features.social.cosmetics.CosmeticHandler;
+import io.github.codeutilities.mod.features.social.tab.Client;
 import io.github.codeutilities.sys.file.FileUtil;
-import io.github.codeutilities.mod.features.commands.HeadsMenu;
+import io.github.codeutilities.sys.hypercube.codeaction.ActionDump;
+import io.github.codeutilities.sys.hypercube.templates.TemplateStorageHandler;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.networking.socket.SocketHandler;
-import io.github.codeutilities.sys.hypercube.templates.TemplateStorageHandler;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -71,10 +72,18 @@ public class CodeUtilities implements ModInitializer {
         .registerTypeAdapter(LongSetting.class, new LongSerializer())
         .registerTypeAdapter(StringSetting.class, new StringSerializer())
         .registerTypeAdapter(StringListSetting.class, new StringListSerializer())
+        .registerTypeAdapter(EnumSetting.class, new EnumSerializer())
         .setPrettyPrinting()
         .create();
     public static final JsonParser JSON_PARSER = new JsonParser();
     public static final MinecraftClient MC = MinecraftClient.getInstance();
+
+    public static String PLAYER_NAME = null;
+    public static String PLAYER_UUID = null;
+
+    public static String JEREMASTER_UUID = "6c669475-3026-4603-b3e7-52c97681ad3a";
+    public static String RYANLAND_UUID = "3134fb4d-a345-4c5e-9513-97c2c951223e";
+
     public static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
     private static final Path optionsTxtPath = FabricLoader.getInstance().getGameDir().resolve("options.txt");
     public static String OPTIONSTXT = "";
@@ -97,6 +106,7 @@ public class CodeUtilities implements ModInitializer {
         log(Level.INFO, "Initializing");
         Runtime.getRuntime().addShutdownHook(new Thread(this::onClose));
         System.setProperty("java.awt.headless", "false");
+        //System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2,TLSv1.3");
 
         // Get lang
         Pattern regex = Pattern.compile("\nlang:.*");
@@ -111,6 +121,10 @@ public class CodeUtilities implements ModInitializer {
 
         //TODO: make this look less ugly
         Module.loadModules();
+
+        // Get player name
+        PLAYER_NAME = MC.getSession().getUsername();
+        PLAYER_UUID = MC.getSession().getUuid();
 
         // Initialize.
         CodeInitializer initializer = new CodeInitializer();

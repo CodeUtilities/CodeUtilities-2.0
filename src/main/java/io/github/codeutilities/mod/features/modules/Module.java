@@ -1,17 +1,11 @@
 package io.github.codeutilities.mod.features.modules;
 
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.mod.features.modules.tasks.Task;
 import io.github.codeutilities.mod.features.modules.actions.json.ModuleJson;
+import io.github.codeutilities.mod.features.modules.tasks.Task;
 import io.github.codeutilities.mod.features.modules.translations.Translation;
 import io.github.codeutilities.mod.features.modules.triggers.Trigger;
 import io.github.codeutilities.sys.file.FileUtil;
-import net.fabricmc.loader.api.FabricLoader;
-import org.apache.logging.log4j.Level;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -20,6 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.fabricmc.loader.api.FabricLoader;
+import org.apache.logging.log4j.Level;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Module {
 

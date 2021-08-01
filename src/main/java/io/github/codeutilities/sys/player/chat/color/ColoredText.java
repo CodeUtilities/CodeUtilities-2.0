@@ -8,6 +8,7 @@ import net.minecraft.util.Formatting;
 import java.util.Arrays;
 import java.util.Iterator;
 
+// TODO remove?
 public class ColoredText extends LiteralText {
     public ColoredText(String code, String string) {
         super(string);

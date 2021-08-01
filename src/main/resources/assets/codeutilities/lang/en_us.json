@@ -172,6 +172,7 @@
     "config.codeutilities.option.destroyItemReset.tooltip": "Resets your inventory to the /rc items after shift clicking the destroy item slot while in dev mode.",
 
     "config.codeutilities.subcategory.misc_audio": "Project: Audio",
+    "config.codeutilities.subcategory.misc_audio.tooltip": "Project: Audio settings",
     "config.codeutilities.option.audioUrl": "Backend Endpoint",
     "config.codeutilities.option.audioUrl.tooltip": "The Socket URL to connect to for Project: Audio.",
     "config.codeutilities.option.audio": "Playback Support",

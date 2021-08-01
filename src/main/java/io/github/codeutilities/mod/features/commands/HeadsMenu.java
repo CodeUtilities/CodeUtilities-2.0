@@ -1,16 +1,27 @@
 package io.github.codeutilities.mod.features.commands;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.file.ILoader;
-import io.github.codeutilities.sys.renderer.IMenu;
-import io.github.codeutilities.sys.renderer.widgets.ItemScrollablePanel;
 import io.github.codeutilities.sys.networking.WebUtil;
+import io.github.codeutilities.sys.renderer.IMenu;
+import io.github.codeutilities.sys.renderer.widgets.CTextField;
+import io.github.codeutilities.sys.renderer.widgets.ItemScrollablePanel;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WTextField;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -20,9 +31,6 @@ import net.minecraft.text.LiteralText;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.logging.log4j.Level;
-
-import java.io.IOException;
-import java.util.*;
 
 public class HeadsMenu extends LightweightGuiDescription implements IMenu, ILoader {
 

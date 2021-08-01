@@ -5,9 +5,8 @@ import io.github.codeutilities.mod.features.modules.actions.json.ActionJson;
 import io.github.codeutilities.mod.features.modules.tasks.Task;
 import io.github.codeutilities.sys.player.chat.MessageGrabber;
 import io.github.codeutilities.sys.util.TextUtil;
-import net.minecraft.text.Text;
-
 import java.util.concurrent.atomic.AtomicInteger;
+import net.minecraft.text.Text;
 
 public class GrabMessagesAction extends Action {
 

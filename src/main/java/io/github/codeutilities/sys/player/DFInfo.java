@@ -1,5 +1,6 @@
 package io.github.codeutilities.sys.player;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.events.interfaces.HyperCubeEvents;
 import io.github.codeutilities.sys.networking.State;
@@ -49,5 +50,29 @@ public class DFInfo {
         State.CurrentState newstate = new State.CurrentState(state);
         if(!currentState.equals(newstate)) HyperCubeEvents.CHANGE_STATE.invoker().update(newstate, currentState);
         currentState = newstate;
+    }
+
+    public static float TPS = 0.0f;
+    private static long lastTpsTimestamp = 0;
+
+    public static void calculateTps(long packetTimestamp) {
+        if (!RenderSystem.isOnRenderThread()) {
+            return;
+        }
+
+        if (lastTpsTimestamp == 0) {
+            lastTpsTimestamp = packetTimestamp;
+            return;
+        }
+        if (packetTimestamp - lastTpsTimestamp == 0) {
+            lastTpsTimestamp = packetTimestamp;
+            return;
+        }
+
+        long milliDiff = packetTimestamp - lastTpsTimestamp;
+        float secDiff = milliDiff / 1000f;
+
+        TPS = 20.0f / secDiff;
+        lastTpsTimestamp = packetTimestamp;
     }
 }

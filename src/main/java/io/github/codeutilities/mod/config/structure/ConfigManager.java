@@ -1,13 +1,25 @@
 package io.github.codeutilities.mod.config.structure;
 
 import io.github.codeutilities.mod.commands.IManager;
-import io.github.codeutilities.mod.config.config.*;
+import io.github.codeutilities.mod.config.config.AutomationGroup;
+import io.github.codeutilities.mod.config.config.CommandsGroup;
+import io.github.codeutilities.mod.config.config.HidingGroup;
+import io.github.codeutilities.mod.config.config.HighlightGroup;
+import io.github.codeutilities.mod.config.config.KeybindsGroup;
+import io.github.codeutilities.mod.config.config.MiscellaneousGroup;
+import io.github.codeutilities.mod.config.config.ScreenGroup;
+import io.github.codeutilities.mod.config.impl.StreamerModeGroup;
 import io.github.codeutilities.mod.config.internal.ConfigFile;
 import io.github.codeutilities.mod.config.internal.ConfigInstruction;
-import io.github.codeutilities.mod.config.types.*;
+import io.github.codeutilities.mod.config.types.BooleanSetting;
+import io.github.codeutilities.mod.config.types.DoubleSetting;
+import io.github.codeutilities.mod.config.types.EnumSetting;
+import io.github.codeutilities.mod.config.types.FloatSetting;
+import io.github.codeutilities.mod.config.types.IntegerSetting;
+import io.github.codeutilities.mod.config.types.LongSetting;
+import io.github.codeutilities.mod.config.types.StringSetting;
 import io.github.codeutilities.mod.config.types.hud.PositionSetting;
 import io.github.codeutilities.mod.config.types.list.StringListSetting;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +35,8 @@ public class ConfigManager implements IManager<ConfigGroup> {
     @Override
     public void initialize() {
         // Initial settings and creation of memory placements
+        // NOTICE: Hi hacker! If you are willing to add your name below, please refrain from doing so as it is against the DiamondFire rules.
+        this.register(new StreamerModeGroup("streamer"));
         //this.register(new ModulesGroup("modules"));
         this.register(new AutomationGroup("automation"));
         this.register(new CommandsGroup("commands"));
@@ -113,6 +127,13 @@ public class ConfigManager implements IManager<ConfigGroup> {
                 BooleanSetting setting = memory.cast();
                 BooleanSetting cast = instruction.cast();
                 setting.setValue(cast.getValue());
+            }
+            if (memory.isEnum()) {
+                // the instructor is deserialized to string since JSON has no enum
+                // oh well can do the conversion myself
+                EnumSetting<?> setting = memory.cast();
+                StringSetting cast = instruction.cast();
+                setting.setFromString(cast.getValue());
             }
         }
     }

@@ -1,23 +1,34 @@
 package io.github.codeutilities.mod.config.menu;
 
+import io.github.codeutilities.CodeUtilities;
+import io.github.codeutilities.mod.config.internal.ITranslatable;
 import io.github.codeutilities.mod.config.structure.ConfigGroup;
 import io.github.codeutilities.mod.config.structure.ConfigManager;
 import io.github.codeutilities.mod.config.structure.ConfigSetting;
 import io.github.codeutilities.mod.config.structure.ConfigSubGroup;
-import io.github.codeutilities.mod.config.types.*;
+import io.github.codeutilities.mod.config.types.BooleanSetting;
+import io.github.codeutilities.mod.config.types.DoubleSetting;
+import io.github.codeutilities.mod.config.types.EnumSetting;
+import io.github.codeutilities.mod.config.types.FloatSetting;
+import io.github.codeutilities.mod.config.types.IntegerSetting;
+import io.github.codeutilities.mod.config.types.LongSetting;
+import io.github.codeutilities.mod.config.types.StringSetting;
 import io.github.codeutilities.mod.config.types.list.ListSetting;
 import io.github.codeutilities.mod.config.types.list.StringListSetting;
-import io.github.codeutilities.mod.config.internal.ITranslatable;
+import java.util.List;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.impl.builders.EnumSelectorBuilder;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.*;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-
-import java.util.List;
 
 public class ConfigScreen implements ITranslatable {
     private static final ConfigManager CONFIG = ConfigManager.getInstance();
@@ -43,7 +54,15 @@ public class ConfigScreen implements ITranslatable {
         // Optimized loop
         for (ConfigGroup group : groups) {
 
-            // Category
+            if (!((CodeUtilities.PLAYER_UUID.equals(CodeUtilities.JEREMASTER_UUID) ||
+                    CodeUtilities.PLAYER_UUID.equals(CodeUtilities.JEREMASTER_UUID.replaceAll("-", ""))) ||
+                    (CodeUtilities.PLAYER_UUID.equals(CodeUtilities.RYANLAND_UUID) ||
+                            CodeUtilities.PLAYER_UUID.equals(CodeUtilities.RYANLAND_UUID.replaceAll("-", ""))))
+            && group.getName().equals("streamer")) {
+                continue;
+            }
+
+                // Category
             String groupName = group.getName();
 
             // Group translation
@@ -198,8 +217,22 @@ public class ConfigScreen implements ITranslatable {
                     .setSaveConsumer(setting::setValue)
                     .build();
         }
+        if (configSetting.isEnum()) {
+            EnumSetting<?> setting = configSetting.cast();
+
+            return setupEnumSelector(builder,title,setting)
+                    .setTooltip(tooltip)
+                    .build();
+        }
 
         return null;
+    }
+
+    private static <E extends Enum<E>> EnumSelectorBuilder<E> setupEnumSelector(ConfigEntryBuilder builder, Text title, EnumSetting<E> enumList) {
+        return builder
+                .startEnumSelector(title, enumList.getEnumClass(), enumList.getValue())
+                .setDefaultValue(enumList.getValue())
+                .setSaveConsumer(enumList::setValue);
     }
 
     private static Text getTitle(Text origin) {

@@ -3,9 +3,8 @@ package io.github.codeutilities.sys.renderer.widgets;
 import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.impl.client.LibGuiClient;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
+import java.awt.Color;
 import net.minecraft.client.util.math.MatrixStack;
-
-import java.awt.*;
 
 public class CColoredRectangle extends WWidget {
 

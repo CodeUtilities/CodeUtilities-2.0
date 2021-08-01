@@ -23,6 +23,7 @@ import java.util.List;
 
 public class TemplateSearchMenu extends LightweightGuiDescription {
 
+    // TODO remove?
     private static final String[] PLOTS = {"Basic", "Large", "Massive"};
     private static final String[] RANKS = {"Noble", "Emperor", "Mythic", "Overlord"};
 

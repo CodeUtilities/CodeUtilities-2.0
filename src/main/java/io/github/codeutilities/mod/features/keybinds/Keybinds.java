@@ -1,9 +1,9 @@
 package io.github.codeutilities.mod.features.keybinds;
 
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.sys.player.DFInfo;
-import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.hypercube.templates.SearchUtil;
+import io.github.codeutilities.sys.networking.State;
+import io.github.codeutilities.sys.player.DFInfo;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 public class Keybinds implements ClientModInitializer {
 
     final MinecraftClient mc = MinecraftClient.getInstance();
+
+    public static KeyBinding showTags;
 
     @Override
     public void onInitializeClient() {
@@ -124,6 +126,12 @@ public class Keybinds implements ClientModInitializer {
         // search
         KeyBinding searchFunction = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.codeutilities.search", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+
+        // show tags
+
+        showTags = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.codeutilities.showTags", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"
+        ));
 
         // =======
 

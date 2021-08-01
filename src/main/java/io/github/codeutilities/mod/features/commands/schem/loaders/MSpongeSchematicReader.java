@@ -20,9 +20,16 @@
 package io.github.codeutilities.mod.features.commands.schem.loaders;
 
 import io.github.codeutilities.mod.features.commands.schem.Schematic;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.ByteArrayTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.CompoundTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.IntArrayTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.IntTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.ListTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.NBTInputStream;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.NamedTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.ShortTag;
+import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.Tag;
 import io.github.codeutilities.mod.features.commands.schem.sk89q.worldedit.math.BlockVector3;
-import io.github.codeutilities.mod.features.commands.schem.sk89q.jnbt.*;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;

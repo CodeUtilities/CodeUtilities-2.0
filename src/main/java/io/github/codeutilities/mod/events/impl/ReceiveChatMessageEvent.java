@@ -4,23 +4,23 @@ import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.mod.config.ConfigSounds;
 import io.github.codeutilities.mod.events.interfaces.ChatEvents;
-import io.github.codeutilities.mod.features.social.chat.ConversationTimer;
 import io.github.codeutilities.mod.features.CPU_UsageText;
+import io.github.codeutilities.mod.features.StreamerModeHandler;
 import io.github.codeutilities.mod.features.modules.triggers.Trigger;
 import io.github.codeutilities.mod.features.modules.triggers.impl.MessageReceivedTrigger;
+import io.github.codeutilities.mod.features.social.chat.ConversationTimer;
+import io.github.codeutilities.sys.networking.State;
+import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.player.chat.ChatType;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 import io.github.codeutilities.sys.util.TextUtil;
-import io.github.codeutilities.sys.player.DFInfo;
-import io.github.codeutilities.sys.networking.State;
+import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
-
-import java.util.Collection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ReceiveChatMessageEvent {
     public ReceiveChatMessageEvent() {
@@ -38,6 +38,8 @@ public class ReceiveChatMessageEvent {
     public static int locating = 0;
     public static int cancelMsgs = 0;
 
+    public static String tipPlayer = "";
+
     private ActionResult run(Text message) {
         MinecraftClient mc = MinecraftClient.getInstance();
         String text = message.getString();
@@ -52,6 +54,17 @@ public class ReceiveChatMessageEvent {
         if (cancelMsgs > 0) {
             cancelMsgs--;
             cancel = true;
+        }
+
+        // Streamer mode
+        if (StreamerModeHandler.handleMessage(message)) {
+            cancel = true;
+        }
+
+        // Debug mode
+        if (Config.getBoolean("debugMode")) {
+            System.out.println(message);
+            // Doesn't work? > CodeUtilities.log(Level.DEBUG, message.toString());
         }
 
         // module trigger
@@ -87,13 +100,13 @@ public class ReceiveChatMessageEvent {
             ConversationTimer.conversationUpdateTime = String.valueOf(System.currentTimeMillis());
 
         //LagSlayer enable/disable
-        if (text.matches("^\\[LagSlayer\\] Now monitoring plot .*\\. Type /lagslayer to stop monitoring\\.$")) {
+        if (text.matches("^\\[LagSlayer] Now monitoring plot .*\\. Type /lagslayer to stop monitoring\\.$")) {
             CPU_UsageText.lagSlayerEnabled = true;
             if (cancelLagSlayerMsg) cancel = true;
             cancelLagSlayerMsg = false;
         }
 
-        if (text.matches("^\\[LagSlayer\\] Stopped monitoring plot .*\\.$")) {
+        if (text.matches("^\\[LagSlayer] Stopped monitoring plot .*\\.$")) {
             CPU_UsageText.lagSlayerEnabled = false;
             if (cancelLagSlayerMsg) cancel = true;
             cancelLagSlayerMsg = false;
@@ -253,6 +266,21 @@ public class ReceiveChatMessageEvent {
             cancelAdminVanishMsg = false;
         }
 
+
+        if (Config.getBoolean("autoClickEditMsgs") && text.startsWith("⏵ Click to edit variable: ")) {
+            if (message.getStyle().getClickEvent().getAction() == Action.SUGGEST_COMMAND) {
+                String toOpen = message.getStyle().getClickEvent().getValue();
+                MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().openScreen(new ChatScreen(toOpen)));
+            }
+        }
+
+        if (Config.getBoolean("autoTip") && text.startsWith("⏵⏵ ")) {
+            if (msgWithColor.matches("§x§a§a§5§5§f§f⏵⏵ §f§l\\w+§7 is using a §x§f§f§f§f§a§a§l2§x§f§f§f§f§a§a§lx§7 booster.")) {
+                tipPlayer = text.split("§f§l")[1].split("§7")[0];
+            } else if (msgWithColor.matches("§x§a§a§5§5§f§f⏵⏵ §7Use §x§f§f§f§f§a§a\\/tip§7 to show your appreciation and receive a §x§f§f§d§4§2§a□ token notch§7!")) {
+                mc.player.sendChatMessage("/tip " + tipPlayer);
+            }
+        }
 
 
         //Cancelling (set cancel to true)

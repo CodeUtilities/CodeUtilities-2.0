@@ -20,6 +20,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
+// TODO remove?
 public class ChestHud {
     public static void register() {
         ScreenEvents.AFTER_INIT.register(ChestHud::afterInit);

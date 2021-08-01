@@ -3,17 +3,18 @@ package io.github.codeutilities.mod.features.commands.codeutilities;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.renderer.widgets.CImage;
+import io.github.codeutilities.sys.util.TextUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.Level;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.Level;
 
 public class FeaturesUI extends LightweightGuiDescription implements IMenu {
     private static final Identifier CODEUTILS_LOGO = new Identifier("codeutilities:icon.png");
@@ -44,7 +45,12 @@ public class FeaturesUI extends LightweightGuiDescription implements IMenu {
 
             while ((inputLine = in.readLine()) != null) {
                 y += 10;
-                panel.add(new WLabel(new LiteralText(inputLine)), 4, y);
+                if (inputLine.contains("-")) {
+                    String[] inls = inputLine.replace("§l/§r", "/").split("-");
+                    String[] colors = {"§x§C§C§5§D§0§0", "§x§3§3§0§3§0§0", "§x§C§C§5§2§0§0"};
+                    Text txt = TextUtil.colorCodesToTextComponent(colors[0]+inls[0]+colors[1]+" - "+colors[2]+inls[1]);
+                    panel.add(new WLabel(txt), 4, y);
+                }
             }
 
             in.close();

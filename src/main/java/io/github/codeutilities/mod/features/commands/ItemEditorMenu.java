@@ -3,11 +3,13 @@ package io.github.codeutilities.mod.features.commands;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.renderer.widgets.CItem;
+import io.github.codeutilities.sys.renderer.widgets.CTextField;
 import io.github.codeutilities.sys.util.StringUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WTextField;
+import java.util.Collections;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,8 +18,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import java.util.Collections;
 
 public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
     private final ItemStack itemStack;

@@ -2,14 +2,13 @@ package io.github.codeutilities.mod.mixin.render;
 
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.networking.TPSUtil;
+import java.util.List;
 import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 @Mixin(DebugHud.class)
 public class MDebugHUD {

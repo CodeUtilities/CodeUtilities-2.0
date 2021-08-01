@@ -69,7 +69,9 @@ public class TemplatePeeker implements ILoader {
 
         MinecraftClient mc = CodeUtilities.MC;
         WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((ctx, outline) -> {
-            if (!Config.getBoolean("templatePeeking")) return true;
+            if (!Config.getBoolean("templatePeeking")) {
+                return true;
+            }
 
             templatePreview = true;
             try {
@@ -86,15 +88,15 @@ public class TemplatePeeker implements ILoader {
                 BlockPos target = new BlockPos(mc.crosshairTarget.getPos());
 
                 if (mc.world.getBlockState(target).isAir()
-                        && !mc.world.getBlockState(target.down()).isAir()
-                        && mc.player.isCreative()) {
+                    && !mc.world.getBlockState(target.down()).isAir()
+                    && mc.player.isCreative()) {
 
                     if (TemplateUtils.isTemplate(mc.player.getMainHandStack())) {
                         JsonObject encoded = TemplateUtils.fromItemStack(
-                                mc.player.getMainHandStack());
+                            mc.player.getMainHandStack());
                         JsonArray json = CodeUtilities.JSON_PARSER.parse(new String(
-                                CompressionUtil.fromGZIP(CompressionUtil.fromBase64(
-                                        encoded.get("code").getAsString().getBytes()))
+                            CompressionUtil.fromGZIP(CompressionUtil.fromBase64(
+                                encoded.get("code").getAsString().getBytes()))
                         )).getAsJsonObject().get("blocks").getAsJsonArray();
 
                         BlockPos dloc = target;
@@ -112,33 +114,36 @@ public class TemplatePeeker implements ILoader {
 //                                    renderBlock(Blocks.CHEST.getDefaultState(), dloc.up(), ctx);
                                 }
                                 if (!noStones.contains(type)) {
-                                    dloc = dloc.north();
-                                    renderBlock(Blocks.STONE.getDefaultState(),dloc,ctx);
+                                    dloc = dloc.south();
+                                    renderBlock(Blocks.STONE.getDefaultState(), dloc, ctx);
                                 }
 
                             } else {
                                 boolean open =
-                                        Objects.equals(blocks.get("direct").getAsString(), "open");
+                                    Objects.equals(blocks.get("direct").getAsString(), "open");
                                 boolean norm =
-                                        Objects.equals(blocks.get("type").getAsString(), "norm");
+                                    Objects.equals(blocks.get("type").getAsString(), "norm");
 
                                 BlockState bstate = Blocks.PISTON.getDefaultState();
                                 if (!norm) {
                                     bstate = Blocks.STICKY_PISTON.getDefaultState();
                                 }
 
-                                if (!open) {
+                                if (open) {
                                     bstate = bstate.with(Properties.FACING, Direction.SOUTH);
-                                    dloc = dloc.north();
+                                    dloc = dloc.south();
                                 }
 
                                 renderBlock(bstate, dloc, ctx);
                             }
 
-                            if (!mc.world.getBlockState(dloc).isAir() || mc.world.getBlockState(dloc.down()).isAir()) {
-                                mc.player.sendMessage(new LiteralText("§c§lWarning: §6Invalid Template Placement!"),true);
+                            if (!mc.world.getBlockState(dloc).isAir() || mc.world.getBlockState(
+                                dloc.down()).isAir()) {
+                                mc.player.sendMessage(
+                                    new LiteralText("§c§lWarning: §6Invalid Template Placement!"),
+                                    true);
                             }
-                            dloc = dloc.north();
+                            dloc = dloc.south();
                         }
                     }
                 }
@@ -165,8 +170,8 @@ public class TemplatePeeker implements ILoader {
         matrix.translate(vec3d.x, vec3d.y, vec3d.z);
         BakedModel model = mc.getBlockRenderManager().getModel(state);
         mc.getBlockRenderManager().getModelRenderer()
-                .renderSmooth(world, model, state, blockPos, matrix, vertexConsumer, true,
-                        new Random(0), 0, 0);
+            .renderSmooth(world, model, state, blockPos, matrix, vertexConsumer, true,
+                new Random(0), 0, 0);
         matrix.pop();
     }
 }

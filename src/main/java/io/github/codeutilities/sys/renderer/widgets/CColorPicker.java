@@ -1,8 +1,8 @@
 package io.github.codeutilities.sys.renderer.widgets;
 
+import io.github.codeutilities.mod.features.commands.ColorsMenu;
 import io.github.codeutilities.sys.player.chat.color.ColorUtil;
 import io.github.codeutilities.sys.player.chat.color.HSBColor;
-import io.github.codeutilities.mod.features.commands.ColorsMenu;
 import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;

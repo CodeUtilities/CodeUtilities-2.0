@@ -4,7 +4,6 @@ import io.github.codeutilities.mod.commands.IManager;
 import io.github.codeutilities.mod.events.impl.ChangeStateEvent;
 import io.github.codeutilities.mod.events.impl.ReceiveChatMessageEvent;
 import io.github.codeutilities.mod.events.impl.TickEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
