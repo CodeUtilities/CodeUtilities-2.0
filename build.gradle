@@ -45,7 +45,7 @@ dependencies {
     }
 
     //discord RPC
-    shadow 'com.jagrosh:DiscordIPC:0.4'
+    modInclude 'com.jagrosh:DiscordIPC:0.4'
 
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
