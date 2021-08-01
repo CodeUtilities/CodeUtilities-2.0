@@ -3,7 +3,6 @@ package io.github.codeutilities.mod.features.commands;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.renderer.widgets.CItem;
-import io.github.codeutilities.sys.renderer.widgets.CTextField;
 import io.github.codeutilities.sys.util.StringUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;

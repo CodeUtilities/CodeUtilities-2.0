@@ -1,8 +1,13 @@
 package io.github.codeutilities.mod.features.modules.actions;
 
-import io.github.codeutilities.mod.features.modules.actions.impl.*;
+import io.github.codeutilities.mod.features.modules.actions.impl.CancelNextMessagesAction;
+import io.github.codeutilities.mod.features.modules.actions.impl.ContinueIfEqualAction;
+import io.github.codeutilities.mod.features.modules.actions.impl.GrabMessagesAction;
+import io.github.codeutilities.mod.features.modules.actions.impl.MessageAction;
+import io.github.codeutilities.mod.features.modules.actions.impl.SendMessageAction;
+import io.github.codeutilities.mod.features.modules.actions.impl.StopIfEqualAction;
+import io.github.codeutilities.mod.features.modules.actions.impl.WaitAction;
 import io.github.codeutilities.mod.features.modules.actions.json.ActionJson;
-
 import java.util.HashMap;
 
 public class Action {
@@ -12,7 +17,7 @@ public class Action {
             new CancelNextMessagesAction(),
             new SendMessageAction(),
             new StopIfEqualAction(),
-            new ContinueIfEqual(),
+            new ContinueIfEqualAction(),
             new WaitAction(),
             new GrabMessagesAction()
     };

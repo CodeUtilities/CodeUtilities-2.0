@@ -11,12 +11,9 @@ import io.github.codeutilities.mod.commands.impl.item.ItemdataCommand;
 import io.github.codeutilities.mod.commands.impl.item.RelativeLocCommand;
 import io.github.codeutilities.mod.commands.impl.item.TemplatesCommand;
 import io.github.codeutilities.mod.commands.impl.item.UnpackCommand;
-import io.github.codeutilities.mod.commands.impl.item.template.SendTemplateCommand;
 import io.github.codeutilities.mod.commands.impl.item.template.WebviewCommand;
-import io.github.codeutilities.mod.commands.impl.other.*;
 import io.github.codeutilities.mod.commands.impl.other.CodeUtilitiesCommand;
 import io.github.codeutilities.mod.commands.impl.other.ConfigCommand;
-import io.github.codeutilities.mod.commands.impl.other.DebugCommand;
 import io.github.codeutilities.mod.commands.impl.other.NBSCommand;
 import io.github.codeutilities.mod.commands.impl.other.NBSSearchCommand;
 import io.github.codeutilities.mod.commands.impl.other.NodeCommand;
@@ -55,7 +52,6 @@ public class CommandHandler implements ILoader {
             new GradientCommand(),
             new ConfigCommand(),
             new SearchCommand(),
-            new DebugCommand(),
             new QueueCommand(),
             new TitleCommand(),
             new SubTitleCommand(),
@@ -71,7 +67,6 @@ public class CommandHandler implements ILoader {
                 new NBSCommand(),
                 new ImageHologramCommand(),
                 new ImageParticleCommand(),
-                new SendTemplateCommand(),
                 new PJoinCommand(),
                 new ImageHologramCommand(),
                 new ImageParticleCommand(),

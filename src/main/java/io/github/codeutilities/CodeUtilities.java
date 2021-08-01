@@ -10,6 +10,7 @@ import io.github.codeutilities.mod.config.internal.ConfigInstruction;
 import io.github.codeutilities.mod.config.internal.gson.ConfigSerializer;
 import io.github.codeutilities.mod.config.internal.gson.types.BooleanSerializer;
 import io.github.codeutilities.mod.config.internal.gson.types.DoubleSerializer;
+import io.github.codeutilities.mod.config.internal.gson.types.EnumSerializer;
 import io.github.codeutilities.mod.config.internal.gson.types.FloatSerializer;
 import io.github.codeutilities.mod.config.internal.gson.types.IntegerSerializer;
 import io.github.codeutilities.mod.config.internal.gson.types.LongSerializer;

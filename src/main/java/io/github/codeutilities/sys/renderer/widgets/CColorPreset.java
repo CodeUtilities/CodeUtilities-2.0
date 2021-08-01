@@ -3,12 +3,11 @@ package io.github.codeutilities.sys.renderer.widgets;
 import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
+import java.awt.Color;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
-
-import java.awt.*;
 
 public class CColorPreset extends WButton {
 

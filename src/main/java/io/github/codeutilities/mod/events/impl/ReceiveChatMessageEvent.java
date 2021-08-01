@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.text.ClickEvent.Action;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.Level;
@@ -270,7 +272,7 @@ public class ReceiveChatMessageEvent {
         if (Config.getBoolean("autoClickEditMsgs") && text.startsWith("⏵ Click to edit variable: ")) {
             if (message.getStyle().getClickEvent().getAction() == Action.SUGGEST_COMMAND) {
                 String toOpen = message.getStyle().getClickEvent().getValue();
-                MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().openScreen(new ChatScreen(toOpen)));
+                mc.send(() -> mc.setScreen(new ChatScreen(toOpen)));
             }
         }
 

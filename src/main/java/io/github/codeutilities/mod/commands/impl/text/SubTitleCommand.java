@@ -28,14 +28,16 @@ public class SubTitleCommand extends Command {
                         ctx.getArgument("message", String.class)
                             .replace("&", "§"));
 
-                    mc.inGameHud.setTitles(new LiteralText("§c"), null, 20, 60, 20);
-                    mc.inGameHud.setTitles(null, msg, 0,0,0);
+                    mc.inGameHud.setTitle(new LiteralText("§r"));
+                    mc.inGameHud.setSubtitle(msg);
+                    mc.inGameHud.setTitleTicks(20,60,20);
                     return 1;
                 })
             )
             .executes(ctx -> {
-                mc.inGameHud.setTitles(new LiteralText("§c"), null, 20, 60, 20);
-                mc.inGameHud.setTitles(null, mc.player.getMainHandStack().getName(), 0,0,0);
+                mc.inGameHud.setTitle(new LiteralText("§r"));
+                mc.inGameHud.setSubtitle(mc.player.getMainHandStack().getName());
+                mc.inGameHud.setTitleTicks(20,60,20);
                 return 1;
             })
         );

@@ -60,8 +60,34 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:2.0.2"
 
     // websocket TODO: clean this up
-    modInclude 'io.socket:socket.io-client:2.0.0'
-    shadow "org.java-websocket:Java-WebSocket:1.5.1"
+    modImplementation "javax.websocket:javax.websocket-api:1.1"
+    modImplementation "org.glassfish.tyrus:tyrus-server:1.1"
+    modImplementation "org.glassfish.tyrus:tyrus-client:1.1"
+    modImplementation "org.glassfish.tyrus:tyrus-container-grizzly:1.1"
+    modImplementation 'io.socket:socket.io-client:2.0.0'
+    modInclude "javax.websocket:javax.websocket-api:1.1"
+    modInclude "org.glassfish.tyrus:tyrus-websocket-core:1.1"
+    modInclude "org.glassfish.tyrus:tyrus-spi:1.1"
+    modInclude "org.glassfish.tyrus:tyrus-server:1.1"
+    modInclude "org.glassfish.tyrus:tyrus-core:1.1"
+    modInclude "org.glassfish.tyrus:tyrus-container-grizzly:1.1"
+    modInclude "org.glassfish.grizzly:grizzly-rcm:2.3.3"
+    modInclude "org.glassfish.grizzly:grizzly-http-server:2.3.3"
+    modInclude "org.glassfish.grizzly:grizzly-http:2.3.3"
+    modInclude "org.glassfish.grizzly:grizzly-framework:2.3.3"
+
+    modInclude 'javax.websocket:javax.websocket-api:1.1'
+    modInclude "org.java-websocket:Java-WebSocket:1.5.1"
+    modInclude 'org.glassfish.tyrus:tyrus-server:1.1'
+    modInclude 'org.glassfish.tyrus:tyrus-client:1.1'
+    modInclude 'org.glassfish.tyrus:tyrus-container-grizzly:1.1'
+    modInclude 'org.glassfish.tyrus:tyrus-spi:1.1'
+    modInclude 'org.glassfish.tyrus:tyrus-websocket-core:1.1'
+    modInclude 'org.glassfish.tyrus:tyrus-core:1.1'
+    modInclude 'org.glassfish.grizzly:grizzly-rcm:2.3.3'
+    modInclude 'org.glassfish.grizzly:grizzly-framework:2.3.3'
+    modInclude 'org.glassfish.grizzly:grizzly-http-server:2.3.3'
+    modInclude 'org.glassfish.grizzly:grizzly-http:2.3.3'
 
     //TODO: wait for databreaker to update to 1.17
 //    modRuntime("com.github.SuperCoder7979:databreaker:0.2.6") {

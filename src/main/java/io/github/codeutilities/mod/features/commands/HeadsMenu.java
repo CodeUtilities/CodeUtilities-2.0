@@ -10,7 +10,6 @@ import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.file.ILoader;
 import io.github.codeutilities.sys.networking.WebUtil;
 import io.github.codeutilities.sys.renderer.IMenu;
-import io.github.codeutilities.sys.renderer.widgets.CTextField;
 import io.github.codeutilities.sys.renderer.widgets.ItemScrollablePanel;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
