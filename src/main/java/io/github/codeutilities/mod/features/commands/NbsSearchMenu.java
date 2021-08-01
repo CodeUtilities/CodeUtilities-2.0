@@ -62,10 +62,10 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
     public void open(String... args) throws CommandSyntaxException {
         MinecraftClient mc = CodeUtilities.MC;
         WPlainPanel root = new WPlainPanel();
-        root.setSize(300, 240);
+        root.setSize(310, 250);
 
         WText queryField = new WText(new LiteralText("§l§nSearch Results for: " + query));
-        root.add(queryField, 0, 0, 300, 0);
+        root.add(queryField, 5, 5, 300, 0);
 
         WPlainPanel ppanel = new WPlainPanel();
 
@@ -203,7 +203,7 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
         spanel.setScrollingHorizontally(TriState.FALSE);
         spanel.setScrollingVertically(TriState.TRUE);
-        root.add(spanel, 0, 10, 300, 230);
+        root.add(spanel, 5, 15, 300, 230);
         setRootPanel(root);
         root.validate(this);
     }

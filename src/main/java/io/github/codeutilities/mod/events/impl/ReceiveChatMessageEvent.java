@@ -63,12 +63,6 @@ public class ReceiveChatMessageEvent {
             cancel = true;
         }
 
-        // Debug mode
-        if (Config.getBoolean("debugMode")) {
-            System.out.println(message);
-            // Doesn't work? > CodeUtilities.log(Level.DEBUG, message.toString());
-        }
-
         // module trigger
         Trigger.execute(new MessageReceivedTrigger());
 
