@@ -1,6 +1,7 @@
 package io.github.codeutilities.mod.features.keybinds;
 
 import io.github.codeutilities.mod.config.Config;
+import io.github.codeutilities.sys.file.ILoader;
 import io.github.codeutilities.sys.hypercube.templates.SearchUtil;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.player.DFInfo;
@@ -14,14 +15,14 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.math.BlockPos;
 
-public class Keybinds implements ClientModInitializer {
+public class Keybinds implements ILoader {
 
     final MinecraftClient mc = MinecraftClient.getInstance();
 
     public static KeyBinding showTags;
 
     @Override
-    public void onInitializeClient() {
+    public void load() {
 
         // =======================================================
         // Initialize

@@ -35,17 +35,17 @@ public class ContributorsUI extends LightweightGuiDescription implements IMenu {
 
         WPlainPanel root = new WPlainPanel();
         root.setHost(this);
-        root.setSize(300, 220);
+        root.setSize(310, 230);
 
         WPlainPanel panel = new WPlainPanel();
-        root.add(new WLabel("Contributors"), 0, 0);
+        root.add(new WLabel("Contributors"), 5, 5);
 
         WScrollPanel scrollPanel = new WScrollPanel(panel);
         scrollPanel.setHost(this);
-        root.add(scrollPanel, 0, 10, 300, 210);
+        root.add(scrollPanel, 5, 15, 300, 210);
 
-        int y = 0;
-        int x = 0;
+        int y = 5;
+        int x = 5;
 
         try {
             JsonArray array = WebUtil.getJson("https://api.github.com/repos/CodeUtilities/CodeUtilities/contributors").getAsJsonArray();

@@ -22,13 +22,13 @@ public class FeaturesUI extends LightweightGuiDescription implements IMenu {
     @Override
     public void open(String... args) {
         WPlainPanel root = new WPlainPanel();
-        root.setSize(425, 220);
+        root.setSize(435, 230);
 
         WPlainPanel panel = new WPlainPanel();
         WScrollPanel scrollPanel = new WScrollPanel(panel);
         scrollPanel.setHost(this);
 
-        root.add(scrollPanel, 0, 0, 425, 220);
+        root.add(scrollPanel, 5, 5, 425, 220);
         panel.add(new WLabel(new LiteralText("CodeUtilities Features || v" + CodeUtilities.MOD_VERSION)), 4, 4);
 
         CImage cImage = new CImage(CODEUTILS_LOGO);

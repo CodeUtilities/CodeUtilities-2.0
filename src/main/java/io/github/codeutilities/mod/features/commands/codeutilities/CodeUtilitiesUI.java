@@ -19,7 +19,7 @@ public class CodeUtilitiesUI extends LightweightGuiDescription implements IMenu 
     @Override
     public void open(String... args) {
         WPlainPanel root = new WPlainPanel();
-        root.setSize(220, 220);
+        root.setSize(220, 225);
 
         CImage cImage = new CImage(CODEUTILS_LOGO);
         cImage.setSize(128, 128);

@@ -29,6 +29,7 @@ import io.github.codeutilities.mod.events.EventHandler;
 import io.github.codeutilities.mod.events.interfaces.OtherEvents;
 import io.github.codeutilities.mod.features.commands.HeadsMenu;
 import io.github.codeutilities.mod.features.external.AudioHandler;
+import io.github.codeutilities.mod.features.keybinds.Keybinds;
 import io.github.codeutilities.mod.features.modules.Module;
 import io.github.codeutilities.mod.features.modules.actions.Action;
 import io.github.codeutilities.mod.features.modules.triggers.Trigger;
@@ -139,6 +140,7 @@ public class CodeUtilities implements ModInitializer {
         initializer.add(new EventHandler());
         initializer.add(new State.Locater());
         initializer.add(new CommandHandler());
+        initializer.add(new Keybinds());
 
         // Initializes only if the given condition is met. (this case: config value)
         initializer.addIf(new AudioHandler(), Config.getBoolean("audio"));
