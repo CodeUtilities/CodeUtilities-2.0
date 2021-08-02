@@ -121,8 +121,8 @@ public class CodeUtilities implements ModInitializer {
         Action.cacheActions();
         Trigger.cacheTriggers();
 
-        //TODO: make this look less ugly
-        Module.loadModules();
+        //TODO: make this look less ugly & make it not crash on start
+        //Module.loadModules();
 
         // Get player name
         PLAYER_NAME = MC.getSession().getUsername();
