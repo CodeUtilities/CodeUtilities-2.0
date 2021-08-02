@@ -10,6 +10,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.visitor.NbtTextFormatter;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.ClickEvent.Action;
 import net.minecraft.text.LiteralText;
@@ -26,8 +27,7 @@ public class ItemdataCommand extends Command {
                     if (nbt != null) {
                         ChatUtil.sendMessage(String.format("§5----------§dItem Data for %s§5----------", item.getName().getString()));
 
-                        mc.player.sendMessage(NbtHelper.toPrettyPrintedText(nbt), false);
-
+                        mc.player.sendMessage((new NbtTextFormatter("   ",0)).apply(nbt), false);
 
                         String formatted = NbtHelper.toPrettyPrintedString(nbt);
                         String unformatted = nbt.toString();

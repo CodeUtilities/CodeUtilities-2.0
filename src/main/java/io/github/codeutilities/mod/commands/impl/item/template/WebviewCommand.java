@@ -51,7 +51,7 @@ public class WebviewCommand extends AbstractTemplateCommand {
 
 
                 LiteralText text = new LiteralText(
-                        "Click this message to view this code template in web!");
+                        "Click this message to view this code template in the web!");
                 text.styled((style) -> style
                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,
                                 "https://derpystuff.gitlab.io/code/l?link=" + link)));

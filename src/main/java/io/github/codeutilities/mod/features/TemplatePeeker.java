@@ -131,10 +131,13 @@ public class TemplatePeeker implements ILoader {
 
                                 if (open) {
                                     bstate = bstate.with(Properties.FACING, Direction.SOUTH);
-                                    dloc = dloc.south();
                                 }
 
                                 renderBlock(bstate, dloc, ctx);
+
+                                if (open) {
+                                    dloc = dloc.south();
+                                }
                             }
 
                             if (!mc.world.getBlockState(dloc).isAir() || mc.world.getBlockState(

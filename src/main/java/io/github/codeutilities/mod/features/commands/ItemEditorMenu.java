@@ -30,11 +30,11 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
         MinecraftClient mc = CodeUtilities.MC;
         final ItemStack[] item = {itemStack.copy()};
         WGridPanel root = new WGridPanel(1);
-        root.setSize(256, 240);
+        root.setSize(266, 250);
 
         //Item Display
         CItem icon = new CItem(item[0]);
-        root.add(icon, 0, 0, 20, 20);
+        root.add(icon, 5, 5, 20, 20);
 
         //Item Name
         WTextField name = new WTextField(new LiteralText(""));
@@ -48,7 +48,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
                 item[0].setCustomName(new LiteralText(name.getText().replaceAll("&", "§")));
             }
         });
-        root.add(name, 30, 0, 226, 0);
+        root.add(name, 35, 5, 226, 0);
 
         //Save & Quit
         WButton save = new WButton(new LiteralText("Save & Quit"));
@@ -58,7 +58,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
             mc.currentScreen.onClose();
         });
 
-        root.add(save, 190, 220, 70, 20);
+        root.add(save, 190, 225, 70, 20);
 
         //Item Material
         WTextField material = new WTextField(new LiteralText(""));
@@ -74,7 +74,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
                 icon.setItems(Collections.singletonList(item[0]));
             } else save.setEnabled(false);
         });
-        root.add(material, 30, 25, 226, 0);
+        root.add(material, 35, 30, 226, 0);
 
 
         setRootPanel(root);

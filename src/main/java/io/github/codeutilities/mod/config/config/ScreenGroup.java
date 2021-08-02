@@ -32,5 +32,6 @@ public class ScreenGroup extends ConfigGroup {
         this.register(new BooleanSetting("cpuOnScreen", true));
         this.register(new BooleanSetting("f3Tps", true));
         this.register(new BooleanSetting("cosmeticsEnabled", true));
+        this.register(new BooleanSetting("templatePeeking", false));
     }
 }

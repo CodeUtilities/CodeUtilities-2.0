@@ -35,7 +35,7 @@ public class ContributorsUI extends LightweightGuiDescription implements IMenu {
 
         WPlainPanel root = new WPlainPanel();
         root.setHost(this);
-        root.setSize(310, 230);
+        root.setSize(310, 235);
 
         WPlainPanel panel = new WPlainPanel();
         root.add(new WLabel("Contributors"), 5, 5);

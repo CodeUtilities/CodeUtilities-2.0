@@ -19,6 +19,7 @@ import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
 import io.github.cottonmc.cotton.gui.widget.WText;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,10 +76,10 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
         WScrollPanel spanel = new WScrollPanel(ppanel);
 
-        try {
+        CodeUtilities.EXECUTOR.submit(() -> {
             String sresults = CodeUtilitiesServer.requestURL(
                 "https://untitled-57qvszfgg28u.runkit.sh/search?query=" + URLEncoder
-                    .encode(query, "UTF-8"));
+                    .encode(query, StandardCharsets.UTF_8));
 
             JsonArray results = CodeUtilities.JSON_PARSER.parse(sresults).getAsJsonArray();
 
@@ -92,9 +93,12 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
                     int id = e.get("id").getAsInt();
                     String duration = e.get("duration").getAsString();
-                    WText title = new WText(new LiteralText(e.get("title").getAsString()));
+                    WText title = new WText(
+                        new LiteralText(e.get("title").getAsString().replaceAll("\n", "")));
                     WText description = new WText(
-                        new LiteralText(duration + " §8-§r " + e.get("composer").getAsString()));
+                        new LiteralText(
+                            (duration + " §8-§r " + e.get("composer").getAsString()).replaceAll(
+                                "\n", "")));
 
                     ppanel.add(title, 0, y, 999, 10);
                     ppanel.add(description, 0, y + 10, 999, 10);
@@ -120,7 +124,8 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
                                 ItemStack stack = new ItemStack(Items.NOTE_BLOCK);
                                 TemplateUtils
-                                    .compressTemplateNBT(stack, d.getName(), d.getAuthor(), code);
+                                    .compressTemplateNBT(stack, d.getName(), d.getAuthor(),
+                                        code);
 
                                 stack.setCustomName(
                                     new LiteralText("§d" + e.get("title").getAsString()));
@@ -195,11 +200,7 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
                 spanel.layout();
             });
-        } catch (UnsupportedEncodingException err) {
-            err.printStackTrace();
-            loading.setText(new LiteralText("Error"));
-            ChatUtil.sendMessage("Error");
-        }
+        });
 
         spanel.setScrollingHorizontally(TriState.FALSE);
         spanel.setScrollingVertically(TriState.TRUE);

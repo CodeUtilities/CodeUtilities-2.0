@@ -24,10 +24,10 @@ public class TemplatesMenu extends LightweightGuiDescription implements IMenu {
         }
         WPlainPanel root = new WPlainPanel();
         ItemScrollablePanel panel = ItemScrollablePanel.with(items);
-        root.setSize(256, 90);
+        root.setSize(266, 100);
         panel.setSize(256, 90);
 
-        root.add(panel, 0, 0, 256, 90);
+        root.add(panel, 5, 5, 256, 90);
 
         setRootPanel(root);
         root.validate(this);

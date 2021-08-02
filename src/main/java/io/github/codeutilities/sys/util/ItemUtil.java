@@ -40,11 +40,13 @@ public class ItemUtil {
             ItemStack i = mainInventory.get(index);
             ItemStack compareItem = i.copy();
             compareItem.setCount(item.getCount());
-            if (item == compareItem) {
+            if (item.isItemEqual(compareItem)) {
                 while (i.getCount() < i.getMaxCount() && item.getCount() > 0) {
                     i.setCount(i.getCount() + 1);
                     item.setCount(item.getCount() - 1);
                 }
+                MinecraftClient.getInstance().interactionManager.clickCreativeStack(i, index + 36);
+                mainInventory.set(index, i);
             } else {
                 if (i.getItem() == Items.AIR) {
                     if (index < 9)
