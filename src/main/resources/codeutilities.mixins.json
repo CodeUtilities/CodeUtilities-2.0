@@ -25,6 +25,7 @@
     "render.MWindow",
     "render.TextureMapAccessor",
     "render.player.MPlayerListEntry",
+    "render.player.MPlayerListHUD",
     "render.screen.MCreativeInventoryScreen",
     "render.screen.MOptionsScreen",
     "render.screen.MTitleScreen"
