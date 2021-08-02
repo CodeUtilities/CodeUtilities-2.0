@@ -21,6 +21,7 @@
     "render.MDebugHUD",
     "render.MInGameHUD",
     "render.MMouse",
+    "render.MSignBlockEntityRenderer",
     "render.MWindow",
     "render.TextureMapAccessor",
     "render.player.MPlayerListEntry",
