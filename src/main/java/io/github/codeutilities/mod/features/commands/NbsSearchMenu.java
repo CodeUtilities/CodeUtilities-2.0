@@ -9,15 +9,15 @@ import io.github.codeutilities.mod.features.commands.nbs.NBSToTemplate;
 import io.github.codeutilities.mod.features.commands.nbs.SongData;
 import io.github.codeutilities.mod.features.social.tab.CodeUtilitiesServer;
 import io.github.codeutilities.sys.hypercube.templates.TemplateUtils;
-import io.github.codeutilities.sys.player.chat.ChatUtil;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.util.ItemUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
+import io.github.cottonmc.cotton.gui.widget.WLabeledSlider;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
 import io.github.cottonmc.cotton.gui.widget.WText;
-import java.io.UnsupportedEncodingException;
+import io.github.cottonmc.cotton.gui.widget.data.Axis;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -74,6 +74,8 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
         ppanel.add(loading, 85, 50, 300, 0);
 
+        WLabeledSlider previewProgress = new WLabeledSlider(0, 1, Axis.HORIZONTAL);
+
         WScrollPanel spanel = new WScrollPanel(ppanel);
 
         CodeUtilities.EXECUTOR.submit(() -> {
@@ -92,12 +94,11 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
                     JsonObject e = resulte.getAsJsonObject();
 
                     int id = e.get("id").getAsInt();
-                    String duration = e.get("duration").getAsString();
                     WText title = new WText(
                         new LiteralText(e.get("title").getAsString().replaceAll("\n", "")));
                     WText description = new WText(
                         new LiteralText(
-                            (duration + " §8-§r " + e.get("composer").getAsString()).replaceAll(
+                            ("§8by§r " + e.get("composer").getAsString()).replaceAll(
                                 "\n", "")));
 
                     ppanel.add(title, 0, y, 999, 10);
@@ -142,6 +143,7 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
                     preview.setOnClick(() -> {
                         if (previewId != id) {
                             previewId = id;
+
                             preview.setLabel(new LiteralText("..."));
                             CodeUtilities.EXECUTOR
                                 .submit(() -> {
@@ -153,41 +155,90 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
 
                                     preview.setLabel(new LiteralText("■"));
 
-                                    int[] tick = {0};
+                                    //Start previewing
+                                    int durnum = Integer.parseInt(
+                                        notes.get(notes.size() - 1).split(":")[0]);
+                                    previewProgress.setMaxValue(durnum);
+                                    previewProgress.setValue(0);
+                                    previewProgress.setHost(this);
+
+                                    if (previewProgress.getParent() == null) {
+                                        root.add(previewProgress, 5, 245, 300, 0);
+                                        root.setSize(310, 270);
+
+                                    }
+
                                     int[] index = {0};
+
                                     ScheduledExecutorService scheduler = Executors
                                         .newScheduledThreadPool(1);
                                     scheduler.scheduleAtFixedRate(() -> {
-                                        if (previewId != id
-                                            || mc.currentScreen == null) {
-                                            scheduler.shutdown();
-                                            preview.setLabel(new LiteralText("▶"));
-                                            return;
-                                        }
-                                        if (notes.get(index[0])
-                                            .startsWith(tick[0] + ":")) {
+                                        try {
+                                            previewProgress.setLabel(new LiteralText(
+                                                "Tick: " + previewProgress.getValue() + " of "
+                                                    + durnum));
 
-                                            String line = notes.get(index[0])
-                                                .split(":")[1];
+                                            if (previewId != id
+                                                || mc.currentScreen == null) {
 
-                                            for (String n : line.split(";")) {
-                                                String[] d = n.split(",");
-                                                int instrumentid = Integer
-                                                    .parseInt(d[0]);
-                                                float pitch =
-                                                    (float) Integer.parseInt(d[1])
-                                                        / 1000;
-                                                float panning =
-                                                    (float) Integer.parseInt(d[2]) / 100;
-                                                mc.player
-                                                    .playSound(
-                                                        instrumentids[instrumentid - 1],
-                                                        panning, pitch);
+                                                if (previewProgress.getParent() != null) {
+                                                    //Stop Previewing anything
+                                                    root.remove(previewProgress);
+                                                    root.setSize(310, 250);
+                                                    previewProgress.setParent(null);
+                                                }
+
+                                                scheduler.shutdown();
+                                                preview.setLabel(new LiteralText("▶"));
+                                                return;
                                             }
+                                            if (index[0] < notes.size()) {
+                                                while (
+                                                    index[0] < notes.size() - 1 && Integer.parseInt(
+                                                        notes.get(index[0]).split(":")[0])
+                                                        < previewProgress.getValue()) {
+                                                    index[0]++;
+                                                }
+                                                while (index[0] > 1 &&
+                                                    Integer.parseInt(
+                                                        notes.get(index[0]).split(":")[0])
+                                                        > previewProgress.getValue()) {
+                                                    index[0]--;
+                                                }
 
-                                            index[0]++;
+                                                String line = notes.get(index[0])
+                                                    .split(":")[1];
+
+                                                if (notes.get(index[0])
+                                                    .startsWith(previewProgress.getValue() + "")) {
+                                                    for (String n : line.split(";")) {
+                                                        String[] d = n.split(",");
+                                                        int instrumentid = Integer
+                                                            .parseInt(d[0]);
+                                                        float pitch =
+                                                            (float) Integer.parseInt(d[1])
+                                                                / 1000;
+                                                        float panning =
+                                                            (float) Integer.parseInt(d[2]) / 100;
+                                                        mc.player
+                                                            .playSound(
+                                                                instrumentids[instrumentid - 1],
+                                                                panning, pitch);
+
+
+                                                    }
+                                                }
+
+                                                index[0]++;
+                                            }
+                                            previewProgress.setValue(
+                                                previewProgress.getValue() + 1);
+                                            if (previewProgress.getValue() > durnum - 1) {
+                                                previewId = -1;
+                                            }
+                                        } catch (Exception err) {
+                                            err.printStackTrace();
                                         }
-                                        tick[0]++;
                                     }, 0, 1000 / 20, TimeUnit.MILLISECONDS);
                                 });
                         } else {
@@ -205,6 +256,7 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
         spanel.setScrollingHorizontally(TriState.FALSE);
         spanel.setScrollingVertically(TriState.TRUE);
         root.add(spanel, 5, 15, 300, 230);
+
         setRootPanel(root);
         root.validate(this);
     }
