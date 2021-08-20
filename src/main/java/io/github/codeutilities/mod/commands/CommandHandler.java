@@ -14,19 +14,7 @@ import io.github.codeutilities.mod.commands.impl.item.TemplatesCommand;
 import io.github.codeutilities.mod.commands.impl.item.UnpackCommand;
 import io.github.codeutilities.mod.commands.impl.item.template.SendTemplateCommand;
 import io.github.codeutilities.mod.commands.impl.item.template.WebviewCommand;
-import io.github.codeutilities.mod.commands.impl.other.CalcCommand;
-import io.github.codeutilities.mod.commands.impl.other.CodeUtilitiesCommand;
-import io.github.codeutilities.mod.commands.impl.other.ConfigCommand;
-import io.github.codeutilities.mod.commands.impl.other.DebugCommand;
-import io.github.codeutilities.mod.commands.impl.other.NBSCommand;
-import io.github.codeutilities.mod.commands.impl.other.NBSSearchCommand;
-import io.github.codeutilities.mod.commands.impl.other.NodeCommand;
-import io.github.codeutilities.mod.commands.impl.other.PJoinCommand;
-import io.github.codeutilities.mod.commands.impl.other.PartnerBracketCommand;
-import io.github.codeutilities.mod.commands.impl.other.PlotsCommand;
-import io.github.codeutilities.mod.commands.impl.other.QueueCommand;
-import io.github.codeutilities.mod.commands.impl.other.SchemCommand;
-import io.github.codeutilities.mod.commands.impl.other.SearchCommand;
+import io.github.codeutilities.mod.commands.impl.other.*;
 import io.github.codeutilities.mod.commands.impl.text.ActionbarCommand;
 import io.github.codeutilities.mod.commands.impl.text.ColorCommand;
 import io.github.codeutilities.mod.commands.impl.text.ColorsCommand;
@@ -70,7 +58,8 @@ public class CommandHandler implements ILoader {
             new TitleCommand(),
             new SubTitleCommand(),
             new ActionbarCommand(),
-            new CalcCommand()
+            new CalcCommand(),
+            new AweslibCommand()
         );
 
         if (Config.getBoolean("dfCommands")) {
