@@ -36,7 +36,7 @@ public class SoundPlayer {
         AudioSystem.write(converted, AudioFileFormat.Type.WAVE, new File(FabricLoader.getInstance().getGameDir().resolve("aweslib").resolve(name).toString()));
     }*/
 
-    public static void playSnd(String name) throws LineUnavailableException {
+    public static void playSound(String name) throws LineUnavailableException {
 
         name = name.replace("/", "").replace(":", "").replace(".", "") + ".wav";
 

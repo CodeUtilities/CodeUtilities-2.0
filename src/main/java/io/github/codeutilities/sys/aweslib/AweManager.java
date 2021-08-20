@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AweManager implements ILoader {
     /*
@@ -26,7 +27,7 @@ public class AweManager implements ILoader {
 
     // Plot related.
     public static String token = "empty"; // This is for verifying the plot is not impersonating by the way.
-    public static ArrayList<String> sounds = new ArrayList<String>();
+    public static ArrayList<String> sounds = new ArrayList<>();
     public static String pubSound; // Download Related Variable
     public static int downloadedIndex;
     public static String plotID;
@@ -39,7 +40,7 @@ public class AweManager implements ILoader {
     public static boolean downloadPhase;
 
     // Settings
-    public static ArrayList<String> consented = new ArrayList<String>();
+    public static ArrayList<String> consented = new ArrayList<>();
     public static int maxAmnt;
     public static int maxMb;
 
@@ -52,7 +53,7 @@ public class AweManager implements ILoader {
     public static void plotChange() {
         // Reset Plot vars
         token = "empty";
-
+        sounds = new ArrayList<>();
         // Reset Booleans
         plotIsSet = false;
         tokenIsSet = false;
@@ -141,8 +142,6 @@ public class AweManager implements ILoader {
 
         maxMb = Config.getInteger("maxMB");
         maxAmnt = Config.getInteger("maxAmnt");
-        CodeUtilities.log(String.valueOf(maxMb));
-        CodeUtilities.log(String.valueOf(maxAmnt));
         CodeUtilities.log("[AWESLIB] Initialized!");
     }
 }

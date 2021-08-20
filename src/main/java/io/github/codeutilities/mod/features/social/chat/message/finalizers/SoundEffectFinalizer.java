@@ -17,37 +17,37 @@ import javax.sound.sampled.LineUnavailableException;
         protected void receive(Message message) {
             message.typeIs(MessageType.AWE_SOUND);
             String stripped = message.getStripped();
+            if(stripped.contains("(AWESLIB SYSTEM MESSAGE)")) { // Every message was counted as a aweslib message without this.
                 message.cancel();
-                if(AweManager.token.equals("empty")) {
-                    if(stripped.contains("Token:")) {
+                if (AweManager.token.equals("empty")) {
+                    if (stripped.contains("Token:")) {
                         String tok = stripped.substring(32);
                         AweManager.token = tok;
                         AweManager.tokenIsSet = true;
-                        CodeUtilities.log("Set token to " + tok);
                     }
                 }
-                if(stripped.contains("Download Sound")) {
+                if (stripped.contains("Download Sound")) {
                     String sound = stripped.substring(41);
                     AweManager.sounds.add(sound);
                 }
-                if(stripped.contains("Play Sound")) {
+                if (stripped.contains("Play Sound")) {
                     AweManager.downloaded = true;
                     String sound = stripped.substring(37);
                     CodeUtilities.log(Level.INFO, "Playing sound: " + sound);
                     try {
-                        SoundPlayer.playSnd(sound);
+                        SoundPlayer.playSound(sound);
                     } catch (LineUnavailableException e) {
                         e.printStackTrace();
                     }
                     //SoundPlayer.playSnd(sound);
                     //}
                 }
-                if(!AweManager.downloaded) {
+                if (!AweManager.downloaded) {
                     AweManager.stateChange();
                 }
                 //Main.log(Level.INFO, "AWESLIB SYSTEM MESSAGE DETECTED.");
 
 
-
+            }
         }
     }
