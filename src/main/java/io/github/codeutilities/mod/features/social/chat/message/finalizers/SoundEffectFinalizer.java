@@ -17,13 +17,12 @@ import javax.sound.sampled.LineUnavailableException;
         protected void receive(Message message) {
             message.typeIs(MessageType.AWE_SOUND);
             String stripped = message.getStripped();
-            if(stripped.contains("(AWESLIB SYSTEM MESSAGE)")) {
                 message.cancel();
-                if(AweManager.Token.equals("empty")) {
+                if(AweManager.token.equals("empty")) {
                     if(stripped.contains("Token:")) {
                         String tok = stripped.substring(32);
-                        AweManager.Token = tok;
-                        AweManager.TokenIsSet = true;
+                        AweManager.token = tok;
+                        AweManager.tokenIsSet = true;
                         CodeUtilities.log("Set token to " + tok);
                     }
                 }
@@ -32,7 +31,7 @@ import javax.sound.sampled.LineUnavailableException;
                     AweManager.sounds.add(sound);
                 }
                 if(stripped.contains("Play Sound")) {
-                    AweManager.Downloaded = true;
+                    AweManager.downloaded = true;
                     String sound = stripped.substring(37);
                     CodeUtilities.log(Level.INFO, "Playing sound: " + sound);
                     try {
@@ -43,11 +42,11 @@ import javax.sound.sampled.LineUnavailableException;
                     //SoundPlayer.playSnd(sound);
                     //}
                 }
-                if(!AweManager.Downloaded) {
+                if(!AweManager.downloaded) {
                     AweManager.stateChange();
                 }
                 //Main.log(Level.INFO, "AWESLIB SYSTEM MESSAGE DETECTED.");
-            }
+
 
 
         }

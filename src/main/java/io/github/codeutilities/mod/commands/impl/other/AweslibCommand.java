@@ -1,16 +1,11 @@
 package io.github.codeutilities.mod.commands.impl.other;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.context.CommandContext;
 import io.github.codeutilities.mod.commands.Command;
 import io.github.codeutilities.mod.commands.arguments.ArgBuilder;
 import io.github.codeutilities.sys.aweslib.AweManager;
 import io.github.codeutilities.sys.aweslib.AweUtils;
 import io.github.codeutilities.sys.aweslib.SoundDownloader;
-import io.github.codeutilities.sys.player.chat.ChatUtil;
-
-import java.util.Objects;
 
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
@@ -22,7 +17,7 @@ public class AweslibCommand extends Command {
         cd.register(ArgBuilder.literal("aweslib")
                 .then(ArgBuilder.literal("allow")).executes(ctx -> {
 
-                    if(AweManager.DownloadPhase) {
+                    if(AweManager.downloadPhase) {
                         AweUtils.sendMessage("You have decided to allow this domain.");
                         AweUtils.sendMessage("If you want this domain to always be allowed go to the settings.");
                         new Thread(() -> {
@@ -34,12 +29,12 @@ public class AweslibCommand extends Command {
                 })
                 .then(ArgBuilder.literal("block")).executes(ctx -> {
 
-                    if(AweManager.DownloadPhase) {
+                    if(AweManager.downloadPhase) {
                         AweUtils.sendMessage("You have decided to block this domain. (not saved)");
-                        AweManager.DownloadedIndex++;
-                        if(AweManager.sounds.size() == AweManager.DownloadedIndex) {
+                        AweManager.downloadedIndex++;
+                        if(AweManager.sounds.size() == AweManager.downloadedIndex) {
                             AweUtils.sendMessage("All sounds of the plot " + AweManager.plotID + " have been downloaded!");
-                            AweManager.DownloadPhase = false;
+                            AweManager.downloadPhase = false;
                         }
                     }
 
@@ -47,12 +42,12 @@ public class AweslibCommand extends Command {
                 })
                 .then(ArgBuilder.literal("report")).executes(ctx -> {
 
-                    if(AweManager.DownloadPhase) {
+                    if(AweManager.downloadPhase) {
                         AweUtils.sendMessage("Domain Blocked, to report this Plot send a message to SirObby_ or (Sir Obsidian#2640).");
-                        AweManager.DownloadedIndex++;
-                        if(AweManager.sounds.size() == AweManager.DownloadedIndex) {
+                        AweManager.downloadedIndex++;
+                        if(AweManager.sounds.size() == AweManager.downloadedIndex) {
                             AweUtils.sendMessage("All sounds of the plot " + AweManager.plotID + " have been downloaded!");
-                            AweManager.DownloadPhase = false;
+                            AweManager.downloadPhase = false;
                         }
                     }
 

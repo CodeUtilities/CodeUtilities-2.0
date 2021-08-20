@@ -41,11 +41,11 @@ public class SoundDownloader {
             // Download fle:
             File sFile = download(sound, loc);
         }
-        AweManager.DownloadedIndex++;
+        AweManager.downloadedIndex++;
         int needed = AweManager.sounds.size();;
-        if(AweManager.DownloadedIndex == needed) {
+        if(AweManager.downloadedIndex == needed) {
             ChatUtil.sendMessage("< aweslib > All sounds of the plot " + AweManager.plotID + " have been downloaded!");
-            AweManager.DownloadPhase = false;
+            AweManager.downloadPhase = false;
         }
     }
 
