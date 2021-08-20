@@ -1,10 +1,8 @@
 package io.github.codeutilities.sys.aweslib;
 
 import com.google.gson.JsonObject;
-import com.sun.tools.javac.jvm.Code;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.mod.features.discordrpc.RPCElapsedOption;
 import io.github.codeutilities.sys.file.ILoader;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.networking.WebUtil;
@@ -16,9 +14,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class awemanager implements ILoader {
+public class AweManager implements ILoader {
     /*
     I documented what pretty much each stuff here does mainly for the developers
     and the people paranoid enough to read CodeUtilities source code.
@@ -47,7 +44,7 @@ public class awemanager implements ILoader {
     public static int maxMb;
 
     // Executes then CodeUtils is launcher or smth idk dude
-    public awemanager() {
+    public AweManager() {
         // bro idk
     }
 
@@ -64,7 +61,7 @@ public class awemanager implements ILoader {
 
         // Clear aweslib sound cache
         CodeUtilities.log("[AWESLIB] Purging sound cache.");
-        awefile.cleanFolder("aweslib");
+        AweFile.cleanFolder("aweslib");
         CodeUtilities.log("[AWESLIB] Plot has been changed.");
     }
 
@@ -140,7 +137,7 @@ public class awemanager implements ILoader {
     public void load() {
         AWEDATABASE = Config.getString("awesdb");
         parseConsent();
-        awefile.createFolder("aweslib");
+        AweFile.createFolder("aweslib");
 
         maxMb = Config.getInteger("maxMB");
         maxAmnt = Config.getInteger("maxAmnt");

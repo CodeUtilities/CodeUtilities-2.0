@@ -5,7 +5,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.io.File;
 import java.nio.file.Path;
 
-public class awefile {
+public class AweFile {
 
     public static void createFolder(String fileFolder) {
 

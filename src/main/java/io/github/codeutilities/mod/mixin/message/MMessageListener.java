@@ -1,22 +1,17 @@
 package io.github.codeutilities.mod.mixin.message;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sun.tools.javac.jvm.Code;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.mod.events.impl.ReceiveChatMessageEvent;
 import io.github.codeutilities.mod.events.interfaces.ChatEvents;
-import io.github.codeutilities.mod.features.discordrpc.DFDiscordRPC;
 import io.github.codeutilities.mod.features.keybinds.FlightspeedToggle;
 import io.github.codeutilities.mod.features.social.chat.message.Message;
-import io.github.codeutilities.sys.aweslib.SoundPlayer;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
-import io.github.codeutilities.sys.player.chat.MessageGrabber;
 import io.github.codeutilities.mod.features.CPU_UsageText;
 import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.networking.WebUtil;
-import io.github.codeutilities.sys.aweslib.awemanager;
+import io.github.codeutilities.sys.aweslib.AweManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.MessageType;
@@ -34,7 +29,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 
 @Mixin(ClientPlayNetworkHandler.class)
@@ -151,7 +145,7 @@ public class MMessageListener {
 
             // fs toggle
             FlightspeedToggle.fs_is_normal = true;
-            awemanager.plotChange();
+            AweManager.plotChange();
         }
 
         // Enter Session

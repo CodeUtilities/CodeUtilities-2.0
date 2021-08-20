@@ -2,13 +2,10 @@ package io.github.codeutilities.sys.networking;
 
 import com.google.gson.JsonElement;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.mod.events.impl.ReceiveChatMessageEvent;
 import io.github.codeutilities.mod.events.interfaces.HyperCubeEvents;
 import io.github.codeutilities.mod.features.social.chat.message.Message;
 import io.github.codeutilities.mod.features.social.chat.message.MessageType;
-import io.github.codeutilities.mod.features.social.chat.message.checks.LocateCheck;
 import io.github.codeutilities.mod.features.social.tab.Client;
-import io.github.codeutilities.sys.aweslib.awemanager;
 import io.github.codeutilities.sys.file.ILoader;
 import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
