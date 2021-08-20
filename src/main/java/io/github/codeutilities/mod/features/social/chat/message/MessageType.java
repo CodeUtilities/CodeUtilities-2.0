@@ -12,8 +12,8 @@ public enum MessageType {
     LOCATE,
     DIRECT_MESSAGE(true),
     PLOT_AD(true),
-    JOIN_DF,// SirObby's garbage Project: Audio - SirObby_
-    SOUND_EFFECT,
+    JOIN_DF,
+    AWE_SOUND,
 
     // Lagslayer
     LAGSLAYER_START,

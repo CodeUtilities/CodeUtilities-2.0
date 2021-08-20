@@ -8,12 +8,11 @@ public class SoundEffectCheck extends MessageCheck{
 
     @Override
     public MessageType getType() {
-        return MessageType.SOUND_EFFECT;
+        return MessageType.AWE_SOUND;
     }
 
     @Override
     public boolean check(Message message, String stripped) {
-        // Hide spies (Session spy, Muted spy, DM spy)
         return stripped.contains("(AWESLIB SYSTEM MESSAGE)");
     }
 

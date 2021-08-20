@@ -29,7 +29,7 @@ public class SoundDownloader {
             ChatUtil.sendMessage("< aweslib > The plot "+ AweManager.plotID + " reaches the maxMb limit of " + AweManager.maxMb);
         }
         // Check if the files in the folder is less htan maxAmnt
-        java.io.File[] fileAmount = dir.toFile().listFiles();
+        File[] fileAmount = dir.toFile().listFiles();
         if(fileAmount.length > AweManager.maxAmnt) {
             ChatUtil.sendMessage("< aweslib > The plot "+ AweManager.plotID + " reaches the maxAmnt limit of " + AweManager.maxAmnt);
         }
