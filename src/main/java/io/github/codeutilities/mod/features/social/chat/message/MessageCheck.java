@@ -1,5 +1,6 @@
 package io.github.codeutilities.mod.features.social.chat.message;
 
+import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.features.social.chat.message.checks.*;
 
 /**
@@ -15,6 +16,7 @@ public abstract class MessageCheck {
             new DirectMessageCheck(),
             new PlotAdCheck(),
             new JoinDiamondFireCheck(),
+            new SoundEffectCheck(),
 
             // Lagslayer
             new LagslayerStartCheck(),
