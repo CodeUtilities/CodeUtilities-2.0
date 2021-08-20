@@ -3,10 +3,11 @@ package io.github.codeutilities.mod.config.impl;
 import io.github.codeutilities.mod.config.ConfigSounds;
 import io.github.codeutilities.mod.config.structure.ConfigGroup;
 import io.github.codeutilities.mod.config.structure.ConfigSubGroup;
-import io.github.codeutilities.mod.config.types.BooleanSetting;
-import io.github.codeutilities.mod.config.types.DoubleSetting;
-import io.github.codeutilities.mod.config.types.SoundSetting;
-import io.github.codeutilities.mod.config.types.StringSetting;
+import io.github.codeutilities.mod.config.types.*;
+import io.github.codeutilities.mod.config.types.list.ListSetting;
+import io.github.codeutilities.mod.config.types.list.StringListSetting;
+
+import java.util.ArrayList;
 
 public class MiscellaneousGroup extends ConfigGroup {
     public MiscellaneousGroup(String name) {
@@ -36,6 +37,14 @@ public class MiscellaneousGroup extends ConfigGroup {
         quickNum.register(new DoubleSetting("quicknumSecondaryAmount", 10d));
         quickNum.register(new DoubleSetting("quicknumTertiaryAmount", 0.1));
         this.register(quickNum);
+
+        ConfigSubGroup soundlib = new ConfigSubGroup("soundlib");
+        soundlib.register(new BooleanSetting("soundlib", false));
+        soundlib.register(new StringSetting("awesdb", "https://aweslib.dfplots.net/"));
+        soundlib.register(new IntegerSetting("maxMB", 50));
+        soundlib.register(new IntegerSetting("maxAmnt", 50));
+        soundlib.register(new StringSetting("consented", "google.com"));
+        this.register(soundlib);
 
     }
 
