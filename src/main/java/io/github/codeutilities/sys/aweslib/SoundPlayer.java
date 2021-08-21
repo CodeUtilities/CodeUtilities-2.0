@@ -1,6 +1,7 @@
 package io.github.codeutilities.sys.aweslib;
 
 
+import io.github.codeutilities.mod.config.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +35,8 @@ public class SoundPlayer {
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(gainControl.getMaximum());
+            gainControl.setValue(Config.getFloat("volume"));
+
             clip.start();
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
             AWEUtils.sendMessage("Something weird has happened whilst playing sound.");

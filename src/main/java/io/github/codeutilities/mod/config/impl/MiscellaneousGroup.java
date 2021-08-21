@@ -44,6 +44,7 @@ public class MiscellaneousGroup extends ConfigGroup {
         soundlib.register(new IntegerSetting("maxMB", 50));
         soundlib.register(new IntegerSetting("maxAmnt", 50));
         soundlib.register(new StringSetting("consented", "google.com"));
+        soundlib.register(new FloatSetting("volume", 0.5f));
         this.register(soundlib);
 
     }
