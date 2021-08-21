@@ -15,7 +15,7 @@ import javax.sound.sampled.LineUnavailableException;
 
         @Override
         protected void receive(Message message) {
-            message.typeIs(MessageType.AWE_SOUND);
+            message.typeIs(MessageType.AWE_MESSAGE);
             String stripped = message.getStripped();
             if(stripped.contains("(AWESLIB SYSTEM MESSAGE)")) { // Every message was counted as a aweslib message without this.
                 message.cancel();

@@ -13,7 +13,7 @@ public enum MessageType {
     DIRECT_MESSAGE(true),
     PLOT_AD(true),
     JOIN_DF,
-    AWE_SOUND,
+    AWE_MESSAGE,
 
     // Lagslayer
     LAGSLAYER_START,

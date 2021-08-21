@@ -8,7 +8,7 @@ public class SoundEffectCheck extends MessageCheck{
 
     @Override
     public MessageType getType() {
-        return MessageType.AWE_SOUND;
+        return MessageType.AWE_MESSAGE;
     }
 
     @Override
