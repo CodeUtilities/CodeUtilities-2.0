@@ -3,6 +3,7 @@ package io.github.codeutilities.sys.aweslib;
 import com.google.gson.JsonObject;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
+import io.github.codeutilities.sys.file.FileUtil;
 import io.github.codeutilities.sys.file.ILoader;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.networking.WebUtil;
@@ -61,7 +62,7 @@ public class AWEManager implements ILoader {
 
         // Clear aweslib sound cache
         CodeUtilities.log("[AWESLIB] Purging sound cache.");
-        AWEFile.cleanFolder("aweslib");
+        FileUtil.cleanFolder("aweslib");
         CodeUtilities.log("[AWESLIB] Plot has been changed.");
     }
 
@@ -141,7 +142,7 @@ public class AWEManager implements ILoader {
     public void load() {
         AWEDATABASE = Config.getString("awesdb");
         parseConsent();
-        AWEFile.createFolder("aweslib");
+        FileUtil.createFolder("aweslib");
 
         maxMb = Config.getInteger("maxMB");
         maxAmnt = Config.getInteger("maxAmnt");

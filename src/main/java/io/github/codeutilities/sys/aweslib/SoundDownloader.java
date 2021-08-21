@@ -1,5 +1,6 @@
 package io.github.codeutilities.sys.aweslib;
 
+import io.github.codeutilities.sys.file.FileUtil;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.FileUtils;
@@ -25,7 +26,7 @@ public class SoundDownloader {
         // getDirectory
         Path dir = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/aweslib");
         // Check if the plot reaches the maxMB limit. It is possible for plots to kind of bypass this.
-        if(AWEFile.bytesToMeg(AWEFile.getFolderSize(dir.toFile())) > AWEManager.maxMb) {
+        if(FileUtil.bytesToMeg(FileUtil.getFolderSize(dir.toFile())) > AWEManager.maxMb) {
             ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxMb limit of " + AWEManager.maxMb);
         }
         // Check if the files in the folder is less htan maxAmnt
@@ -34,7 +35,7 @@ public class SoundDownloader {
             ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxAmnt limit of " + AWEManager.maxAmnt);
         }
         // Does both checks.
-        if(AWEFile.bytesToMeg(AWEFile.getFolderSize(dir.toFile())) < AWEManager.maxMb && fileAmount.length < AWEManager.maxAmnt) {
+        if(FileUtil.bytesToMeg(FileUtil.getFolderSize(dir.toFile())) < AWEManager.maxMb && fileAmount.length < AWEManager.maxAmnt) {
             // Makes sure the name for the file is legal.
             String name = sound.replace("/", "").replace(":", "").replace(".", "") + ".wav";
             String loc = dir.toString() + "/" + name; // Setting location.
