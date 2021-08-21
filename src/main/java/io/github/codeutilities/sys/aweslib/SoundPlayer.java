@@ -18,29 +18,11 @@ import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 
 public class SoundPlayer {
 
-    /*public static void mp3ToWav(File mp3Data, String name) throws UnsupportedAudioFileException, IOException {
-        // open stream
-        AudioInputStream mp3Stream = AudioSystem.getAudioInputStream(mp3Data);
-        AudioFormat sourceFormat = mp3Stream.getFormat();
-        // create audio format object for the desired stream/audio format
-        // this is *not* the same as the file format (wav)
-        AudioFormat convertFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
-                sourceFormat.getSampleRate(), 16,
-                sourceFormat.getChannels(),
-                sourceFormat.getChannels() * 2,
-                sourceFormat.getSampleRate(),
-                false);
-        // create stream that delivers the desired format
-        AudioInputStream converted = AudioSystem.getAudioInputStream(convertFormat, mp3Stream);
-        // write stream into a file with file format wav
-        AudioSystem.write(converted, AudioFileFormat.Type.WAVE, new File(FabricLoader.getInstance().getGameDir().resolve("aweslib").resolve(name).toString()));
-    }*/
-
     public static void playSound(String name) throws LineUnavailableException {
 
-        name = name.replace("/", "").replace(":", "").replace(".", "") + ".wav";
+        name = AWEUtils.legalizeUrl(name);
 
-        Path pathOne = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities").resolve("aweslib").resolve(name);
+        Path pathOne = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/aweslib/" + name);
         File fileOne = pathOne.toFile();
         Clip clip = AudioSystem.getClip();
 
@@ -54,12 +36,8 @@ public class SoundPlayer {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(gainControl.getMaximum() * 1);
             clip.start();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            AWEUtils.sendMessage("Something weird has happened whilst playing sound.");
         }
     }
 

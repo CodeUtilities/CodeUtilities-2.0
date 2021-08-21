@@ -1,5 +1,6 @@
 package io.github.codeutilities.sys.aweslib;
 
+import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.file.FileUtil;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,13 +24,17 @@ public class SoundDownloader {
 
     // When a user consents to a sound (OR it was in the consent list) This is triggered.
     public static void consented(String sound) {
+
+        AWEManager.maxMb = Config.getInteger("maxMB");
+        AWEManager.maxAmnt = Config.getInteger("maxAmnt");
+
         // getDirectory
         Path dir = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/aweslib");
         // Check if the plot reaches the maxMB limit. It is possible for plots to kind of bypass this.
         if(FileUtil.bytesToMeg(FileUtil.getFolderSize(dir.toFile())) > AWEManager.maxMb) {
             ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxMb limit of " + AWEManager.maxMb);
         }
-        // Check if the files in the folder is less htan maxAmnt
+        // Check if the files in the folder is less than maxAmnt
         File[] fileAmount = dir.toFile().listFiles();
         if(fileAmount.length > AWEManager.maxAmnt) {
             ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxAmnt limit of " + AWEManager.maxAmnt);
@@ -37,7 +42,7 @@ public class SoundDownloader {
         // Does both checks.
         if(FileUtil.bytesToMeg(FileUtil.getFolderSize(dir.toFile())) < AWEManager.maxMb && fileAmount.length < AWEManager.maxAmnt) {
             // Makes sure the name for the file is legal.
-            String name = sound.replace("/", "").replace(":", "").replace(".", "") + ".wav";
+            String name = AWEUtils.legalizeUrl(sound);
             String loc = dir.toString() + "/" + name; // Setting location.
             // Download fle:
             File sFile = download(sound, loc);

@@ -71,7 +71,7 @@ public class AWEManager implements ILoader {
         if (tokenIsSet && !stateIsChanged) {
             stateIsChanged = true;
             // Creating thread so game is not paused.
-            Thread doStuff = new Thread(() -> {
+            new Thread(() -> {
                 //String sendJson = "{ \"name\": \"Baeldung\", \"java\": true }";
                 //JsonObject jsonObject = new JsonParser().parse(sendJson).getAsJsonObject();
 
@@ -81,6 +81,8 @@ public class AWEManager implements ILoader {
                 plotID = plot.getId();
 
                 try {
+                    parseConsent();
+                    AWEDATABASE = Config.getString("awesdb");
                     CodeUtilities.log("[AWESLIB] Asking our servers.");
                     // Ay guys lets ask aweslib backend if the plot we say we are is who we are.
                     JsonObject response = (JsonObject) WebUtil.getJson(AWEDATABASE + "cuvalidate/" + token + "/" + plotID);
@@ -119,16 +121,15 @@ public class AWEManager implements ILoader {
                     }
 
                 } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
+                    AWEUtils.sendMessage("Something weird has happened whilst downloading sounds.");
                 }
 
 
-            });
-            doStuff.start();
+            }).start();
         }
     }
 
-    public void parseConsent() {
+    public static void parseConsent() {
 
         String toParse = Config.getString("consented");
 

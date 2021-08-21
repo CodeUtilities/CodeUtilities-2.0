@@ -10,4 +10,8 @@ public class AWEUtils {
         ChatUtil.sendMessage(prefix + Message);
     }
 
+    public static String legalizeUrl(String name) {
+        return name.replace("/", "").replace(":", "").replace(".", "") + ".wav";
+    } // Yes it does add .wav at the end dont complain at my code D::::
+
 }
