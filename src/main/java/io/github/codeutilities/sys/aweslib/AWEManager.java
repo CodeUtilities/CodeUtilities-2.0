@@ -107,6 +107,10 @@ public class AWEManager implements ILoader {
                                 } catch (URISyntaxException e) {
                                     e.printStackTrace();
                                 }
+                                int e = 0;
+                                while (i == downloadedIndex) {
+                                    e++;
+                                }
 
                             }
 
