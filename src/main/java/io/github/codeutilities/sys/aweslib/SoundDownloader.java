@@ -32,12 +32,12 @@ public class SoundDownloader {
         Path dir = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/aweslib");
         // Check if the plot reaches the maxMB limit. It is possible for plots to kind of bypass this.
         if(FileUtil.bytesToMeg(FileUtil.getFolderSize(dir.toFile())) > AWEManager.maxMb) {
-            ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxMb limit of " + AWEManager.maxMb);
+            ChatUtil.sendMessage(String.format("< aweslib > The plot %s reaches the maxMb limit of %f", AWEManager.plotName, AWEManager.maxMb));
         }
         // Check if the files in the folder is less than maxAmnt
         File[] fileAmount = dir.toFile().listFiles();
         if(fileAmount.length > AWEManager.maxAmnt) {
-            ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxAmnt limit of " + AWEManager.maxAmnt);
+            ChatUtil.sendMessage(String.format("< aweslib > The plot %s reaches the maxAmnt limit of %f", AWEManager.plotName, AWEManager.maxMb));
         }
         // Does both checks.
         if(FileUtil.bytesToMeg(FileUtil.getFolderSize(dir.toFile())) < AWEManager.maxMb && fileAmount.length < AWEManager.maxAmnt) {
@@ -50,7 +50,7 @@ public class SoundDownloader {
         AWEManager.downloadedIndex++;
         int needed = AWEManager.sounds.size();;
         if(AWEManager.downloadedIndex == needed) {
-            ChatUtil.sendMessage("< aweslib > All sounds of the plot " + AWEManager.plotID + " have been downloaded!");
+            ChatUtil.sendMessage(String.format("< aweslib > All sounds of the plot %s have been downloaded!", AWEManager.plotName));
             AWEManager.downloadPhase = false;
         }
     }

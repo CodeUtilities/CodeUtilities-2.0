@@ -31,6 +31,7 @@ public class AWEManager implements ILoader {
     public static String pubSound; // Download Related Variable
     public static int downloadedIndex;
     public static String plotID;
+    public static String plotName;
 
     // Booleans
     public static boolean plotIsSet;
@@ -79,6 +80,7 @@ public class AWEManager implements ILoader {
                 State state = DFInfo.currentState;
                 State.Plot plot = state.getPlot();
                 plotID = plot.getId();
+                plotName = plot.getName();
 
                 try {
                     parseConsent();
@@ -94,7 +96,7 @@ public class AWEManager implements ILoader {
                             downloaded = true;
                             downloadPhase = true;
                             downloadedIndex = 0;
-                            ChatUtil.sendMessage("< aweslib > Downloading the sounds of the plot "+ plotID + " now. (This may take a minute or two)");
+                            ChatUtil.sendMessage(String.format("< aweslib > Downloading the sounds of the plot %s now. (This may take a minute or two)", plotName));
 
                             int i = 0;
                             for (String sound : sounds) {
@@ -105,10 +107,10 @@ public class AWEManager implements ILoader {
                                     if(consented.contains(soundUrl.getHost())) {
                                         SoundDownloader.consented(sound);
                                     } else {
-                                        ChatUtil.sendMessage("< aweslib > Do you want to allow the plot to use " + soundUrl.getHost() + "\nType: \n/aweslib allow | /aweslib block | /aweslib report");
+                                        ChatUtil.sendMessage(String.format("< aweslib > Do you want to allow the plot to use %s\nType: \n/aweslib allow | /aweslib block | /aweslib report", soundUrl.getHost()));
                                     }
                                 } catch (URISyntaxException e) {
-                                    e.printStackTrace();
+                                    AWEUtils.sendMessage("Something weird has happened whilst downloading sounds.");
                                 }
                                 int e = 0;
                                 while (i == downloadedIndex) {
