@@ -197,7 +197,7 @@
     "config.codeutilities.option.consented": "Allowed Domains",
     "config.codeutilities.option.consented.tooltip": "Does not prompt you for usage of these domains.\nSeparate with commas.",
     "config.codeutilities.option.volume": "Volume",
-    "config.codeutilities.option.volume.tooltip": "The volume for the sounds.",
+    "config.codeutilities.option.volume.tooltip": "A slider to adjust the volume for the sounds.",
 
     "config.codeutilities.subcategory.misc_quicknum": "Quick Number Change",
     "config.codeutilities.subcategory.misc_quicknum.tooltip": "Allows you to change a number variable\nsimply by scrolling.",
