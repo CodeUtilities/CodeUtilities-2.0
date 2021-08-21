@@ -1,6 +1,7 @@
 package io.github.codeutilities.mod.features.social.chat.message.finalizers;
 
 import io.github.codeutilities.CodeUtilities;
+import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.mod.features.social.chat.message.Message;
 import io.github.codeutilities.mod.features.social.chat.message.MessageFinalizer;
 import io.github.codeutilities.mod.features.social.chat.message.MessageType;
@@ -17,7 +18,7 @@ import javax.sound.sampled.LineUnavailableException;
         protected void receive(Message message) {
             message.typeIs(MessageType.AWE_MESSAGE);
             String stripped = message.getStripped();
-            if(stripped.startsWith("(AWESLIB SYSTEM MESSAGE)")) { // Every message was counted as a aweslib message without this.
+            if(stripped.startsWith("(AWESLIB SYSTEM MESSAGE)") && Config.getBoolean("soundlib")) { // Every message was counted as a aweslib message without this.
                 message.cancel();
                 if (AWEManager.token.equals("empty")) {
                     if (stripped.contains("Token:")) {

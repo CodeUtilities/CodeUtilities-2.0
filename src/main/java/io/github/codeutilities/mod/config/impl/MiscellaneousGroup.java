@@ -39,7 +39,7 @@ public class MiscellaneousGroup extends ConfigGroup {
         this.register(quickNum);
 
         ConfigSubGroup soundlib = new ConfigSubGroup("soundlib");
-        soundlib.register(new BooleanSetting("soundlib", false));
+        soundlib.register(new BooleanSetting("soundlib", true));
         soundlib.register(new StringSetting("awesdb", "https://aweslib.dfplots.net/"));
         soundlib.register(new IntegerSetting("maxMB", 50));
         soundlib.register(new IntegerSetting("maxAmnt", 50));
