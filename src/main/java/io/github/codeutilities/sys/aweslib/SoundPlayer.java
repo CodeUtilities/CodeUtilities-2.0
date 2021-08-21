@@ -34,7 +34,7 @@ public class SoundPlayer {
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(gainControl.getMaximum() * 1);
+            gainControl.setValue(gainControl.getMaximum());
             clip.start();
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
             AWEUtils.sendMessage("Something weird has happened whilst playing sound.");

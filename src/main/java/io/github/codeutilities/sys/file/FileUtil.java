@@ -1,9 +1,11 @@
 package io.github.codeutilities.sys.file;
 
 import net.fabricmc.loader.api.FabricLoader;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,5 +63,14 @@ public class FileUtil {
                 size += getFolderSize(file);
         }
         return size;
+    }
+
+    public static File download(String URL, String ToLocation) {
+        try {
+            FileUtils.copyURLToFile(new URL(URL), new File(ToLocation), 10000, 10000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

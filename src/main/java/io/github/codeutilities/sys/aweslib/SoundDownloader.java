@@ -4,23 +4,11 @@ import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.file.FileUtil;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 import net.fabricmc.loader.api.FabricLoader;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.file.Path;
 
 public class SoundDownloader {
-
-    // This is a SYSTEM function it is triggered by consented().
-    public static File download(String URL, String ToLocation) {
-        try {
-            FileUtils.copyURLToFile(new URL(URL), new File(ToLocation), 10000, 10000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     // When a user consents to a sound (OR it was in the consent list) This is triggered.
     public static void consented(String sound) {
@@ -45,7 +33,7 @@ public class SoundDownloader {
             String name = AWEUtils.legalizeUrl(sound);
             String loc = dir.toString() + "/" + name; // Setting location.
             // Download fle:
-            File sFile = download(sound, loc);
+            File sFile = FileUtil.download(sound, loc);
         }
         AWEManager.downloadedIndex++;
         int needed = AWEManager.sounds.size();;

@@ -45,11 +45,6 @@ public class AWEManager implements ILoader {
     public static int maxAmnt;
     public static int maxMb;
 
-    // Executes then CodeUtils is launcher or smth idk dude
-    public AWEManager() {
-        // bro idk
-    }
-
     // Executes when plot is changed.
     public static void plotChange() {
         // Reset Plot vars
@@ -73,10 +68,6 @@ public class AWEManager implements ILoader {
             stateIsChanged = true;
             // Creating thread so game is not paused.
             new Thread(() -> {
-                //String sendJson = "{ \"name\": \"Baeldung\", \"java\": true }";
-                //JsonObject jsonObject = new JsonParser().parse(sendJson).getAsJsonObject();
-
-                //WebUtil.makePost(AWEDATABASE + "/cuvalidate", jsonObject);
                 State state = DFInfo.currentState;
                 State.Plot plot = state.getPlot();
                 plotID = plot.getId();
@@ -135,9 +126,9 @@ public class AWEManager implements ILoader {
 
         String toParse = Config.getString("consented");
 
-        String[] Splitted = toParse.split(",");
+        String[] splitted = toParse.split(",");
 
-        ArrayList<String> toConsented = new ArrayList<String>(Arrays.asList(Splitted));
+        ArrayList<String> toConsented = new ArrayList<String>(Arrays.asList(splitted));
         consented = toConsented;
     }
 
