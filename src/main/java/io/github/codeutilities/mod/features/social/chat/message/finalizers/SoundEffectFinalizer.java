@@ -5,7 +5,7 @@ import io.github.codeutilities.mod.features.social.chat.message.Message;
 import io.github.codeutilities.mod.features.social.chat.message.MessageFinalizer;
 import io.github.codeutilities.mod.features.social.chat.message.MessageType;
 import io.github.codeutilities.sys.aweslib.SoundPlayer;
-import io.github.codeutilities.sys.aweslib.AweManager;
+import io.github.codeutilities.sys.aweslib.AWEManager;
 
 import org.apache.logging.log4j.Level;
 
@@ -19,19 +19,19 @@ import javax.sound.sampled.LineUnavailableException;
             String stripped = message.getStripped();
             if(stripped.contains("(AWESLIB SYSTEM MESSAGE)")) { // Every message was counted as a aweslib message without this.
                 message.cancel();
-                if (AweManager.token.equals("empty")) {
+                if (AWEManager.token.equals("empty")) {
                     if (stripped.contains("Token:")) {
                         String tok = stripped.substring(32);
-                        AweManager.token = tok;
-                        AweManager.tokenIsSet = true;
+                        AWEManager.token = tok;
+                        AWEManager.tokenIsSet = true;
                     }
                 }
                 if (stripped.contains("Download Sound")) {
                     String sound = stripped.substring(41);
-                    AweManager.sounds.add(sound);
+                    AWEManager.sounds.add(sound);
                 }
                 if (stripped.contains("Play Sound")) {
-                    AweManager.downloaded = true;
+                    AWEManager.downloaded = true;
                     String sound = stripped.substring(37);
                     CodeUtilities.log(Level.INFO, "Playing sound: " + sound);
                     try {
@@ -42,8 +42,8 @@ import javax.sound.sampled.LineUnavailableException;
                     //SoundPlayer.playSnd(sound);
                     //}
                 }
-                if (!AweManager.downloaded) {
-                    AweManager.stateChange();
+                if (!AWEManager.downloaded) {
+                    AWEManager.stateChange();
                 }
                 //Main.log(Level.INFO, "AWESLIB SYSTEM MESSAGE DETECTED.");
 

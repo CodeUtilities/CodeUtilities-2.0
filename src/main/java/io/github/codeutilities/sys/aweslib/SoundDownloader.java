@@ -25,27 +25,27 @@ public class SoundDownloader {
         // getDirectory
         Path dir = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities").resolve("aweslib");
         // Check if the plot reaches the maxMB limit. It is possible for plots to kind of bypass this.
-        if(AweFile.bytesToMeg(AweFile.getFolderSize(dir.toFile())) > AweManager.maxMb) {
-            ChatUtil.sendMessage("< aweslib > The plot "+ AweManager.plotID + " reaches the maxMb limit of " + AweManager.maxMb);
+        if(AWEFile.bytesToMeg(AWEFile.getFolderSize(dir.toFile())) > AWEManager.maxMb) {
+            ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxMb limit of " + AWEManager.maxMb);
         }
         // Check if the files in the folder is less htan maxAmnt
         File[] fileAmount = dir.toFile().listFiles();
-        if(fileAmount.length > AweManager.maxAmnt) {
-            ChatUtil.sendMessage("< aweslib > The plot "+ AweManager.plotID + " reaches the maxAmnt limit of " + AweManager.maxAmnt);
+        if(fileAmount.length > AWEManager.maxAmnt) {
+            ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxAmnt limit of " + AWEManager.maxAmnt);
         }
         // Does both checks.
-        if(AweFile.bytesToMeg(AweFile.getFolderSize(dir.toFile())) < AweManager.maxMb && fileAmount.length < AweManager.maxAmnt) {
+        if(AWEFile.bytesToMeg(AWEFile.getFolderSize(dir.toFile())) < AWEManager.maxMb && fileAmount.length < AWEManager.maxAmnt) {
             // Makes sure the name for the file is legal.
             String name = sound.replace("/", "").replace(":", "").replace(".", "") + ".wav";
             String loc = dir.toString() + "/" + name; // Setting location.
             // Download fle:
             File sFile = download(sound, loc);
         }
-        AweManager.downloadedIndex++;
-        int needed = AweManager.sounds.size();;
-        if(AweManager.downloadedIndex == needed) {
-            ChatUtil.sendMessage("< aweslib > All sounds of the plot " + AweManager.plotID + " have been downloaded!");
-            AweManager.downloadPhase = false;
+        AWEManager.downloadedIndex++;
+        int needed = AWEManager.sounds.size();;
+        if(AWEManager.downloadedIndex == needed) {
+            ChatUtil.sendMessage("< aweslib > All sounds of the plot " + AWEManager.plotID + " have been downloaded!");
+            AWEManager.downloadPhase = false;
         }
     }
 

@@ -2,7 +2,7 @@ package io.github.codeutilities.sys.aweslib;
 
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 
-public class AweUtils {
+public class AWEUtils {
 
     private static String prefix = "< aweslib > ";
 

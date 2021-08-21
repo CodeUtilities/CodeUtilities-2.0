@@ -14,9 +14,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class AweManager implements ILoader {
+public class AWEManager implements ILoader {
     /*
     I documented what pretty much each stuff here does mainly for the developers
     and the people paranoid enough to read CodeUtilities source code.
@@ -45,7 +44,7 @@ public class AweManager implements ILoader {
     public static int maxMb;
 
     // Executes then CodeUtils is launcher or smth idk dude
-    public AweManager() {
+    public AWEManager() {
         // bro idk
     }
 
@@ -62,7 +61,7 @@ public class AweManager implements ILoader {
 
         // Clear aweslib sound cache
         CodeUtilities.log("[AWESLIB] Purging sound cache.");
-        AweFile.cleanFolder("aweslib");
+        AWEFile.cleanFolder("aweslib");
         CodeUtilities.log("[AWESLIB] Plot has been changed.");
     }
 
@@ -138,7 +137,7 @@ public class AweManager implements ILoader {
     public void load() {
         AWEDATABASE = Config.getString("awesdb");
         parseConsent();
-        AweFile.createFolder("aweslib");
+        AWEFile.createFolder("aweslib");
 
         maxMb = Config.getInteger("maxMB");
         maxAmnt = Config.getInteger("maxAmnt");

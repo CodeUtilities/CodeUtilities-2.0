@@ -11,7 +11,7 @@ import io.github.codeutilities.mod.features.CPU_UsageText;
 import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.networking.WebUtil;
-import io.github.codeutilities.sys.aweslib.AweManager;
+import io.github.codeutilities.sys.aweslib.AWEManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.MessageType;
@@ -145,7 +145,7 @@ public class MMessageListener {
 
             // fs toggle
             FlightspeedToggle.fs_is_normal = true;
-            AweManager.plotChange();
+            AWEManager.plotChange();
         }
 
         // Enter Session

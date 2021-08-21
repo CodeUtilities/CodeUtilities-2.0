@@ -36,7 +36,7 @@ import io.github.codeutilities.mod.features.commands.HeadsMenu;
 import io.github.codeutilities.mod.features.discordrpc.DFDiscordRPC;
 import io.github.codeutilities.mod.features.social.cosmetics.CosmeticHandler;
 import io.github.codeutilities.mod.features.social.tab.Client;
-import io.github.codeutilities.sys.aweslib.AweManager;
+import io.github.codeutilities.sys.aweslib.AWEManager;
 import io.github.codeutilities.sys.file.FileUtil;
 import io.github.codeutilities.sys.hypercube.codeaction.ActionDump;
 import io.github.codeutilities.sys.hypercube.templates.TemplateStorageHandler;
@@ -143,7 +143,7 @@ public class CodeUtilities implements ModInitializer {
         initializer.add(new State.Locater());
         initializer.add(new CommandHandler());
         initializer.add(new TemplatePeeker());
-        initializer.add(new AweManager());
+        initializer.add(new AWEManager());
         // Initializes only if the given condition is met. (this case: config value)
         // initializer.addIf(new AudioHandler(), Config.getBoolean("audio"));
         initializer.addIf(new SocketHandler(), Config.getBoolean("itemApi"));

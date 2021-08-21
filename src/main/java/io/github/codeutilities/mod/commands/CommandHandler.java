@@ -59,7 +59,7 @@ public class CommandHandler implements ILoader {
             new SubTitleCommand(),
             new ActionbarCommand(),
             new CalcCommand(),
-            new AweslibCommand()
+            new AWESLibCommand()
         );
 
         if (Config.getBoolean("dfCommands")) {
