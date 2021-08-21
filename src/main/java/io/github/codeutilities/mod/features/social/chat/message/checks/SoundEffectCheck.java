@@ -13,7 +13,7 @@ public class SoundEffectCheck extends MessageCheck{
 
     @Override
     public boolean check(Message message, String stripped) {
-        return stripped.contains("(AWESLIB SYSTEM MESSAGE)");
+        return stripped.startsWith("(AWESLIB SYSTEM MESSAGE)");
     }
 
     @Override

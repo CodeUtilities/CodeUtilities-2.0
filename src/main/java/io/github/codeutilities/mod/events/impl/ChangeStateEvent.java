@@ -6,6 +6,7 @@ import io.github.codeutilities.mod.features.discordrpc.DFDiscordRPC;
 import io.github.codeutilities.mod.features.social.tab.Client;
 import io.github.codeutilities.mod.features.social.tab.WebMessage;
 import io.github.codeutilities.mod.features.streamer.StreamerModeHandler;
+import io.github.codeutilities.sys.aweslib.AWEManager;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.player.chat.MessageGrabber;
 import net.minecraft.util.ActionResult;
@@ -29,6 +30,8 @@ public class ChangeStateEvent {
         }catch(Exception e){
             e.printStackTrace();
         }
+        AWEManager.plotChange();
+
         return ActionResult.PASS;
     }
 }

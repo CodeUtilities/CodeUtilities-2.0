@@ -9,7 +9,7 @@ public class AWEFile {
 
     public static void createFolder(String fileFolder) {
 
-        Path pathOne = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities").resolve(fileFolder);
+        Path pathOne = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/" + fileFolder);
         java.io.File fileOne = pathOne.toFile();
 
         if (!fileOne.exists()) {
@@ -20,7 +20,7 @@ public class AWEFile {
 
     public static void cleanFolder(String fileFolder) {
 
-        Path pathOne = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities").resolve(fileFolder);
+        Path pathOne = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/" + fileFolder);
         java.io.File fileOne = pathOne.toFile();
 
         java.io.File[] moduleFiles = fileOne.listFiles();

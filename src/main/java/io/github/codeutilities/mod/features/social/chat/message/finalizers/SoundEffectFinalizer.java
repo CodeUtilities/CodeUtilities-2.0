@@ -17,7 +17,7 @@ import javax.sound.sampled.LineUnavailableException;
         protected void receive(Message message) {
             message.typeIs(MessageType.AWE_MESSAGE);
             String stripped = message.getStripped();
-            if(stripped.contains("(AWESLIB SYSTEM MESSAGE)")) { // Every message was counted as a aweslib message without this.
+            if(stripped.startsWith("(AWESLIB SYSTEM MESSAGE)")) { // Every message was counted as a aweslib message without this.
                 message.cancel();
                 if (AWEManager.token.equals("empty")) {
                     if (stripped.contains("Token:")) {

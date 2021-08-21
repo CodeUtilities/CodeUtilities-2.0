@@ -23,7 +23,7 @@ public class SoundDownloader {
     // When a user consents to a sound (OR it was in the consent list) This is triggered.
     public static void consented(String sound) {
         // getDirectory
-        Path dir = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities").resolve("aweslib");
+        Path dir = FabricLoader.getInstance().getGameDir().resolve("CodeUtilities/aweslib");
         // Check if the plot reaches the maxMB limit. It is possible for plots to kind of bypass this.
         if(AWEFile.bytesToMeg(AWEFile.getFolderSize(dir.toFile())) > AWEManager.maxMb) {
             ChatUtil.sendMessage("< aweslib > The plot "+ AWEManager.plotID + " reaches the maxMb limit of " + AWEManager.maxMb);
