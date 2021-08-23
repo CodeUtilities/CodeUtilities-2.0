@@ -25,6 +25,7 @@ import io.github.codeutilities.mod.config.types.StringSetting;
 import io.github.codeutilities.mod.config.types.list.StringListSetting;
 import io.github.codeutilities.mod.events.EventHandler;
 import io.github.codeutilities.mod.events.interfaces.OtherEvents;
+import io.github.codeutilities.mod.features.CorruptMapFixer;
 import io.github.codeutilities.mod.features.external.AudioHandler;
 import io.github.codeutilities.mod.features.social.cosmetics.CosmeticHandler;
 import io.github.codeutilities.mod.features.social.tab.Client;
@@ -124,6 +125,7 @@ public class CodeUtilities implements ModInitializer {
         initializer.add(new EventHandler());
         initializer.add(new State.Locater());
         initializer.add(new CommandHandler());
+        initializer.add(new CorruptMapFixer());
 
         // Initializes only if the given condition is met. (this case: config value)
         initializer.addIf(new AudioHandler(), Config.getBoolean("audio"));
