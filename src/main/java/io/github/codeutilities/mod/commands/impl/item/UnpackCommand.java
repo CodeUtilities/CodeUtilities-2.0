@@ -18,7 +18,7 @@ public class UnpackCommand extends Command {
                 .executes(ctx -> {
                     if (this.isCreative(mc)) {
                         ItemStack handItem = mc.player.getMainHandStack();
-                        if (!handItem.getOrCreateTag().getCompound("BlockEntityTag").isEmpty()) {
+                        if (!handItem.getOrCreateNbt().getCompound("BlockEntityTag").isEmpty()) {
 
                             int items = 0;
                             for (ItemStack stack : ItemUtil.fromItemContainer(handItem)) {

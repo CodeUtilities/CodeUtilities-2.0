@@ -10,9 +10,9 @@ import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -72,10 +72,10 @@ public class RelativeLocCommand extends Command {
         String[] targetNames = {"Selected Object", "Default", "Damager", "Killer", "Victim", "Shooter", "Projectile"};
         String finalTarget = targetNames[Arrays.asList(TARGET_TYPES).indexOf(target)];
 
-        CompoundTag publicBukkitNBT = new CompoundTag();
-        CompoundTag itemNBT = new CompoundTag();
-        CompoundTag codeNBT = new CompoundTag();
-        CompoundTag dataNBT = new CompoundTag();
+        NbtCompound publicBukkitNBT = new NbtCompound();
+        NbtCompound itemNBT = new NbtCompound();
+        NbtCompound codeNBT = new NbtCompound();
+        NbtCompound dataNBT = new NbtCompound();
 
         dataNBT.putString("target", finalTarget);
         dataNBT.putFloat("forward", forwards);
@@ -93,20 +93,20 @@ public class RelativeLocCommand extends Command {
 
         itemNBT.putInt("CustomModelData", 500);
 
-        item.setTag(itemNBT);
+        item.setNbt(itemNBT);
 
-        CompoundTag display = new CompoundTag();
-        ListTag lore = new ListTag();
+        NbtCompound display = new NbtCompound();
+        NbtList lore = new NbtList();
 
         LiteralText itemName = new LiteralText("Relative Location");
         itemName.setStyle(Style.EMPTY.withColor(Formatting.GREEN).withItalic(false));
-        display.put("Name", StringTag.of(Text.Serializer.toJson(itemName)));
+        display.put("Name", NbtString.of(Text.Serializer.toJson(itemName)));
 
         LiteralText lore1 = new LiteralText("Target: ");
         LiteralText lore2 = new LiteralText(finalTarget);
         lore1.setStyle(Style.EMPTY.withColor(Formatting.GRAY).withItalic(false));
         lore2.setStyle(Style.EMPTY.withColor(Formatting.WHITE).withItalic(false));
-        lore.addTag(0, StringTag.of(Text.Serializer.toJson(lore1.append(lore2))));
+        lore.addElement(0, NbtString.of(Text.Serializer.toJson(lore1.append(lore2))));
 
         lore1 = new LiteralText("Forwards: ");
         craftLore(forwards, lore, lore1);
@@ -124,17 +124,17 @@ public class RelativeLocCommand extends Command {
         craftLore(rot_right, lore, lore1);
 
         display.put("Lore", lore);
-        item.getTag().put("display", display);
+        item.getNbt().put("display", display);
 
         ItemUtil.giveCreativeItem(item, true);
         return 1;
     }
 
-    private void craftLore(float upwards, ListTag lore, LiteralText lore1) {
+    private void craftLore(float upwards, NbtList lore, LiteralText lore1) {
         LiteralText lore2;
         lore2 = new LiteralText("" + upwards);
         lore1.setStyle(Style.EMPTY.withColor(Formatting.GRAY).withItalic(false));
         lore2.setStyle(Style.EMPTY.withColor(Formatting.WHITE).withItalic(false));
-        lore.addTag(lore.size(), StringTag.of(Text.Serializer.toJson(lore1.append(lore2))));
+        lore.addElement(lore.size(), NbtString.of(Text.Serializer.toJson(lore1.append(lore2))));
     }
 }

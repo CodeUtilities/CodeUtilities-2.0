@@ -24,7 +24,7 @@ public class MCreativeInventoryScreen {
         DestroyItemResetType resetType = Config.getEnum("destroyItemReset", DestroyItemResetType.class);
         if (resetType != DestroyItemResetType.OFF && DFInfo.isOnDF() && DFInfo.currentState.getMode() == State.CurrentState.Mode.DEV
                 && actionType == SlotActionType.QUICK_MOVE && slot == this.deleteItemSlot) {
-            CodeUtilities.MC.openScreen(null);
+            CodeUtilities.MC.setScreen(null);
             String cmd = "";
             switch (resetType) {
                 case STANDARD:

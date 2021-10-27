@@ -79,7 +79,7 @@ public class ItemUtil {
     }
 
     public static List<ItemStack> fromItemContainer(ItemStack container) {
-        ListTag nbt = container.getOrCreateTag().getCompound("BlockEntityTag").getList("Items", 10);
+        NbtList nbt = container.getOrCreateNbt().getCompound("BlockEntityTag").getList("Items", 10);
         return fromListTag(nbt);
     }
 
@@ -88,42 +88,42 @@ public class ItemUtil {
     }
 
     public static void setLore(ItemStack itemStack, Text[] lores){
-        ListTag loreTag = new ListTag();
+        NbtList loreTag = new NbtList();
         for(Text lore : lores) {
             if(lore == null){
-                itemStack.getSubTag("display").put("Lore", loreTag);
+                itemStack.getSubNbt("display").put("Lore", loreTag);
                 return;
             }
-            loreTag.add(StringTag.of("{\"extra\":[{\"bold\":" + lore.getStyle().isBold() + ",\"italic\":" + lore.getStyle().isItalic() + ",\"underlined\":" + lore.getStyle().isUnderlined() + ",\"strikethrough\":" + lore.getStyle().isStrikethrough() + ",\"obfuscated\":" + lore.getStyle().isObfuscated() + ",\"color\":\"" + lore.getStyle().getColor() + "\",\"text\":\"" + lore.getString() + "\"}],\"text\":\"\"}"));
+            loreTag.add(NbtString.of("{\"extra\":[{\"bold\":" + lore.getStyle().isBold() + ",\"italic\":" + lore.getStyle().isItalic() + ",\"underlined\":" + lore.getStyle().isUnderlined() + ",\"strikethrough\":" + lore.getStyle().isStrikethrough() + ",\"obfuscated\":" + lore.getStyle().isObfuscated() + ",\"color\":\"" + lore.getStyle().getColor() + "\",\"text\":\"" + lore.getString() + "\"}],\"text\":\"\"}"));
         }
-        itemStack.getSubTag("display").put("Lore", loreTag);
+        itemStack.getSubNbt("display").put("Lore", loreTag);
     }
 
     public static ItemStack setLore(ItemStack itemStack, String[] lores){
-        ListTag loreTag = new ListTag();
+        NbtList loreTag = new NbtList();
         for(String lore : lores) {
             if(lore == null){
-                itemStack.getSubTag("display").put("Lore", loreTag);
+                itemStack.getSubNbt("display").put("Lore", loreTag);
                 return itemStack;
             }
-            loreTag.add(StringTag.of(lore));
+            loreTag.add(NbtString.of(lore));
         }
-        itemStack.getSubTag("display").put("Lore", loreTag);
+        itemStack.getSubNbt("display").put("Lore", loreTag);
         return itemStack;
     }
 
     public static ItemStack addLore(ItemStack itemStack, String[] lores){
-        ListTag loreTag = new ListTag();
-        if(itemStack.getOrCreateSubTag("display").contains("Lore")){
-            loreTag = itemStack.getSubTag("display").getList("Lore", 8);
+        NbtList loreTag = new NbtList();
+        if(itemStack.getOrCreateSubNbt("display").contains("Lore")){
+            loreTag = itemStack.getSubNbt("display").getList("Lore", 8);
         }
         for(String lore : lores) {
             if(lore == null){
                 break;
             }
-            loreTag.add(StringTag.of(lore));
+            loreTag.add(NbtString.of(lore));
         }
-        itemStack.getSubTag("display").put("Lore", loreTag);
+        itemStack.getSubNbt("display").put("Lore", loreTag);
         return itemStack;
     }
 
@@ -138,19 +138,19 @@ public class ItemUtil {
             texture = new String(a, charset);
         }
 
-        CompoundTag nbt = StringNbtReader.parse("{SkullOwner:{Id:" + StringUtil.genDummyIntArray() + ",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
-        item.setTag(nbt);
+        NbtCompound nbt = StringNbtReader.parse("{SkullOwner:{Id:" + StringUtil.genDummyIntArray() + ",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
+        item.setNbt(nbt);
         ItemUtil.giveCreativeItem(item, true);
     }
 
     public static boolean isVar(ItemStack stack, String type) {
         try {
-            CompoundTag tag = stack.getTag();
+            NbtCompound tag = stack.getNbt();
             if (tag == null) {
                 return false;
             }
 
-            CompoundTag publicBukkitNBT = tag.getCompound("PublicBukkitValues");
+            NbtCompound publicBukkitNBT = tag.getCompound("PublicBukkitValues");
             if (publicBukkitNBT == null) {
                 return false;
             }
@@ -165,19 +165,19 @@ public class ItemUtil {
         }
     }
 
-    public static ListTag toListTag(List<ItemStack> stacks) {
-        ListTag listTag = new ListTag();
+    public static NbtList toListTag(List<ItemStack> stacks) {
+        NbtList listTag = new NbtList();
         for (ItemStack stack : stacks) {
-            listTag.add(stack.toTag(new CompoundTag()));
+            listTag.add(stack.writeNbt(new NbtCompound()));
         }
 
         return listTag;
     }
 
-    public static List<ItemStack> fromListTag(ListTag listTag) {
+    public static List<ItemStack> fromListTag(NbtList listTag) {
         List<ItemStack> stacks = new ArrayList<>();
-        for (Tag tag : listTag) {
-            stacks.add(ItemStack.fromTag((CompoundTag) tag));
+        for (NbtElement tag : listTag) {
+            stacks.add(ItemStack.fromNbt((NbtCompound) tag));
         }
         return stacks;
     }

@@ -8,7 +8,7 @@ import io.github.codeutilities.sys.player.chat.ChatUtil;
 import io.github.codeutilities.sys.networking.websocket.SocketHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class SendTemplateCommand extends AbstractTemplateCommand {
 
     @Override
     protected void withTemplate(ItemStack stack) {
-        CompoundTag rawNBT = MinecraftClient.getInstance().player.getMainHandStack().getTag();
+        NbtCompound rawNBT = MinecraftClient.getInstance().player.getMainHandStack().getNbt();
         JsonObject bukkitValues = CodeUtilities.JSON_PARSER.parse(rawNBT.get("PublicBukkitValues").toString()).getAsJsonObject();
         JsonObject templateData = CodeUtilities.JSON_PARSER.parse(bukkitValues.get("hypercube:codetemplatedata").getAsString().replace("\\", "")).getAsJsonObject();
         JsonObject toSend = new JsonObject();

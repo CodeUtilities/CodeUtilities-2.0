@@ -14,7 +14,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.InputUtil.Type;
 import net.minecraft.util.math.BlockPos;
@@ -369,7 +369,7 @@ public class Keybinds implements ClientModInitializer {
                 ChatShortcut chatShortcut = ChatShortcut.getFromKey(pressedChatShortcut.get());
 
                 ChatShortcut.setCurrentChatShortcut(chatShortcut);
-                mc.openScreen(new ChatScreen(""));
+                mc.setScreen(new ChatScreen(""));
             }
         });
     }

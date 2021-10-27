@@ -21,7 +21,7 @@ import net.minecraft.client.texture.Sprite.Info;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +39,7 @@ public class MItemModels {
         if (!Config.getBoolean("betaItemTextures")) {
             return;
         }
-        CompoundTag info = stack.getSubTag("CodeutilitiesTextureData");
+        NbtCompound info = stack.getSubNbt("CodeutilitiesTextureData");
         if (info != null && (info.contains("texture") || info.contains("model"))) {
 
             if (CodeUtilities.modelCache.containsKey(info.toString())) {
@@ -59,7 +59,7 @@ public class MItemModels {
                     String tdata = info.getString("texture");
                     NativeImage texture = NativeImage.read(tdata);
 
-                    SpriteAtlasTexture sat = CodeUtilities.MC.getBakedModelManager().method_24153(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+                    SpriteAtlasTexture sat = CodeUtilities.MC.getBakedModelManager().getAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
 
                     if (texture.getWidth() * texture.getHeight() > 64 * 64) {
                         s = MissingSprite.getMissingSprite(sat, 0, 0, 0, 0, 0);
@@ -107,7 +107,7 @@ public class MItemModels {
                         Lists.newArrayList(),
                         textures,
                         true,
-                        GuiLight.field_21858,
+                        GuiLight.ITEM,
                         ((JsonUnbakedModel) CodeUtilities.modelLoader.getOrLoadModel(new Identifier("item/" + parentRot))).getTransformations(),
                         Lists.newArrayList()
                     );

@@ -13,9 +13,9 @@ import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.text.LiteralText;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -188,34 +188,34 @@ public class HeadsMenu extends LightweightGuiDescription implements IMenu, ILoad
                 String value = head.get("value").getAsString();
                 String tags = head.get("tags").getAsString();
 
-                CompoundTag nbt = new CompoundTag();
-                CompoundTag display = new CompoundTag();
-                display.putString("Name", "{\"text\":" + StringTag.escape("§e" + name) + "}");
+                NbtCompound nbt = new NbtCompound();
+                NbtCompound display = new NbtCompound();
+                display.putString("Name", "{\"text\":" + NbtString.escape("§e" + name) + "}");
 
-                ListTag lore = new ListTag();
+                NbtList lore = new NbtList();
 
-                lore.add(StringTag.of("{\"text\":\"§7Tags:\"}"));
+                lore.add(NbtString.of("{\"text\":\"§7Tags:\"}"));
 
                 for (String tag : tags.split(",")) {
-                    lore.add(StringTag.of("{\"text\":" + StringTag.escape("§7-" + tag) + "}"));
+                    lore.add(NbtString.of("{\"text\":" + NbtString.escape("§7-" + tag) + "}"));
                 }
 
                 display.put("Lore", lore);
 
                 nbt.put("display", display);
-                CompoundTag SkullOwner = new CompoundTag();
+                NbtCompound SkullOwner = new NbtCompound();
                 SkullOwner.putIntArray("Id", Arrays
                         .asList(CodeUtilities.RANDOM.nextInt(), CodeUtilities.RANDOM.nextInt(),
                                 CodeUtilities.RANDOM.nextInt(), CodeUtilities.RANDOM.nextInt()));
-                CompoundTag Properties = new CompoundTag();
-                ListTag textures = new ListTag();
-                CompoundTag index1 = new CompoundTag();
+                NbtCompound Properties = new NbtCompound();
+                NbtList textures = new NbtList();
+                NbtCompound index1 = new NbtCompound();
                 index1.putString("Value", value);
                 textures.add(index1);
                 Properties.put("textures", textures);
                 SkullOwner.put("Properties", Properties);
                 nbt.put("SkullOwner", SkullOwner);
-                item.setTag(nbt);
+                item.setNbt(nbt);
                 items.add(item);
             }
         } catch (Exception e) {

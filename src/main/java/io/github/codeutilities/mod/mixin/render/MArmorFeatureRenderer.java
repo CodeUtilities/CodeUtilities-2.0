@@ -24,7 +24,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,7 +49,7 @@ public abstract class MArmorFeatureRenderer<T extends LivingEntity, M extends Bi
         ItemStack stack = livingEntity.getEquippedStack(equipmentSlot);
         if (!stack.isEmpty()) {
 
-            CompoundTag info = stack.getSubTag("CodeutilitiesTextureData");
+            NbtCompound info = stack.getSubNbt("CodeutilitiesTextureData");
             if (info != null && (info.contains("texture") || info.contains("model") || info.contains("armor"))) {
                 ci.cancel();
 

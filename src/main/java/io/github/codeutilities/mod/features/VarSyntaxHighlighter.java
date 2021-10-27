@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.StringUtils;
 
@@ -54,7 +54,7 @@ public class VarSyntaxHighlighter {
 
         try {
             if (item.getItem() != Items.AIR) {
-                CompoundTag vals = item.getOrCreateSubTag("PublicBukkitValues");
+                NbtCompound vals = item.getOrCreateSubNbt("PublicBukkitValues");
                 if (vals.contains("hypercube:varitem")) {
                     String var = vals.getString("hypercube:varitem");
                     JsonObject json = CodeUtilities.JSON_PARSER.parse(var).getAsJsonObject();

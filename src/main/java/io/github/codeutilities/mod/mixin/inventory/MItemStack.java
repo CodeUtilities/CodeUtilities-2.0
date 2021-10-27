@@ -7,12 +7,12 @@ import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.InputUtil.Key;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -27,11 +27,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MItemStack {
 
     @Shadow
-    private CompoundTag tag;
+    private NbtCompound tag;
 
     @Shadow
     @Nullable
-    public abstract CompoundTag getSubTag(String key);
+    public abstract NbtCompound getSubTag(String key);
 
     @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
     private void getTooltip(PlayerEntity player, TooltipContext context,
@@ -50,7 +50,7 @@ public abstract class MItemStack {
             if (InputUtil.isKeyPressed(CodeUtilities.MC.getWindow().getHandle(),keycode)) {
                 List<Text> t = cir.getReturnValue();
 
-                CompoundTag tags = getSubTag("PublicBukkitValues");
+                NbtCompound tags = getSubTag("PublicBukkitValues");
 
                 if (tags != null) {
                     Set<String> keys = tags.getKeys();

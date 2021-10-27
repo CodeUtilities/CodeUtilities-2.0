@@ -25,8 +25,8 @@ import javax.imageio.ImageIO;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtString;
 import org.apache.commons.io.FileUtils;
 
 public class CustomTextureCommand extends Command {
@@ -54,8 +54,8 @@ public class CustomTextureCommand extends Command {
                                 String json = FileUtils.readFileToString(f[0], StandardCharsets.UTF_8);
                                 json = CodeUtilities.JSON_PARSER.parse(json).toString();//syntax check & remove intends
 
-                                CompoundTag tag = getTags(mc);
-                                tag.put("model", StringTag.of(json));
+                                NbtCompound tag = getTags(mc);
+                                tag.put("model", NbtString.of(json));
                                 setTags(mc, tag);
                             } catch (Exception err) {
                                 err.printStackTrace();
@@ -70,7 +70,7 @@ public class CustomTextureCommand extends Command {
                         if (!isCreative(mc)) {
                             return -1;
                         }
-                        CompoundTag tag = getTags(mc);
+                        NbtCompound tag = getTags(mc);
                         tag.remove("model");
                         setTags(mc, tag);
                         return 1;
@@ -80,7 +80,7 @@ public class CustomTextureCommand extends Command {
                             if (!isCreative(mc)) {
                                 return -1;
                             }
-                            CompoundTag tag = getTags(mc);
+                            NbtCompound tag = getTags(mc);
                             tag.remove("weapon");
                             setTags(mc, tag);
                             return 1;
@@ -91,7 +91,7 @@ public class CustomTextureCommand extends Command {
                             if (!isCreative(mc)) {
                                 return -1;
                             }
-                            CompoundTag tag = getTags(mc);
+                            NbtCompound tag = getTags(mc);
                             tag.putBoolean("weapon", true);
                             setTags(mc, tag);
                             return 1;
@@ -110,7 +110,7 @@ public class CustomTextureCommand extends Command {
                             if (!isCreative(mc)) {
                                 return -1;
                             }
-                            CompoundTag t = getTags(mc);
+                            NbtCompound t = getTags(mc);
 
                             CodeUtilities.EXECUTOR.submit(() -> {
                                 try {
@@ -141,7 +141,7 @@ public class CustomTextureCommand extends Command {
                             return -1;
                         }
                         try {
-                            CompoundTag t = getTags(mc);
+                            NbtCompound t = getTags(mc);
                             Transferable content = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
                             if (content == null) {
                                 ChatUtil.sendMessage("Your clipboard is empty!", ChatType.FAIL);
@@ -177,7 +177,7 @@ public class CustomTextureCommand extends Command {
                         }
                         CodeUtilities.EXECUTOR.submit(() -> {
                             try {
-                                CompoundTag t = getTags(mc);
+                                NbtCompound t = getTags(mc);
 
                                 FileDialog fd = new FileDialog((Dialog) null, "Choose a model file", FileDialog.LOAD);
                                 fd.setVisible(true);
@@ -212,13 +212,13 @@ public class CustomTextureCommand extends Command {
     }
 
 
-    private CompoundTag getTags(MinecraftClient mc) {
-        return mc.player.getMainHandStack().getOrCreateSubTag("CodeutilitiesTextureData");
+    private NbtCompound getTags(MinecraftClient mc) {
+        return mc.player.getMainHandStack().getOrCreateSubNbt("CodeutilitiesTextureData");
     }
 
-    private void setTags(MinecraftClient mc, CompoundTag tag) {
+    private void setTags(MinecraftClient mc, NbtCompound tag) {
         ItemStack item = mc.player.getMainHandStack();
-        item.putSubTag("CodeutilitiesTextureData", tag);
+        item.setSubNbt("CodeutilitiesTextureData", tag);
         mc.interactionManager.clickCreativeStack(item, mc.player.inventory.selectedSlot + 36);
         if (!Config.getBoolean("betaItemTextures")) {
             ChatUtil.sendMessage("Notice: You currently have this feature disabled in the config!", ChatType.INFO_YELLOW);

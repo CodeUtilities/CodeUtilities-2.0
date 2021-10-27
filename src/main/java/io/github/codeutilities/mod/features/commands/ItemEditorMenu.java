@@ -71,7 +71,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
             if (newMat != Items.AIR) {
                 save.setEnabled(true);
                 ItemStack newItem = new ItemStack(newMat, item[0].getCount());
-                newItem.setTag(item[0].getOrCreateTag());
+                newItem.setNbt(item[0].getOrCreateNbt());
                 item[0] = newItem;
                 icon.setItems(Collections.singletonList(item[0]));
             } else save.setEnabled(false);

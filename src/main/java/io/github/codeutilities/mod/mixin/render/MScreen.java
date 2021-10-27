@@ -21,7 +21,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.StringUtils;
@@ -49,15 +49,15 @@ public class MScreen {
                     Block block = ((BlockItem) item).getBlock();
                     if (block instanceof AbstractSkullBlock) {
                         GameProfile gameProfile = null;
-                        if (stack.hasTag()) {
-                            CompoundTag compoundTag = stack.getTag();
+                        if (stack.hasNbt()) {
+                            NbtCompound compoundTag = stack.getNbt();
                             if (compoundTag.contains("SkullOwner", 10)) {
                                 gameProfile = NbtHelper.toGameProfile(compoundTag.getCompound("SkullOwner"));
                             } else if (compoundTag.contains("SkullOwner", 8) && !StringUtils.isBlank(compoundTag.getString("SkullOwner"))) {
                                 gameProfile = new GameProfile(null, compoundTag.getString("SkullOwner"));
                                 gameProfile = SkullBlockEntity.loadProperties(gameProfile);
                                 compoundTag.remove("SkullOwner");
-                                compoundTag.put("SkullOwner", NbtHelper.fromGameProfile(new CompoundTag(), gameProfile));
+                                compoundTag.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), gameProfile));
                             }
                         }
 

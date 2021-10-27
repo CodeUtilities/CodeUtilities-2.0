@@ -9,7 +9,7 @@ import io.github.codeutilities.sys.util.ItemUtil;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 
 import java.io.File;
@@ -51,9 +51,9 @@ public class PlotsCommand extends Command {
         return "/plots";
     }
 
-    public static void getItems(CompoundTag recievedTag) {
+    public static void getItems(NbtCompound recievedTag) {
         try {
-            CompoundTag compoundTag = recievedTag;
+            NbtCompound compoundTag = recievedTag;
             if (compoundTag == null) compoundTag = NbtIo.read(FILE);
             if (compoundTag == null) {
                 return;

@@ -15,7 +15,7 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -54,12 +54,12 @@ public class MHeldItemTooltip {
                     if (ItemUtil.isVar(itemStack, "var")) {
                         variableStack = itemStack;
 
-                        CompoundTag tag = itemStack.getTag();
+                        NbtCompound tag = itemStack.getNbt();
                         if (tag == null) {
                             return;
                         }
 
-                        CompoundTag publicBukkitNBT = tag.getCompound("PublicBukkitValues");
+                        NbtCompound publicBukkitNBT = tag.getCompound("PublicBukkitValues");
                         if (publicBukkitNBT == null) {
                             return;
                         }
@@ -98,7 +98,7 @@ public class MHeldItemTooltip {
                     ItemStack item = CodeUtilities.MC.player.getMainHandStack();
 
                     if (item.getItem() != Items.AIR) {
-                        CompoundTag vals = item.getOrCreateSubTag("PublicBukkitValues");
+                        NbtCompound vals = item.getOrCreateSubNbt("PublicBukkitValues");
                         if (vals.contains("hypercube:varitem")) {
 
                             String var = vals.getString("hypercube:varitem");

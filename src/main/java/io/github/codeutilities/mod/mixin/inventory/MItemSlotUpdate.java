@@ -14,8 +14,8 @@ import io.github.codeutilities.sys.player.chat.MessageGrabber;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import org.apache.logging.log4j.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,9 +37,9 @@ public class MItemSlotUpdate {
                 TemplateStorageHandler.addTemplate(stack);
             }
 
-            CompoundTag nbt = stack.getOrCreateTag();
-            CompoundTag display = nbt.getCompound("display");
-            ListTag lore = display.getList("Lore", 8);
+            NbtCompound nbt = stack.getOrCreateNbt();
+            NbtCompound display = nbt.getCompound("display");
+            NbtList lore = display.getList("Lore", 8);
             if (mc.player == null) {
                 return;
             }

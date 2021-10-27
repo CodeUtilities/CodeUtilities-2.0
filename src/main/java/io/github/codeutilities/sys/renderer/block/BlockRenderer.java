@@ -11,8 +11,6 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.client.util.math.Vector4f;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -33,7 +31,6 @@ import java.awt.*;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -123,7 +120,7 @@ public class BlockRenderer {
     private void quad(MatrixStack.Entry matrixEntry, BakedQuad quad, float[] brightnesses, float red, float green, float blue, float alpha, int[] lights, int overlay, boolean useQuadColorData, VertexConsumer vc) {
         int[] is = quad.getVertexData();
         Vec3i vec3i = quad.getFace().getVector();
-        Vector3f vector3f = new Vector3f((float)vec3i.getX(), (float)vec3i.getY(), (float)vec3i.getZ());
+        Vec3f vector3f = new Vec3f((float)vec3i.getX(), (float)vec3i.getY(), (float)vec3i.getZ());
         Matrix4f matrix4f = matrixEntry.getModel();
         vector3f.transform(matrixEntry.getNormal());
         int j = is.length / 8;

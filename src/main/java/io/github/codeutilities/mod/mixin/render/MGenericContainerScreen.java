@@ -22,7 +22,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -180,7 +180,7 @@ public abstract class MGenericContainerScreen extends HandledScreen<GenericConta
     }
 
     private boolean typeCheck(String type, ItemStack item) {
-        CompoundTag pbv = item.getSubTag("PublicBukkitValues");
+        NbtCompound pbv = item.getSubNbt("PublicBukkitValues");
         String varitemtype = "";
         if (pbv != null) {
             String t = pbv.getString("hypercube:varitem");

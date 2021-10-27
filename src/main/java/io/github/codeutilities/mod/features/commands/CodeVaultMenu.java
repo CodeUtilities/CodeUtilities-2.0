@@ -20,10 +20,10 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtInt;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -98,7 +98,7 @@ public class CodeVaultMenu extends LightweightGuiDescription implements IMenu {
                 if (Objects.equals(category, "all")) {
                     filtered.add(item);
                 } else {
-                    String category = item.getTag().getString("category");
+                    String category = item.getNbt().getString("category");
                     if (Objects.equals(category, this.category)) {
                         filtered.add(item);
                     }
@@ -140,12 +140,12 @@ public class CodeVaultMenu extends LightweightGuiDescription implements IMenu {
                     ItemStack item = new ItemStack(Registry.ITEM.get(new Identifier(material)));
                     item.setCustomName(new LiteralText(name));
 
-                    ListTag loreTag = new ListTag();
+                    NbtList loreTag = new NbtList();
 
-                    loreTag.add(StringTag.of(Text.Serializer.toJson(new LiteralText(
+                    loreTag.add(NbtString.of(Text.Serializer.toJson(new LiteralText(
                         "§7Created by §a" + author
                     ))));
-                    loreTag.add(StringTag.of(Text.Serializer.toJson(new LiteralText(
+                    loreTag.add(NbtString.of(Text.Serializer.toJson(new LiteralText(
                         "§2⚐ Category " + category.replaceFirst("&", "§")
                     ))));
 
@@ -156,25 +156,25 @@ public class CodeVaultMenu extends LightweightGuiDescription implements IMenu {
                         plotsize = 1;
                     }
 
-                    loreTag.add(StringTag.of(Text.Serializer.toJson(new LiteralText(
+                    loreTag.add(NbtString.of(Text.Serializer.toJson(new LiteralText(
                         "§5☐ §7" + ranks[rank - 1] +
                             " §5§l! §7" + plots[plotsize - 1]
                     ))));
 
                     if (!Objects.equals(lore, "")) {
-                        loreTag.add(StringTag.of(
+                        loreTag.add(NbtString.of(
                             Text.Serializer.toJson(new LiteralText("§fDescription:"))));
                         for (String line : lore.split("\n")) {
                             loreTag.add(
-                                StringTag.of(Text.Serializer.toJson(new LiteralText(line))));
+                                NbtString.of(Text.Serializer.toJson(new LiteralText(line))));
                         }
                     }
 
-                    item.getSubTag("display").put("Lore", loreTag);
-                    item.putSubTag("HideFlags", IntTag.of(127));
-                    item.putSubTag("category", StringTag.of(categoryConv.get(category).toLowerCase()));
+                    item.getSubNbt("display").put("Lore", loreTag);
+                    item.setSubNbt("HideFlags", NbtInt.of(127));
+                    item.setSubNbt("category", NbtString.of(categoryConv.get(category).toLowerCase()));
 
-                    CompoundTag publicBukkitVals = item.getOrCreateSubTag("PublicBukkitValues");
+                    NbtCompound publicBukkitVals = item.getOrCreateSubNbt("PublicBukkitValues");
                     publicBukkitVals.putString("hypercube:codetemplatedata",templatedata);
                     items.add(item);
                 } catch (Exception err) {

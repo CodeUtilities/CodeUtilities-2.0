@@ -1,8 +1,8 @@
 plugins {
-    id 'fabric-loom' version '0.7-SNAPSHOT'
-    id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '4.0.4'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id "fabric-loom" version "0.9-SNAPSHOT"
+    id "maven-publish"
+//    id "com.github.johnrengelman.shadow" version "4.0.4"
+    id "org.openjfx.javafxplugin" version "0.0.9"
 }
 
 apply plugin: 'idea'
@@ -19,10 +19,10 @@ repositories {
         url = "https://jitpack.io"
     }
     maven {
-        url "https://jitpack.io"
+        url = "https://maven.shedaniel.me/"
     }
     maven {
-        url "https://maven.shedaniel.me/"
+        url = "https://maven.terraformersmc.com/releases/"
     }
 }
 
@@ -37,8 +37,9 @@ minecraft {
 }
 
 dependencies {
+
     //discord rpc
-    compile 'com.jagrosh:DiscordIPC:0.4'
+    implementation 'com.jagrosh:DiscordIPC:0.4'
 
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -47,21 +48,19 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     //https://github.com/CottonMC/LibGui/releases //API
-    modImplementation "io.github.cottonmc:LibGui:3.2.2+1.16.3"
-	modImplementation "io.github.prospector:modmenu:1.16.9"
-	modImplementation "me.shedaniel.cloth:cloth-config-fabric:4.11.19"
+    modImplementation include("io.github.cottonmc:LibGui:4.2.1+1.17.1")
+	modImplementation "com.terraformersmc:modmenu:2.1.2"
 
-    include "io.github.cottonmc:LibGui:3.2.2+1.16.3"
-	include "me.shedaniel.cloth:cloth-config-fabric:4.11.19"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:5.0.38") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 
     //websocket TODO: clean this up
-    compile 'org.java-websocket:Java-WebSocket:1.5.2'
-    modImplementation "javax.websocket:javax.websocket-api:1.1"
-    modImplementation 'io.socket:socket.io-client:2.0.1'
-    include "javax.websocket:javax.websocket-api:1.1"
-    compile 'io.socket:socket.io-client:2.0.1'
-    include 'javax.websocket:javax.websocket-api:1.1'
-    include 'org.java-websocket:Java-WebSocket:1.5.2'
+    implementation 'org.java-websocket:Java-WebSocket:1.5.2'
+    modImplementation include("javax.websocket:javax.websocket-api:1.1")
+    modImplementation include('io.socket:socket.io-client:2.0.1')
+//    implementation 'io.socket:socket.io-client:2.0.1'
+//    include 'org.java-websocket:Java-WebSocket:1.5.2'
 
     //https://github.com/natanfudge/Not-Enough-Crashes //API
     //modRuntime "com.lettuce.fudge:notenoughcrashes:2.1.4+1.16.4"
@@ -103,10 +102,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-jar {
-    from "LICENSE"
-    from {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-}
+//jar {
+//    from "LICENSE"
+//    from {configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) } }
+//}
 
 // configure the maven publication
 publishing {

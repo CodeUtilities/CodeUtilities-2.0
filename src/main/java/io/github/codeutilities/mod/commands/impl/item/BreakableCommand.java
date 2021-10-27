@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public class BreakableCommand extends Command {
 
@@ -20,9 +20,9 @@ public class BreakableCommand extends Command {
                     if (this.isCreative(mc)) {
                         ItemStack item = mc.player.getMainHandStack();
                         if (item.getItem() != Items.AIR) {
-                            CompoundTag nbt = item.getOrCreateTag();
+                            NbtCompound nbt = item.getOrCreateNbt();
                             nbt.putBoolean("Unbreakable", false);
-                            item.setTag(nbt);
+                            item.setNbt(nbt);
                             mc.interactionManager.clickCreativeStack(item, 36 + mc.player.inventory.selectedSlot);
                             ChatUtil.sendMessage("The item you're holding is now breakable!", ChatType.SUCCESS);
                         } else {

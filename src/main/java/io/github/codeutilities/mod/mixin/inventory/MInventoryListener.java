@@ -11,7 +11,7 @@ import io.github.codeutilities.sys.networking.State;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.packet.s2c.play.InventoryS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +27,7 @@ import java.util.List;
 @Mixin(ClientPlayNetworkHandler.class)
 public class MInventoryListener {
     private static final File FILE = ExternalFile.PLOTS_DB.getFile();
-    private CompoundTag lastTag = null;
+    private NbtCompound lastTag = null;
 
     @Inject(method = "onInventory", at = @At("RETURN"))
     private void onInventory(InventoryS2CPacket packet, CallbackInfo ci) {
@@ -51,7 +51,7 @@ public class MInventoryListener {
             items.add(item);
         }
         try {
-            CompoundTag compoundTag = new CompoundTag();
+            NbtCompound compoundTag = new NbtCompound();
             List<ItemStack> antioverrider = DFInfo.isInBeta ? PlotsCommand.items : PlotsCommand.betaItems;
             if (antioverrider != null)
                 compoundTag.put(DFInfo.isInBeta ? "items" : "betaItems", ItemUtil.toListTag(antioverrider));

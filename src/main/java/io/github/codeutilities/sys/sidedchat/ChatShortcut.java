@@ -1,10 +1,10 @@
 package io.github.codeutilities.sys.sidedchat;
 
-import net.minecraft.client.options.KeyBinding;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.*;
+import net.minecraft.client.option.KeyBinding;
 
 public enum ChatShortcut {
     SUPPORT_CHAT("support_chat", new Color(0,   148, 193, 100), "/sb "),

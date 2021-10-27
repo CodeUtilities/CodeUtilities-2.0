@@ -17,9 +17,9 @@ import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -64,14 +64,14 @@ public class MSignRenderer {
         if (blockState.getBlock() instanceof SignBlock) {
             matrixStack.translate(0.5D, 0.5D, 0.5D);
             h = -((float) (blockState.get(SignBlock.ROTATION) * 360) / 16.0F);
-            matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(h));
-            this.model.foot.visible = true;
+            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(h));
+            this.model.stick.visible = true;
         } else {
             matrixStack.translate(0.5D, 0.5D, 0.5D);
             h = -blockState.get(WallSignBlock.FACING).asRotation();
-            matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(h));
+            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(h));
             matrixStack.translate(0.0D, -0.3125D, -0.4375D);
-            this.model.foot.visible = false;
+            this.model.stick.visible = false;
         }
 
         matrixStack.push();
@@ -81,7 +81,7 @@ public class MSignRenderer {
         var10002.getClass();
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumerProvider, var10002::getLayer);
         this.model.field.render(matrixStack, vertexConsumer, i, j);
-        this.model.foot.render(matrixStack, vertexConsumer, i, j);
+        this.model.stick.render(matrixStack, vertexConsumer, i, j);
         matrixStack.pop();
         matrixStack.translate(0.0D, 0.3333333432674408D, 0.046666666865348816D);
         matrixStack.scale(0.010416667F, -0.010416667F, 0.010416667F);
@@ -89,7 +89,7 @@ public class MSignRenderer {
         int n = (int) ((double) NativeImage.getRed(m) * 0.4D);
         int o = (int) ((double) NativeImage.getGreen(m) * 0.4D);
         int p = (int) ((double) NativeImage.getBlue(m) * 0.4D);
-        int q = NativeImage.getAbgrColor(0, p, o, n);
+        int q = NativeImage.packColor(0, p, o, n);
 
         for (int s = 0; s < 4; ++s) {
             OrderedText orderedText = signBlockEntity.getTextBeingEditedOnRow(s, (text) -> {

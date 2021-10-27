@@ -63,7 +63,7 @@ public class CodeUtilitiesUI extends LightweightGuiDescription implements IMenu 
                 CodeUtilitiesUI gui = new CodeUtilitiesUI();
                 gui.scheduleOpenGui(gui);
             }, link, false);
-            MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().openScreen(gui_3));
+            MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().setScreen(gui_3));
         });
         panel.add(bugReport, 60, 192, 100, 20);
 
@@ -71,7 +71,7 @@ public class CodeUtilitiesUI extends LightweightGuiDescription implements IMenu 
         WButton options = new WButton(new LiteralText("Options"));
         options.setOnClick(() -> {
             MinecraftClient mc = MinecraftClient.getInstance();
-            mc.openScreen(ConfigScreen.getScreen(MinecraftClient.getInstance().currentScreen));
+            mc.setScreen(ConfigScreen.getScreen(MinecraftClient.getInstance().currentScreen));
         });
         panel.add(options, 60, 214, 100, 20);
     }

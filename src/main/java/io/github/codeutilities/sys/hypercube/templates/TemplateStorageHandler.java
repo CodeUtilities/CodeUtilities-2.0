@@ -8,7 +8,7 @@ import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtIo;
 
@@ -58,7 +58,7 @@ public class TemplateStorageHandler implements IManager<TemplateItem>, ISave {
     @Override
     public void initialize() {
         try {
-            CompoundTag compoundTag = NbtIo.read(FILE);
+            NbtCompound compoundTag = NbtIo.read(FILE);
             if (compoundTag == null) {
                 return;
             }
@@ -93,7 +93,7 @@ public class TemplateStorageHandler implements IManager<TemplateItem>, ISave {
     @Override
     public void save() {
         try {
-            CompoundTag compoundTag = new CompoundTag();
+            NbtCompound compoundTag = new NbtCompound();
             compoundTag.putInt("DataVersion", SharedConstants.getGameVersion().getWorldVersion());
             compoundTag.put("items", ItemUtil.toListTag(registeredTemplates.stream()
                     .map((templateItem -> templateItem.stack)).collect(Collectors.toList())));

@@ -48,8 +48,8 @@ public class BuiltinItemModel implements BakedModel {
     }
 
     @Override
-    public Sprite getSprite() {
-        return CodeUtilities.MC.getBakedModelManager().getModel(new ModelIdentifier("missing")).getSprite();
+    public Sprite getParticleSprite() {
+        return CodeUtilities.MC.getBakedModelManager().getModel(new ModelIdentifier("missing")).getParticleSprite();
     }
 
     @Override

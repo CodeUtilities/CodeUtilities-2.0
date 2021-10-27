@@ -11,10 +11,10 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
 import java.awt.*;
@@ -85,7 +85,7 @@ public class ChestRenderer<T extends BlockEntity & ChestAnimationProgress> exten
             matrices.push();
             float f = blockState.get(ChestBlock.FACING).asRotation();
             matrices.translate(0.5D, 0.5D, 0.5D);
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-f));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-f));
             matrices.translate(-0.5D, -0.5D, -0.5D);
 
             float g = 0f;
