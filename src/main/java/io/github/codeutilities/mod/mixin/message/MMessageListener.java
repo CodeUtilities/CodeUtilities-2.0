@@ -3,17 +3,15 @@ package io.github.codeutilities.mod.mixin.message;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.mod.events.impl.ReceiveChatMessageEvent;
 import io.github.codeutilities.mod.events.interfaces.ChatEvents;
-import io.github.codeutilities.mod.features.discordrpc.DFDiscordRPC;
+import io.github.codeutilities.mod.features.CPU_UsageText;
 import io.github.codeutilities.mod.features.keybinds.FlightspeedToggle;
 import io.github.codeutilities.mod.features.social.chat.message.Message;
-import io.github.codeutilities.sys.player.chat.ChatUtil;
-import io.github.codeutilities.sys.player.chat.MessageGrabber;
-import io.github.codeutilities.mod.features.CPU_UsageText;
-import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.networking.WebUtil;
+import io.github.codeutilities.sys.player.DFInfo;
+import io.github.codeutilities.sys.player.chat.ChatUtil;
+import java.io.IOException;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.MessageType;
@@ -31,22 +29,23 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.IOException;
-
 @Mixin(ClientPlayNetworkHandler.class)
 public class MMessageListener {
+
     private static long lastPatchCheck = 0;
     private static long lastBuildCheck = 0;
     private final MinecraftClient minecraftClient = MinecraftClient.getInstance();
-    private boolean motdShown = false;
     private final ChatEvents invoker = ChatEvents.RECEIVE_MESSAGE.invoker();
+    private boolean motdShown = false;
 
     @Inject(method = "onGameMessage", at = @At("HEAD"), cancellable = true)
     private void onGameMessage(GameMessageS2CPacket packet, CallbackInfo ci) {
         if (DFInfo.isOnDF()) {
             if (packet.getLocation() == MessageType.CHAT || packet.getLocation() == MessageType.SYSTEM) {
                 if (RenderSystem.isOnRenderThread()) {
-                    if (invoker.receive(new Message(packet, ci)).equals(ActionResult.SUCCESS)) ci.cancel();
+                    if (invoker.receive(new Message(packet, ci)).equals(ActionResult.SUCCESS)) {
+                        ci.cancel();
+                    }
                     try {
                         this.updateVersion(packet.getMessage());
                         this.updateState(packet.getMessage());
@@ -61,20 +60,21 @@ public class MMessageListener {
 
     @Inject(method = "onTitle", at = @At("HEAD"), cancellable = true)
     private void onTitle(TitleS2CPacket packet, CallbackInfo ci) {
-        TitleS2CPacket.Action action = packet.getAction();
-        if (minecraftClient.player == null) return;
-        if (action == TitleS2CPacket.Action.ACTIONBAR) {
-            if (packet.getText().getString().matches("^CPU Usage: \\[▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮\\] \\(.*%\\)$")) {
-                if (Config.getBoolean("cpuOnScreen")) {
-                    CPU_UsageText.updateCPU(packet);
-                    ci.cancel();
-                }
+        if (minecraftClient.player == null) {
+            return;
+        }
+        if (packet.getTitle().getString().matches("^CPU Usage: \\[▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮\\] \\(.*%\\)$")) {
+            if (Config.getBoolean("cpuOnScreen")) {
+                CPU_UsageText.updateCPU(packet);
+                ci.cancel();
             }
         }
     }
 
     private void updateVersion(Text component) {
-        if (minecraftClient.player == null) return;
+        if (minecraftClient.player == null) {
+            return;
+        }
 
         String text = component.getString();
 
@@ -94,7 +94,7 @@ public class MMessageListener {
                             String version = WebUtil.getString("https://codeutilities.github.io/data/currentversion.txt").replaceAll("\n", "");
                             if (!CodeUtilities.MOD_VERSION.equals(version) && !CodeUtilities.BETA) {
                                 minecraftClient.player.sendMessage(new LiteralText(String.format("A new version of CodeUtilities (%s) is available! Click here to download!", version)).styled(style ->
-                                        style.withColor(TextColor.fromFormatting(Formatting.YELLOW))).styled(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://codeutilities.github.io/"))), false);
+                                    style.withColor(TextColor.fromFormatting(Formatting.YELLOW))).styled(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://codeutilities.github.io/"))), false);
                             }
 
                         } catch (IOException ignored) {
@@ -127,7 +127,9 @@ public class MMessageListener {
     }
 
     private void updateState(Text component) {
-        if (minecraftClient.player == null) return;
+        if (minecraftClient.player == null) {
+            return;
+        }
 
         String text = component.getString();
 

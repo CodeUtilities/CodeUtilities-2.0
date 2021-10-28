@@ -16,21 +16,22 @@ public class RenderUtil extends DrawableHelper {
         DrawableHelper.fill(matrices, left, top, right, bottom, color.getRGB());
     }
 
+    //todo: update to 1.17
     public static void drawGradientRect(MatrixStack matrices, int xStart, int yStart, int xEnd, int yEnd, Color colorStart, Color colorEnd, int zOffset) {
-        RenderSystem.disableTexture();
-        RenderSystem.enableBlend();
-        RenderSystem.disableAlphaTest();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.shadeModel(7425);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(7, VertexFormats.POSITION_COLOR);
-        fillGradient(matrices.peek().getModel(), bufferBuilder, xStart, yStart, xEnd, yEnd, zOffset, colorStart.getRGB(), colorEnd.getRGB());
-        tessellator.draw();
-        RenderSystem.shadeModel(7424);
-        RenderSystem.disableBlend();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.enableTexture();
+//        RenderSystem.disableTexture();
+//        RenderSystem.enableBlend();
+//        RenderSystem.disableAlphaTest();
+//        RenderSystem.defaultBlendFunc();
+//        RenderSystem.shadeModel(7425);
+//        Tessellator tessellator = Tessellator.getInstance();
+//        BufferBuilder bufferBuilder = tessellator.getBuffer();
+//        bufferBuilder.begin(7, VertexFormats.POSITION_COLOR);
+//        fillGradient(matrices.peek().getModel(), bufferBuilder, xStart, yStart, xEnd, yEnd, zOffset, colorStart.getRGB(), colorEnd.getRGB());
+//        tessellator.draw();
+//        RenderSystem.shadeModel(7424);
+//        RenderSystem.disableBlend();
+//        RenderSystem.enableAlphaTest();
+//        RenderSystem.enableTexture();
     }
 
     protected void drawGradientRect(Matrix4f matrix, BufferBuilder bufferBuilder, int xStart, int yStart, int xEnd, int yEnd, int z, int colorStart, int colorEnd) {

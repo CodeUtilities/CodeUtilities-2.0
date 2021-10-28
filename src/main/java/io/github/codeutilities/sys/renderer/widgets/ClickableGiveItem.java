@@ -1,6 +1,7 @@
 package io.github.codeutilities.sys.renderer.widgets;
 
 import io.github.codeutilities.sys.util.ItemUtil;
+import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -13,9 +14,10 @@ public class ClickableGiveItem extends CItem {
     }
 
     @Override
-    public void onClick(int x, int y, int button) {
+    public InputResult onClick(int x, int y, int button) {
         MinecraftClient mc = MinecraftClient.getInstance();
         ItemUtil.giveCreativeItem(getItems().get(0), true);
         mc.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 2, 1);
+        return InputResult.PROCESSED;
     }
 }

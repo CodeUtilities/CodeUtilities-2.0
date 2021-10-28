@@ -2,9 +2,8 @@ package io.github.codeutilities.sys.renderer.widgets;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.github.cottonmc.cotton.gui.client.LibGuiClient;
-import io.github.cottonmc.cotton.gui.client.LibGuiConfig;
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
+import io.github.cottonmc.cotton.gui.impl.client.LibGuiClient;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,7 +33,7 @@ public class CButton extends WButton {
 
         if (getLabel() != null) {
 
-            ScreenDrawing.coloredRect(x,y+3,width,height, color);
+            ScreenDrawing.coloredRect(new MatrixStack(),x,y+3,width,height, color);
 
             ScreenDrawing.drawString(matrices, getLabel().asOrderedText(), alignment, x,
                 y + ((20 - 8) / 2), width, tcolor);

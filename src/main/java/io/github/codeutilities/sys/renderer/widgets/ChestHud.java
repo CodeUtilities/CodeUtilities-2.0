@@ -37,7 +37,7 @@ public class ChestHud {
 
         if (DFInfo.currentState.getMode() == State.Mode.DEV && Config.getBoolean("chestToolTip")) {
             if (Config.getBoolean("chestToolTipType")) {
-                ItemStack item = CodeUtilities.MC.player.inventory.getStack(17);
+                ItemStack item = CodeUtilities.MC.player.getInventory().getStack(17);
 
                 int i = ((screen.width) / 2) + 85;
                 int j = (screen.height) / 2 - 68;
@@ -55,7 +55,7 @@ public class ChestHud {
                 MinecraftClient mc = CodeUtilities.MC;
                 ClientPlayerEntity player = mc.player;
 
-                Inventory inventory = player.inventory;
+                Inventory inventory = player.getInventory();
                 ItemStack item = inventory.getStack(17);
 
                 int x = 20;

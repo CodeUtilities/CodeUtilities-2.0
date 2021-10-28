@@ -43,7 +43,7 @@ public class MPlayerSendMessage {
         String[] args = string.split(" ");
         if (minecraftClient.player != null) {
             if (!string.startsWith("/")) {
-                ItemStack mainHand = minecraftClient.player.inventory.getMainHandStack();
+                ItemStack mainHand = minecraftClient.player.getInventory().getMainHandStack();
                 if (mainHand.hasNbt()) {
                     NbtCompound tag = mainHand.getNbt();
                     NbtCompound publicBukkitValues = tag.getCompound("PublicBukkitValues");
@@ -88,7 +88,7 @@ public class MPlayerSendMessage {
                                         mainHand.getNbt().put("display", display);
 
                                         ci.cancel();
-                                        minecraftClient.interactionManager.clickCreativeStack(mainHand, minecraftClient.player.inventory.selectedSlot + 36);
+                                        minecraftClient.interactionManager.clickCreativeStack(mainHand, minecraftClient.player.getInventory().selectedSlot + 36);
                                     }
                                 }
                             } catch (Exception e) {

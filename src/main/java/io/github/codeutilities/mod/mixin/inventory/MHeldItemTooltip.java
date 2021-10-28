@@ -48,7 +48,7 @@ public class MHeldItemTooltip {
         try {
             if (Config.getBoolean("variableScopeView")) {
 
-                ItemStack itemStack = mc.player.inventory.getMainHandStack();
+                ItemStack itemStack = mc.player.getInventory().getMainHandStack();
 
                 if (variableStack != itemStack) {
                     if (ItemUtil.isVar(itemStack, "var")) {

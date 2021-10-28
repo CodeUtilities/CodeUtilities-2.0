@@ -56,7 +56,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
         WButton save = new WButton(new LiteralText("Save & Quit"));
 
         save.setOnClick(() -> {
-            mc.interactionManager.clickCreativeStack(item[0], mc.player.inventory.selectedSlot + 36);
+            mc.interactionManager.clickCreativeStack(item[0], mc.player.getInventory().selectedSlot + 36);
             mc.currentScreen.onClose();
         });
 

@@ -27,10 +27,10 @@ public class CPU_UsageText {
     }
 
     public static void updateCPU(TitleS2CPacket packet) {
-        JsonArray msgArray = Text.Serializer.toJsonTree(packet.getText()).getAsJsonObject().getAsJsonArray("extra");
+        JsonArray msgArray = Text.Serializer.toJsonTree(packet.getTitle()).getAsJsonObject().getAsJsonArray("extra");
         JsonObject msgPart = msgArray.get(2).getAsJsonObject();
 
-        barsText = packet.getText();
+        barsText = packet.getTitle();
 
         int sibs = barsText.getSiblings().size();
 

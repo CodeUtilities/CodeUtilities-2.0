@@ -11,6 +11,7 @@ import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WText;
+import io.github.cottonmc.cotton.gui.widget.WTextField;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
@@ -27,10 +28,10 @@ public class ColorsMenu extends LightweightGuiDescription implements IMenu {
     public CText previewText;
     public CColoredRectangle previewTextRect;
     public WText recentText;
-    public CTextField hexInput;
-    public CTextField rInput;
-    public CTextField gInput;
-    public CTextField bInput;
+    public WTextField hexInput;
+    public WTextField rInput;
+    public WTextField gInput;
+    public WTextField bInput;
     private final MinecraftClient mc = MinecraftClient.getInstance();
 
     @Override

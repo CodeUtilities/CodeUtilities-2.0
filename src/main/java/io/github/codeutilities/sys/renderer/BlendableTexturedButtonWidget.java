@@ -21,11 +21,12 @@ public class BlendableTexturedButtonWidget extends TexturedButtonWidget {
         super(i, j, k, l, m, n, o, identifier, p, q, pressAction, EMPTY, text);
     }
 
-    @Override
-    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        super.renderButton(matrices, mouseX, mouseY, delta);
-    }
+    //todo: update to 1.17
+//    @Override
+//    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+//        RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
+//        RenderSystem.enableBlend();
+//        RenderSystem.defaultBlendFunc();
+//        super.renderButton(matrices, mouseX, mouseY, delta);
+//    }
 }

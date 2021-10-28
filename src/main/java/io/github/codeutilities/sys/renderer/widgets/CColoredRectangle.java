@@ -1,7 +1,7 @@
 package io.github.codeutilities.sys.renderer.widgets;
 
 import io.github.codeutilities.sys.renderer.RenderUtil;
-import io.github.cottonmc.cotton.gui.client.LibGuiClient;
+import io.github.cottonmc.cotton.gui.impl.client.LibGuiClient;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.minecraft.client.util.math.MatrixStack;
 

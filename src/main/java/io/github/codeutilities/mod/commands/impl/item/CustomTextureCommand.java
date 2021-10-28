@@ -219,7 +219,7 @@ public class CustomTextureCommand extends Command {
     private void setTags(MinecraftClient mc, NbtCompound tag) {
         ItemStack item = mc.player.getMainHandStack();
         item.setSubNbt("CodeutilitiesTextureData", tag);
-        mc.interactionManager.clickCreativeStack(item, mc.player.inventory.selectedSlot + 36);
+        mc.interactionManager.clickCreativeStack(item, mc.player.getInventory().selectedSlot + 36);
         if (!Config.getBoolean("betaItemTextures")) {
             ChatUtil.sendMessage("Notice: You currently have this feature disabled in the config!", ChatType.INFO_YELLOW);
         }

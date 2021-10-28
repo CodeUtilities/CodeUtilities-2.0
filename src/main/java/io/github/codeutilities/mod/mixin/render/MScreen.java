@@ -48,36 +48,37 @@ public class MScreen {
                 if (item instanceof BlockItem) {
                     Block block = ((BlockItem) item).getBlock();
                     if (block instanceof AbstractSkullBlock) {
-                        GameProfile gameProfile = null;
-                        if (stack.hasNbt()) {
-                            NbtCompound compoundTag = stack.getNbt();
-                            if (compoundTag.contains("SkullOwner", 10)) {
-                                gameProfile = NbtHelper.toGameProfile(compoundTag.getCompound("SkullOwner"));
-                            } else if (compoundTag.contains("SkullOwner", 8) && !StringUtils.isBlank(compoundTag.getString("SkullOwner"))) {
-                                gameProfile = new GameProfile(null, compoundTag.getString("SkullOwner"));
-                                gameProfile = SkullBlockEntity.loadProperties(gameProfile);
-                                compoundTag.remove("SkullOwner");
-                                compoundTag.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), gameProfile));
-                            }
-                        }
-
-                        MinecraftClient mc = CodeUtilities.MC;
-
-                        Map<Type, MinecraftProfileTexture> textures = mc.getSkinProvider().getTextures(gameProfile);
-                        if (textures.containsKey(Type.SKIN)) {
-                            URL url = new URL(textures.get(Type.SKIN).getUrl());
-
-                            if (!cache.containsKey(url.toString())) {
-                                cache.put(url.toString(), null);
-                                NativeImageBackedTexture texture = new NativeImageBackedTexture(NativeImage.read(url.openStream()));
-                                Identifier id = mc.getTextureManager().registerDynamicTexture("skinpreview", texture);
-                                cache.put(url.toString(), id);
-                            }
-                            if (cache.get(url.toString()) != null) {
-                                TexturedOtherPlayerEntity entity = new TexturedOtherPlayerEntity(cache.get(url.toString()));
-                                InventoryScreen.drawEntity(mc.currentScreen.width/5, mc.currentScreen.height/2+20, 40, -20, -20, entity);
-                            }
-                        }
+                        //todo: update to 1.17
+//                        GameProfile gameProfile = null;
+//                        if (stack.hasNbt()) {
+//                            NbtCompound compoundTag = stack.getNbt();
+//                            if (compoundTag.contains("SkullOwner", 10)) {
+//                                gameProfile = NbtHelper.toGameProfile(compoundTag.getCompound("SkullOwner"));
+//                            } else if (compoundTag.contains("SkullOwner", 8) && !StringUtils.isBlank(compoundTag.getString("SkullOwner"))) {
+//                                gameProfile = new GameProfile(null, compoundTag.getString("SkullOwner"));
+//                                gameProfile = SkullBlockEntity.loadProperties(gameProfile);
+//                                compoundTag.remove("SkullOwner");
+//                                compoundTag.put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), gameProfile));
+//                            }
+//                        }
+//
+//                        MinecraftClient mc = CodeUtilities.MC;
+//
+//                        Map<Type, MinecraftProfileTexture> textures = mc.getSkinProvider().getTextures(gameProfile);
+//                        if (textures.containsKey(Type.SKIN)) {
+//                            URL url = new URL(textures.get(Type.SKIN).getUrl());
+//
+//                            if (!cache.containsKey(url.toString())) {
+//                                cache.put(url.toString(), null);
+//                                NativeImageBackedTexture texture = new NativeImageBackedTexture(NativeImage.read(url.openStream()));
+//                                Identifier id = mc.getTextureManager().registerDynamicTexture("skinpreview", texture);
+//                                cache.put(url.toString(), id);
+//                            }
+//                            if (cache.get(url.toString()) != null) {
+//                                TexturedOtherPlayerEntity entity = new TexturedOtherPlayerEntity(cache.get(url.toString()));
+//                                InventoryScreen.drawEntity(mc.currentScreen.width/5, mc.currentScreen.height/2+20, 40, -20, -20, entity);
+//                            }
+//                        }
                     }
                 }
             }

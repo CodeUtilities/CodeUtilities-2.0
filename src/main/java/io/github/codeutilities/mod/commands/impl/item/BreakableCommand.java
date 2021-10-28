@@ -23,7 +23,7 @@ public class BreakableCommand extends Command {
                             NbtCompound nbt = item.getOrCreateNbt();
                             nbt.putBoolean("Unbreakable", false);
                             item.setNbt(nbt);
-                            mc.interactionManager.clickCreativeStack(item, 36 + mc.player.inventory.selectedSlot);
+                            mc.interactionManager.clickCreativeStack(item, 36 + mc.player.getInventory().selectedSlot);
                             ChatUtil.sendMessage("The item you're holding is now breakable!", ChatType.SUCCESS);
                         } else {
                             ChatUtil.sendMessage("You need to hold an item in your main hand!", ChatType.FAIL);

@@ -40,12 +40,14 @@ public class TitleCommand extends Command {
                         ctx.getArgument("message", String.class)
                             .replace("&", "§"));
 
-                    mc.inGameHud.setTitles(msg, null, 20, 60, 20);
+                    mc.inGameHud.setTitle(msg);
+                    mc.inGameHud.setTitleTicks(20, 60, 20);
                     return 1;
                 })
             )
             .executes(ctx -> {
-                mc.inGameHud.setTitles(mc.player.getMainHandStack().getName(), null, 20, 60, 20);
+                mc.inGameHud.setTitle(mc.player.getMainHandStack().getName());
+                mc.inGameHud.setTitleTicks(20, 60, 20);
                 return 1;
             })
         );

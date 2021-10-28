@@ -2,6 +2,7 @@ package io.github.codeutilities.sys.renderer.widgets;
 
 import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.widget.WButton;
+import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
@@ -25,12 +26,13 @@ public class CColorPreset extends WButton {
         RenderUtil.drawRect(matrices, x, y, x+10, y+10, this.color);
     }
 
-    public void onClick(int x, int y, int button) {
+    public InputResult onClick(int x, int y, int button) {
         if (isEnabled() && isWithinBounds(x, y)) {
             MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 
             this.picker.setColor(this.color);
         }
+        return InputResult.PROCESSED;
     }
 
     @Override

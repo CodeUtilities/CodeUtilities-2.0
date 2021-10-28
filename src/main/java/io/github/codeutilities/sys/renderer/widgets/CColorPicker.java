@@ -5,6 +5,7 @@ import io.github.codeutilities.sys.player.chat.color.HSBColor;
 import io.github.codeutilities.mod.features.commands.ColorsMenu;
 import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
+import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
@@ -70,7 +71,7 @@ public class CColorPicker extends WWidget {
     }
 
     @Override
-    public WWidget onMouseDown(int x, int y, int button) {
+    public InputResult onMouseDown(int x, int y, int button) {
         if(button == 0){
             leftClickDown = true;
         }
@@ -78,7 +79,7 @@ public class CColorPicker extends WWidget {
     }
 
     @Override
-    public WWidget onMouseUp(int x, int y, int button) {
+    public InputResult onMouseUp(int x, int y, int button) {
         if(button == 0){
             leftClickDown = false;
         }

@@ -22,11 +22,11 @@ public class ItemUtil {
 
     public static void giveCreativeItem(ItemStack item, boolean preferHand) {
         MinecraftClient mc = CodeUtilities.MC;
-        DefaultedList<ItemStack> mainInventory = mc.player.inventory.main;
+        DefaultedList<ItemStack> mainInventory = mc.player.getInventory().main;
 
         if (preferHand) {
             if (mc.player.getMainHandStack().isEmpty()) {
-                mc.interactionManager.clickCreativeStack(item, mc.player.inventory.selectedSlot + 36);
+                mc.interactionManager.clickCreativeStack(item, mc.player.getInventory().selectedSlot + 36);
                 return;
             }
         }
@@ -66,16 +66,16 @@ public class ItemUtil {
         }
 
         // replace the 8th slot with the item we want to set.
-        ItemStack replacedItem = mc.player.inventory.main.get(7);
+        ItemStack replacedItem = mc.player.getInventory().main.get(7);
         CodeUtilities.MC.interactionManager.clickCreativeStack(itemStack, 43);
-        mc.player.inventory.main.set(7, itemStack);
+        mc.player.getInventory().main.set(7, itemStack);
 
         // simulates pressing the 8 key on the slot we want to change.
         CodeUtilities.MC.interactionManager.clickSlot(mc.player.currentScreenHandler.syncId, slot, 7, SlotActionType.SWAP, CodeUtilities.MC.player);
 
         // change the 8th slot back to what it was before.
         CodeUtilities.MC.interactionManager.clickCreativeStack(replacedItem, 43);
-        mc.player.inventory.main.set(7, replacedItem);
+        mc.player.getInventory().main.set(7, replacedItem);
     }
 
     public static List<ItemStack> fromItemContainer(ItemStack container) {

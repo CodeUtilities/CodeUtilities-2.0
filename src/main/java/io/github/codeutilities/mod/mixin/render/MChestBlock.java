@@ -31,10 +31,10 @@ public class MChestBlock {
         if (be instanceof SignBlockEntity) {
             SignBlockEntity sign = (SignBlockEntity) be;
             CodeUtilities.signText = new String[]{
-                sign.getTextOnRow(0).getString(),
-                sign.getTextOnRow(1).getString(),
-                sign.getTextOnRow(2).getString(),
-                sign.getTextOnRow(3).getString()
+                sign.getTextOnRow(0,false).getString(),
+                sign.getTextOnRow(1,false).getString(),
+                sign.getTextOnRow(2,false).getString(),
+                sign.getTextOnRow(3,false).getString()
             };
             CodeUtilities.EXECUTOR.submit(() -> {
                 try {

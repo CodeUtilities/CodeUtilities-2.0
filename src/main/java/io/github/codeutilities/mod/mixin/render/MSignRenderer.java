@@ -1,9 +1,10 @@
 package io.github.codeutilities.mod.mixin.render;
 
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.sys.player.DFInfo;
-import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.mod.features.commands.CodeSearcher;
+import io.github.codeutilities.sys.networking.State;
+import io.github.codeutilities.sys.player.DFInfo;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SignBlock;
 import net.minecraft.block.WallSignBlock;
@@ -11,13 +12,15 @@ import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.OutlineVertexConsumerProvider;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.OrderedText;
+import net.minecraft.text.Text;
+import net.minecraft.util.SignType;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Final;
@@ -25,18 +28,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import java.util.List;
-
-import static net.minecraft.client.render.block.entity.SignBlockEntityRenderer.getModelTexture;
-
 @Mixin(SignBlockEntityRenderer.class)
-public class MSignRenderer {
+public abstract class MSignRenderer {
 
     private final MinecraftClient mc = MinecraftClient.getInstance();
 
-    @Shadow
     @Final
     private SignBlockEntityRenderer.SignModel model;
+
+    @Shadow
+    public static SignType getSignType(Block block) {
+        return null;
+    }
 
     /**
      * @author CodeUtilities
@@ -76,11 +79,11 @@ public class MSignRenderer {
 
         matrixStack.push();
         matrixStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
-        SpriteIdentifier spriteIdentifier = getModelTexture(blockState.getBlock());
+        SpriteIdentifier spriteIdentifier =  TexturedRenderLayers.getSignTextureId(getSignType(blockState.getBlock()));
         SignBlockEntityRenderer.SignModel var10002 = this.model;
         var10002.getClass();
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumerProvider, var10002::getLayer);
-        this.model.field.render(matrixStack, vertexConsumer, i, j);
+        this.model.root.render(matrixStack, vertexConsumer, i, j);
         this.model.stick.render(matrixStack, vertexConsumer, i, j);
         matrixStack.pop();
         matrixStack.translate(0.0D, 0.3333333432674408D, 0.046666666865348816D);
@@ -92,13 +95,10 @@ public class MSignRenderer {
         int q = NativeImage.packColor(0, p, o, n);
 
         for (int s = 0; s < 4; ++s) {
-            OrderedText orderedText = signBlockEntity.getTextBeingEditedOnRow(s, (text) -> {
-                List<OrderedText> list = textRenderer.wrapLines(text, 90);
-                return list.isEmpty() ? OrderedText.EMPTY : list.get(0);
-            });
-            if (orderedText != null) {
-                float t = (float) (-textRenderer.getWidth(orderedText) / 2);
-                textRenderer.draw(orderedText, t, (float) (s * 10 - 20), q, false, matrixStack.peek().getModel(), vertexConsumerProvider, false, 0, i);
+            Text text = signBlockEntity.getTextOnRow(s,false);
+            if (text != null) {
+                float t = (float) (-textRenderer.getWidth(text) / 2);
+                textRenderer.draw(text, t, (float) (s * 10 - 20), q, false, matrixStack.peek().getModel(), vertexConsumerProvider, false, 0, i);
             }
         }
 
