@@ -13,6 +13,7 @@ import io.github.codeutilities.sys.renderer.widgets.ItemScrollablePanel;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +55,7 @@ public class CodeVaultMenu extends LightweightGuiDescription implements IMenu {
         fetch();
         WPlainPanel root = new WPlainPanel();
         root.setSize(300, 100);
+        root.setInsets(Insets.ROOT_PANEL);
 
         searchBox = new CTextField(new LiteralText("Search..."));
         searchBox.setMaxLength(100);

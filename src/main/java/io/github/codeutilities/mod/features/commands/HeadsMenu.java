@@ -11,6 +11,7 @@ import io.github.codeutilities.sys.networking.WebUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -48,6 +49,7 @@ public class HeadsMenu extends LightweightGuiDescription implements IMenu, ILoad
 
         WPlainPanel root = new WPlainPanel();
         root.setSize(350, 220);
+        root.setInsets(Insets.ROOT_PANEL);
 
         searchBox = new CTextField(
                 new LiteralText("Search... (" + allHeads.size() + " Heads)"));

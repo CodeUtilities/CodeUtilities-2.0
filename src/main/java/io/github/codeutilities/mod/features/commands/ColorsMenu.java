@@ -40,6 +40,7 @@ public class ColorsMenu extends LightweightGuiDescription implements IMenu {
             WGridPanel root = new WGridPanel(1);
             setRootPanel(root);
             root.setSize(256, 240);
+            root.setInsets(io.github.cottonmc.cotton.gui.widget.data.Insets.ROOT_PANEL);
 
             // root.add(new CColoredRectangle(new Color(0, 0, 0, 100), new Color(255, 255, 255, 100)), 0, 80, 256, 120);
             colorPicker = new CColorPicker(1f, new HSBColor(0, 1, 1));

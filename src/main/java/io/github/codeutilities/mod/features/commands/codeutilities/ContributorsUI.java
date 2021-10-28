@@ -11,6 +11,7 @@ import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
@@ -35,6 +36,7 @@ public class ContributorsUI extends LightweightGuiDescription implements IMenu {
 
         WPlainPanel root = new WPlainPanel();
         root.setHost(this);
+        root.setInsets(Insets.ROOT_PANEL);
         root.setSize(300, 220);
 
         WPlainPanel panel = new WPlainPanel();

@@ -17,6 +17,7 @@ import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
 import io.github.cottonmc.cotton.gui.widget.WText;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class NbsSearchMenu extends LightweightGuiDescription implements IMenu {
     public void open(String... args) throws CommandSyntaxException {
         MinecraftClient mc = CodeUtilities.MC;
         WPlainPanel root = new WPlainPanel();
+        root.setInsets(Insets.ROOT_PANEL);
         root.setSize(300, 240);
 
         WText queryField = new WText(new LiteralText("§l§nSearch Results for: " + query));

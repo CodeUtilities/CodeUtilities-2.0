@@ -26,12 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemStack.class)
 public abstract class MItemStack {
 
-    @Shadow
-    private NbtCompound tag;
-
-    @Shadow
-    @Nullable
-    public abstract NbtCompound getSubTag(String key);
+    @Shadow @Nullable public abstract NbtCompound getSubNbt(String key);
 
     @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
     private void getTooltip(PlayerEntity player, TooltipContext context,
@@ -50,7 +45,7 @@ public abstract class MItemStack {
             if (InputUtil.isKeyPressed(CodeUtilities.MC.getWindow().getHandle(),keycode)) {
                 List<Text> t = cir.getReturnValue();
 
-                NbtCompound tags = getSubTag("PublicBukkitValues");
+                NbtCompound tags = getSubNbt("PublicBukkitValues");
 
                 if (tags != null) {
                     Set<String> keys = tags.getKeys();

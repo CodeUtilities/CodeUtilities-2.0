@@ -9,6 +9,7 @@ import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
 import net.minecraft.text.LiteralText;
@@ -22,6 +23,7 @@ public class CodeUtilitiesUI extends LightweightGuiDescription implements IMenu 
     public void open(String... args) {
         WPlainPanel root = new WPlainPanel();
         root.setSize(220, 220);
+        root.setInsets(Insets.ROOT_PANEL);
 
         CImage cImage = new CImage(CODEUTILS_LOGO);
         cImage.setSize(128, 128);

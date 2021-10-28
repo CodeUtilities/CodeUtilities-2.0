@@ -10,6 +10,7 @@ import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
 import io.github.cottonmc.cotton.gui.widget.WText;
 import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.util.TriState;
@@ -25,6 +26,7 @@ public class FeaturesUI extends LightweightGuiDescription implements IMenu {
     @Override
     public void open(String... args) throws CommandSyntaxException {
         WPlainPanel root = new WPlainPanel();
+        root.setInsets(Insets.ROOT_PANEL);
 
         List<Feature> features = FeatureList.get();
 

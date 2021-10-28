@@ -30,6 +30,7 @@ public class TemplateSearchMenu extends LightweightGuiDescription {
     public TemplateSearchMenu(JsonArray templates) {
         WGridPanel root = new WGridPanel(1);
         root.setSize(256, 240);
+        root.setInsets(io.github.cottonmc.cotton.gui.widget.data.Insets.ROOT_PANEL);
 
         ItemScrollablePanel panel = ItemScrollablePanel.with(new ArrayList<>());
         panel.setScrollingHorizontally(TriState.FALSE);

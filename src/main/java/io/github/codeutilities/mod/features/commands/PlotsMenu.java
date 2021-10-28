@@ -8,6 +8,7 @@ import io.github.codeutilities.sys.renderer.widgets.ItemGridPanel;
 import io.github.codeutilities.sys.renderer.widgets.PlotItem;
 import io.github.codeutilities.sys.player.DFInfo;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class PlotsMenu extends LightweightGuiDescription implements IMenu {
             return;
         }
         for (ItemStack item : itemlist) panel.addItem(new PlotItem(item));
+        panel.setInsets(Insets.ROOT_PANEL);
         setRootPanel(panel);
         panel.validate(this);
     }

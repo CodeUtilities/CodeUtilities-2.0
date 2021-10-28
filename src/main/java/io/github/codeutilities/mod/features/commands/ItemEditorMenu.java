@@ -9,6 +9,7 @@ import io.github.codeutilities.sys.util.TextUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,6 +34,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
         final ItemStack[] item = {itemStack.copy()};
         WGridPanel root = new WGridPanel(1);
         root.setSize(256, 240);
+        root.setInsets(Insets.ROOT_PANEL);
 
         //Item Display
         CItem icon = new CItem(item[0]);

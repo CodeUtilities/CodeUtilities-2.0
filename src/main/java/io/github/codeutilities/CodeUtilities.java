@@ -56,6 +56,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.util.math.MatrixStack;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -98,6 +99,7 @@ public class CodeUtilities implements ModInitializer {
     public static String[] signText = {};//stores the text of the code sign corresponding to the currently open chest
     public static ModelLoader modelLoader;
     public static LimitedHashmap<String, BakedModel> modelCache = new LimitedHashmap<>(256);
+    public static MatrixStack IDENTITY_MATRIX = new MatrixStack();
 
     static {
         try {
@@ -105,6 +107,7 @@ public class CodeUtilities implements ModInitializer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        IDENTITY_MATRIX.loadIdentity();
     }
 
     public static void log(Level level, String message) {

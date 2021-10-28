@@ -6,6 +6,7 @@ import io.github.codeutilities.sys.hypercube.templates.TemplateItem;
 import io.github.codeutilities.sys.hypercube.templates.TemplateStorageHandler;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class TemplatesMenu extends LightweightGuiDescription implements IMenu {
             items.add(item.getStack());
         }
         WPlainPanel root = new WPlainPanel();
+        root.setInsets(Insets.ROOT_PANEL);
         ItemScrollablePanel panel = ItemScrollablePanel.with(items);
         root.setSize(256, 90);
         panel.setSize(256, 90);

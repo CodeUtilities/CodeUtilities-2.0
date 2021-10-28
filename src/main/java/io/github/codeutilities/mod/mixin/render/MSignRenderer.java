@@ -4,6 +4,7 @@ import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.mod.features.commands.CodeSearcher;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.player.DFInfo;
+import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SignBlock;
@@ -16,6 +17,7 @@ import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer.SignModel;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -33,13 +35,12 @@ public abstract class MSignRenderer {
 
     private final MinecraftClient mc = MinecraftClient.getInstance();
 
-    @Final
-    private SignBlockEntityRenderer.SignModel model;
-
     @Shadow
     public static SignType getSignType(Block block) {
         return null;
     }
+
+    @Shadow @Final private Map<SignType, SignModel> typeToModel;
 
     /**
      * @author CodeUtilities
@@ -51,6 +52,8 @@ public abstract class MSignRenderer {
             return;
 
         TextRenderer textRenderer = mc.textRenderer;
+
+        SignModel model = typeToModel.get(getSignType(signBlockEntity.getCachedState().getBlock()));
 
         if (CodeSearcher.shouldGlow(signBlockEntity) && DFInfo.currentState.getMode() == State.Mode.DEV && mc.player.isCreative()) {
             double distance = Math.sqrt(signBlockEntity.getPos().getSquaredDistance(mc.cameraEntity.getBlockPos()));
@@ -68,23 +71,23 @@ public abstract class MSignRenderer {
             matrixStack.translate(0.5D, 0.5D, 0.5D);
             h = -((float) (blockState.get(SignBlock.ROTATION) * 360) / 16.0F);
             matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(h));
-            this.model.stick.visible = true;
+            model.stick.visible = true;
         } else {
             matrixStack.translate(0.5D, 0.5D, 0.5D);
             h = -blockState.get(WallSignBlock.FACING).asRotation();
             matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(h));
             matrixStack.translate(0.0D, -0.3125D, -0.4375D);
-            this.model.stick.visible = false;
+            model.stick.visible = false;
         }
 
         matrixStack.push();
         matrixStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
         SpriteIdentifier spriteIdentifier =  TexturedRenderLayers.getSignTextureId(getSignType(blockState.getBlock()));
-        SignBlockEntityRenderer.SignModel var10002 = this.model;
+        SignBlockEntityRenderer.SignModel var10002 = model;
         var10002.getClass();
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumerProvider, var10002::getLayer);
-        this.model.root.render(matrixStack, vertexConsumer, i, j);
-        this.model.stick.render(matrixStack, vertexConsumer, i, j);
+        model.root.render(matrixStack, vertexConsumer, i, j);
+        model.stick.render(matrixStack, vertexConsumer, i, j);
         matrixStack.pop();
         matrixStack.translate(0.0D, 0.3333333432674408D, 0.046666666865348816D);
         matrixStack.scale(0.010416667F, -0.010416667F, 0.010416667F);
