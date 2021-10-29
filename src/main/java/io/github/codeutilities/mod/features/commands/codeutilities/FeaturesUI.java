@@ -4,8 +4,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.renderer.widgets.CButton;
 import io.github.codeutilities.sys.util.TextUtil;
+import io.github.cottonmc.cotton.gui.client.LibGui;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
-import io.github.cottonmc.cotton.gui.impl.client.LibGuiClient;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
 import io.github.cottonmc.cotton.gui.widget.WText;
@@ -48,11 +48,11 @@ public class FeaturesUI extends LightweightGuiDescription implements IMenu {
 
                 String desc = f.getDescription();
 
-                desc = desc.replaceAll("\\[red\\]", !LibGuiClient.config.darkMode ? "§x§b§7§1§2§0§0" : "§x§d§d§4§6§2§c");
-                desc = desc.replaceAll("\\[blue\\]", !LibGuiClient.config.darkMode ? "§x§0§0§0§0§a§b" : "§x§6§8§a§e§e§3");
-                desc = desc.replaceAll("\\[green\\]", !LibGuiClient.config.darkMode ? "§x§0§0§8§7§0§f" : "§x§6§8§a§e§e§3");
-                desc = desc.replaceAll("\\[yellow\\]", !LibGuiClient.config.darkMode ? "§x§d§3§8§2§0§0" : "§x§8§1§e§2§4§2");
-                desc = desc.replaceAll("\\[reset\\]", "§r");
+                desc = desc.replaceAll("\\[red]", !LibGui.isDarkMode() ? "§x§b§7§1§2§0§0" : "§x§d§d§4§6§2§c");
+                desc = desc.replaceAll("\\[blue]", !LibGui.isDarkMode() ? "§x§0§0§0§0§a§b" : "§x§6§8§a§e§e§3");
+                desc = desc.replaceAll("\\[green]", !LibGui.isDarkMode() ? "§x§0§0§8§7§0§f" : "§x§6§8§a§e§e§3");
+                desc = desc.replaceAll("\\[yellow]", !LibGui.isDarkMode() ? "§x§d§3§8§2§0§0" : "§x§8§1§e§2§4§2");
+                desc = desc.replaceAll("\\[reset]", "§r");
 
                 text.setText(TextUtil.colorCodesToTextComponent(desc));
             });
