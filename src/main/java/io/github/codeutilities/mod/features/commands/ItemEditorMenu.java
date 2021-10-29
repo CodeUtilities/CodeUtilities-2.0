@@ -3,23 +3,29 @@ package io.github.codeutilities.mod.features.commands;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.renderer.widgets.CItem;
+import io.github.codeutilities.sys.renderer.widgets.CMultilineTextField;
 import io.github.codeutilities.sys.renderer.widgets.CTextField;
-import io.github.codeutilities.sys.util.StringUtil;
 import io.github.codeutilities.sys.util.TextUtil;
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext.Default;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import java.util.Collections;
 
 public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
     private final ItemStack itemStack;
@@ -51,6 +57,7 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
             } else {
                 item[0].setCustomName(TextUtil.colorCodesToTextComponent(name.getText().replaceAll("&", "§")));
             }
+            icon.setTooltip(item[0].getTooltip(null, Default.NORMAL).toArray(new Text[0]));
         });
         root.add(name, 30, 0, 226, 0);
 
@@ -80,6 +87,32 @@ public class ItemEditorMenu extends LightweightGuiDescription implements IMenu {
         });
         root.add(material, 30, 25, 226, 0);
 
+        CMultilineTextField lore = new CMultilineTextField();
+        lore.setMaxLength(Integer.MAX_VALUE);
+        root.add(lore,30,50,226,100);
+
+        NbtList itemLore = item[0].getOrCreateSubNbt("Display").getList("Lore",9);
+
+        List<String> oldLore = new ArrayList<>();
+        for (int i = 0; i < itemLore.size(); i++) {
+            oldLore.add(TextUtil.textComponentToColorCodes(Text.Serializer.fromJson(itemLore.getString(i))).replaceAll("§","&"));
+        }
+        lore.setText(String.join("\n", oldLore));
+
+        lore.setChangedListener((text) -> {
+            NbtCompound display = item[0].getOrCreateSubNbt("display");
+            if (text.length() != 0) {
+                NbtList newLore = new NbtList();
+                for (String line : text.split("\n")) {
+                    newLore.add(NbtString.of(Text.Serializer.toJson(TextUtil.colorCodesToTextComponent(line.replaceAll("&","§")))));
+                }
+                display.put("Lore",newLore);
+            } else {
+                display.remove("Lore");
+            }
+            item[0].setSubNbt("display",display);
+            icon.setTooltip(item[0].getTooltip(null, Default.NORMAL).toArray(new Text[0]));
+        });
 
         setRootPanel(root);
         root.validate(this);
