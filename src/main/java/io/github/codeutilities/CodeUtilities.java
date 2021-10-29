@@ -45,6 +45,7 @@ import io.github.codeutilities.sys.util.LimitedHashmap;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,6 +54,7 @@ import java.util.regex.Pattern;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.MapColor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;
@@ -125,6 +127,8 @@ public class CodeUtilities implements ModInitializer {
 //        Runtime.getRuntime().addShutdownHook(new Thread(this::onClose));
         System.setProperty("java.awt.headless", "false");
         //System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2,TLSv1.3");
+
+        Arrays.fill(MapColor.COLORS, 62, 64, MapColor.BLUE);//fix map crashes, credits: owen
 
         // Get lang
         Pattern regex = Pattern.compile("\nlang:.*");
