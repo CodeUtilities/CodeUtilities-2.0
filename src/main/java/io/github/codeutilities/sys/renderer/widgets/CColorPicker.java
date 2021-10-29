@@ -6,6 +6,7 @@ import io.github.codeutilities.mod.features.commands.ColorsMenu;
 import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
@@ -52,8 +53,8 @@ public class CColorPicker extends WWidget {
             RenderUtil.drawGradientRect(matrixStack, x + i, y, x + i + 1, (int) (y + 1 + wheelheight), color1, color2, 0);
             Color crossColor = Color.getHSBColor(pickedColor.getHue(), 0f, 1 - pickedColor.getBrightness());
             matrixStack.translate(0, 0, 1);
-            RenderUtil.drawRect(matrixStack, (int) (x + (pickedColor.getSaturation() * wheelheight) - 2), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth)), (int) (x + (pickedColor.getSaturation() * wheelheight) + 3), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth) + 1), crossColor);
-            RenderUtil.drawRect(matrixStack, (int) (x + (pickedColor.getSaturation() * wheelheight)), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth) - 2), (int) (x + (pickedColor.getSaturation() * wheelheight) + 1), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth) + 3), crossColor);
+            DrawableHelper.fill(matrixStack, (int) (x + (pickedColor.getSaturation() * wheelheight) - 2), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth)), (int) (x + (pickedColor.getSaturation() * wheelheight) + 3), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth) + 1), crossColor.getRGB());
+            DrawableHelper.fill(matrixStack, (int) (x + (pickedColor.getSaturation() * wheelheight)), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth) - 2), (int) (x + (pickedColor.getSaturation() * wheelheight) + 1), (int) (y + ((1 - pickedColor.getBrightness()) * wheelwidth) + 3), crossColor.getRGB());
             matrixStack.translate(0, 0, -1);
         }
 
@@ -63,9 +64,9 @@ public class CColorPicker extends WWidget {
                     pickedColor.setHue(MathHelper.clamp((mouseY - y) / wheelheight, 0f, 1f));
                 }
             }
-            RenderUtil.drawRect(matrixStack, (int) (x + hueSliderOffset), y + i, (int) (x + hueSliderOffset + hueSliderWidth), y + i+1, Color.getHSBColor(i / wheelheight, 1f, 1f));
+            DrawableHelper.fill(matrixStack, (int) (x + hueSliderOffset), y + i, (int) (x + hueSliderOffset + hueSliderWidth), y + i+1, Color.getHSBColor(i / wheelheight, 1f, 1f).getRGB());
             if(pickedColor.getHue() == i / wheelheight) {
-                RenderUtil.drawRect(matrixStack, (int) (x + hueSliderOffset - 1), y + i, (int) (x + hueSliderOffset + hueSliderWidth + 1), y + i + 1, Color.WHITE);
+                DrawableHelper.fill(matrixStack, (int) (x + hueSliderOffset - 1), y + i, (int) (x + hueSliderOffset + hueSliderWidth + 1), y + i + 1, Color.WHITE.getRGB());
             }
         }
     }

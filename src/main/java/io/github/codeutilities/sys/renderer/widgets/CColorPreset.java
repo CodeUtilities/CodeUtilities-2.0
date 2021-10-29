@@ -4,6 +4,7 @@ import io.github.codeutilities.sys.renderer.RenderUtil;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
@@ -22,8 +23,8 @@ public class CColorPreset extends WButton {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        RenderUtil.drawRect(matrices, x-1, y-1, x+11, y+11, Color.black);
-        RenderUtil.drawRect(matrices, x, y, x+10, y+10, this.color);
+        DrawableHelper.fill(matrices, x-1, y-1, x+11, y+11, Color.black.getRGB());
+        DrawableHelper.fill(matrices, x, y, x+10, y+10, this.color.getRGB());
     }
 
     public InputResult onClick(int x, int y, int button) {
