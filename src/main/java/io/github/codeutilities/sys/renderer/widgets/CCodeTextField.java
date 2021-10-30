@@ -1,13 +1,19 @@
 package io.github.codeutilities.sys.renderer.widgets;
 
+import io.github.codeutilities.mod.features.scripting.engine.ScriptAction;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptAction.Category;
 import io.github.codeutilities.mod.features.scripting.engine.ScriptContext;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptEvent;
 import io.github.codeutilities.mod.features.scripting.engine.ScriptParser;
 import io.github.codeutilities.mod.features.scripting.engine.ScriptParserException;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptPart;
 import io.github.cottonmc.cotton.gui.client.Scissors;
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WTextField;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,18 +24,59 @@ public class CCodeTextField extends WTextField {
     private TextRenderer font;
     private int scroll = 3;
     private int errorLine = -1;
+    private final List<ScriptPart> autoCompletions = new ArrayList<>();
 
     public CCodeTextField(WButton saveBtn) {
         setChangedListener((text) -> {
             try {
-                ScriptParser.parse(text,new ScriptContext());
-                errorLine=-1;
-                if (saveBtn != null) saveBtn.setEnabled(true);
+                ScriptParser.parse(text, new ScriptContext());
+                errorLine = -1;
+                if (saveBtn != null) {
+                    saveBtn.setEnabled(true);
+                }
             } catch (ScriptParserException err) {
-                errorLine = err.line-1;
-                if (saveBtn != null) saveBtn.setEnabled(false);
+                errorLine = err.line - 1;
+                if (saveBtn != null) {
+                    saveBtn.setEnabled(false);
+                }
             }
+
+            getCompletions();
         });
+    }
+
+    private void getCompletions() {
+        autoCompletions.clear();
+
+        int cursorline = 0;
+        int cursorleft = getCursor();
+        int cursorpos = 0;
+        for (char c : getText().toCharArray()) {
+            if (--cursorleft < 0) {
+                break;
+            }
+            if (c == '\n') {
+                cursorline++;
+                cursorpos = 0;
+            } else {
+                cursorpos++;
+            }
+        }
+
+        String line = getText().split("\n", -1)[cursorline];
+        line = line.substring(0, Math.min(cursorpos, line.length())).toLowerCase().trim();
+
+        for (ScriptAction action : ScriptAction.values()) {
+            if (action.category == Category.SPECIAL) continue;
+            if ((action.category.label.toLowerCase() + "#" + action.name.toLowerCase()).startsWith(line)) {
+                autoCompletions.add(action);
+            }
+        }
+        for (ScriptEvent event : ScriptEvent.values()) {
+            if (("event#" + event.codeName.toLowerCase()).startsWith(line)) {
+                autoCompletions.add(event);
+            }
+        }
     }
 
     @Override
@@ -53,19 +100,21 @@ public class CCodeTextField extends WTextField {
         matrices.push();
         matrices.translate(0, scroll, 0);
 
-        String[] lines = getText().split("\n",-1);
+        String[] lines = getText().split("\n", -1);
 
         int yoffset = 0;
         for (String line : lines) {
-            if (yoffset == errorLine) line = "§c"+line;
+            if (yoffset == errorLine) {
+                line = "§c" + line;
+            }
             font.draw(matrices, line, 15 + x, y + yoffset * font.fontHeight, 0xffffffff);
-            font.draw(matrices,"§e"+(yoffset+1)+".",13+x-font.getWidth((yoffset+1)+"."),y+yoffset*font.fontHeight,0xffffffff);
+            font.draw(matrices, "§e" + (yoffset + 1) + ".", 13 + x - font.getWidth((yoffset + 1) + "."), y + yoffset * font.fontHeight, 0xffffffff);
             yoffset++;
         }
 
+        int cursorline = 0;
+        int cursorpos = 0;
         if (isFocused()) {
-            int cursorline = 0;
-            int cursorpos = 0;
             int cursorleft = getCursor();
             for (char c : getText().toCharArray()) {
                 if (--cursorleft < 0) {
@@ -81,6 +130,20 @@ public class CCodeTextField extends WTextField {
             ScreenDrawing.coloredRect(matrices, x + cursorpos + 15, y + cursorline * font.fontHeight, 1, font.fontHeight, 0xFFD0D0D0);
         }
         Scissors.pop();
+        if (isFocused()) {
+            int line = cursorline + 1;
+            for (ScriptPart autoCompletion : autoCompletions) {
+                String text = "";
+                if (autoCompletion instanceof ScriptEvent evn) {
+                    text = "Event#" + evn.codeName + " - " + evn.description;
+                } else if (autoCompletion instanceof ScriptAction act) {
+                    text = act.category.label + "#" + act.name + " - " + act.description;
+                }
+                ScreenDrawing.coloredRect(matrices, x + cursorpos + 15, y + line * font.fontHeight, font.getWidth(text), font.fontHeight, 0xdd000000);
+                font.draw(matrices, text, x + cursorpos + 15, y + line * font.fontHeight, 0xff73fdff);
+                line++;
+            }
+        }
         matrices.pop();
     }
 
@@ -103,6 +166,7 @@ public class CCodeTextField extends WTextField {
             }
             setCursorPos(newcursor);
         }
+        getCompletions();
         return InputResult.PROCESSED;
     }
 
@@ -175,6 +239,7 @@ public class CCodeTextField extends WTextField {
             scroll = 3;
         }
         super.onKeyPressed(ch, key, modifiers);
+        getCompletions();
     }
 
     @Override

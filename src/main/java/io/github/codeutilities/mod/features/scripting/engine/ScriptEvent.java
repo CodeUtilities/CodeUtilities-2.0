@@ -3,12 +3,14 @@ package io.github.codeutilities.mod.features.scripting.engine;
 import java.util.Objects;
 
 public enum ScriptEvent implements ScriptPart{
-    CHANGE_STATE("ChangeState"),
-    RECEIVE_CHAT("ReceiveChat");
+    CHANGE_STATE("ChangeState","Runs whenever the mode the player is in changes"),
+    RECEIVE_CHAT("ReceiveChat","Runs for every received chat message");
 
-    String codeName;
-    ScriptEvent(String codeName) {
+    public String codeName;
+    public String description;
+    ScriptEvent(String codeName, String description) {
         this.codeName = codeName;
+        this.description = description;
     }
 
     public static ScriptEvent byName(String name) {

@@ -15,7 +15,7 @@ public class Script {
     public String source;
     public File file;
 
-    private Script(String name, String source, File file, List<ScriptPart> parts,ScriptContext ctx) {
+    public Script(String name, String source, File file, List<ScriptPart> parts,ScriptContext ctx) {
         this.name = name;
         this.source = source;
         this.file = file;

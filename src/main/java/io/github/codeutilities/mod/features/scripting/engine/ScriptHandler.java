@@ -50,6 +50,7 @@ public class ScriptHandler implements ILoader {
                     scripts.add(Script.of(name,source,file));
                 } catch (Exception e) {
                     System.err.println("Error loading script: " + file.getName());
+                    scripts.add(new Script(file.getName(),"#Error",file,new ArrayList<>(),new ScriptContext()));
                     e.printStackTrace();
                 }
                 CodeUtilities.log(Level.INFO, "Loaded scripts!");

@@ -1,6 +1,7 @@
 package io.github.codeutilities.mod.features.scripting.menu;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.features.scripting.engine.Script;
 import io.github.codeutilities.sys.renderer.IMenu;
 import io.github.codeutilities.sys.renderer.widgets.CCodeTextField;
@@ -32,6 +33,11 @@ public class ScriptEditorMenu extends LightweightGuiDescription implements IMenu
 
         WTextField name = new WTextField();
         name.setMaxLength(50);
+        name.setChangedListener((text) -> {
+            String newt = text.replaceAll("[^\\w ]","");
+            if (!newt.equals(text)) name.setText(newt);
+            name.setCursorPos(name.getCursor());
+        });
         name.setText(script.name);
         root.add(name, 0, 0, 200, 0);
 
@@ -43,9 +49,11 @@ public class ScriptEditorMenu extends LightweightGuiDescription implements IMenu
         root.add(source, 0, 25, 200, 150);
 
         WButton cancelBtn = new WButton(new LiteralText("Cancel"));
+        WButton deleteBtn = new WButton(new LiteralText("Delete"));
 
-        root.add(cancelBtn, 0, 180, 100, 0);
-        root.add(saveBtn, 100, 180, 100, 0);
+        root.add(cancelBtn, 0, 180, 66, 0);
+        root.add(saveBtn, 66, 180, 66, 0);
+        root.add(deleteBtn,66*2,180,66,0);
 
         saveBtn.setOnClick(() -> {
             try {
@@ -67,6 +75,24 @@ public class ScriptEditorMenu extends LightweightGuiDescription implements IMenu
         cancelBtn.setOnClick(() -> {
             ScriptsMenu menu = new ScriptsMenu();
             menu.scheduleOpenGui(menu);
+        });
+
+        deleteBtn.setOnClick(() -> {
+            if (deleteBtn.getLabel().getString().equals("Delete")) {
+                deleteBtn.setLabel(new LiteralText("DoubleClick"));
+                CodeUtilities.EXECUTOR.submit(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    deleteBtn.setLabel(new LiteralText("Delete"));
+                });
+            } else {
+                script.file.delete();
+                ScriptsMenu menu = new ScriptsMenu();
+                menu.scheduleOpenGui(menu);
+            }
         });
 
         setRootPanel(root);
