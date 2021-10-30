@@ -3,7 +3,8 @@ package io.github.codeutilities.mod.features.scripting.engine;
 import java.util.Objects;
 
 public enum ScriptEvent implements ScriptPart{
-    CHANGE_STATE("ChangeState");
+    CHANGE_STATE("ChangeState"),
+    RECEIVE_CHAT("ReceiveChat");
 
     String codeName;
     ScriptEvent(String codeName) {

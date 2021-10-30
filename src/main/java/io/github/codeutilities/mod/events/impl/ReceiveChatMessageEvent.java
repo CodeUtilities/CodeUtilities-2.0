@@ -4,6 +4,9 @@ import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.mod.events.interfaces.ChatEvents;
 import io.github.codeutilities.mod.features.modules.triggers.impl.MessageReceivedTrigger;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptContext;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptEvent;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptHandler;
 import io.github.codeutilities.mod.features.social.chat.ConversationTimer;
 import io.github.codeutilities.mod.features.modules.triggers.Trigger;
 import io.github.codeutilities.mod.features.social.chat.message.Message;
@@ -39,6 +42,12 @@ public class ReceiveChatMessageEvent {
         String stripped = text.getString();
 
         boolean cancel = false;
+
+        ScriptContext ctx = new ScriptContext();
+        ctx.setVar("message",stripped);
+        ctx.setVar("fullMessage",TextUtil.textComponentToColorCodes(text).replaceAll("§","&"));
+
+        ScriptHandler.triggerEvent(ScriptEvent.RECEIVE_CHAT,ctx);
 
         if (mc.player == null) {
             return ActionResult.FAIL;

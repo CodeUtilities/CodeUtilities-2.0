@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class ScriptParser {
 
-    public static List<ScriptPart> parse(String source,ScriptContext ctx) throws ScriptParserException {
+    public static List<ScriptPart> parse(String source, ScriptContext ctx) throws ScriptParserException {
         List<ScriptPart> parts = new ArrayList<>();
         int index = 0;
         for (String line : source.split("\n")) {
@@ -18,7 +18,7 @@ public class ScriptParser {
                     } else if (line.equals("}")) {
                         parts.add(new ScriptActionArgs(ScriptAction.CLOSE_BRACKET, ScriptArguments.EMPTY));
                     } else {
-                        parts.add(parseAction(line,ctx));
+                        parts.add(parseAction(line, ctx));
                     }
                 } else if (line.startsWith("#") || line.isEmpty()) {
                     continue;
@@ -26,7 +26,6 @@ public class ScriptParser {
                     throw new Exception();
                 }
             } catch (Exception err) {
-                err.printStackTrace();
                 throw new ScriptParserException(index + 1);
             }
             index++;
@@ -34,20 +33,20 @@ public class ScriptParser {
         return parts;
     }
 
-    private static ScriptPart parseAction(String line,ScriptContext ctx) {
+    private static ScriptPart parseAction(String line, ScriptContext ctx) {
         String category = line.substring(0, line.indexOf("#"));
         String name = line.substring(line.indexOf("#") + 1, line.indexOf("("));
         for (ScriptAction action : ScriptAction.values()) {
             if (Objects.equals(action.category.label, category)) {
                 if (Objects.equals(action.name, name)) {
-                    return new ScriptActionArgs(action, parseArgs(line,ctx));
+                    return new ScriptActionArgs(action, parseArgs(line, ctx));
                 }
             }
         }
         throw new IllegalArgumentException();
     }
 
-    private static ScriptArguments parseArgs(String line,ScriptContext ctx) {
+    private static ScriptArguments parseArgs(String line, ScriptContext ctx) {
         line = line.substring(line.indexOf("(") + 1);
         if (line.endsWith("{")) {
             line = line.substring(0, line.length() - 1);
@@ -58,20 +57,26 @@ public class ScriptParser {
         StringBuilder current = new StringBuilder();
         List<String> strArgs = new ArrayList<>();
         boolean escape = false;
+        boolean quotes = false;
         for (char c : line.toCharArray()) {
             if (escape) {
-                if (c == 'n') c = '\n';
+                if (c == 'n') {
+                    c = '\n';
+                }
                 current.append(c);
                 escape = false;
             } else if (c == '\\') {
                 escape = true;
-            } else if (c == ',' && !current.toString().startsWith("\"")) {
+            } else if (c == ',' && !quotes) {
                 strArgs.add(current.toString());
                 current = new StringBuilder();
             } else if (c == ' ') {
-                if (current.toString().startsWith("\"")) {
+                if (quotes) {
                     current.append(c);
                 }
+            } else if (c == '"') {
+                current.append(c);
+                quotes = !quotes;
             } else {
                 current.append(c);
             }
@@ -83,9 +88,11 @@ public class ScriptParser {
             try {
                 args.add(Double.parseDouble(arg));
             } catch (NumberFormatException ignored) {
-                if (arg.startsWith("\"") && arg.length()>=2) {
-                    args.add(arg.substring(1,arg.length()-1));
-                } else args.add(new ScriptVariable(arg,ctx));
+                if (arg.startsWith("\"") && arg.length() >= 2) {
+                    args.add(arg.substring(1, arg.length() - 1));
+                } else {
+                    args.add(new ScriptVariable(arg, ctx));
+                }
             }
         }
         return new ScriptArguments(args.toArray(new Object[]{}));

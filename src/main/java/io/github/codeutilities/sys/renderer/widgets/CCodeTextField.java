@@ -24,10 +24,10 @@ public class CCodeTextField extends WTextField {
             try {
                 ScriptParser.parse(text,new ScriptContext());
                 errorLine=-1;
-                saveBtn.setEnabled(true);
+                if (saveBtn != null) saveBtn.setEnabled(true);
             } catch (ScriptParserException err) {
                 errorLine = err.line-1;
-                saveBtn.setEnabled(false);
+                if (saveBtn != null) saveBtn.setEnabled(false);
             }
         });
     }

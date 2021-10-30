@@ -35,12 +35,13 @@ public class ScriptEditorMenu extends LightweightGuiDescription implements IMenu
         name.setText(script.name);
         root.add(name, 0, 0, 200, 0);
 
+        saveBtn = new WButton(new LiteralText("Save"));
+
         CCodeTextField source = new CCodeTextField(saveBtn);
         source.setMaxLength(Integer.MAX_VALUE);
         source.setText(script.source);
         root.add(source, 0, 25, 200, 150);
 
-        saveBtn = new WButton(new LiteralText("Save"));
         WButton cancelBtn = new WButton(new LiteralText("Cancel"));
 
         root.add(cancelBtn, 0, 180, 100, 0);

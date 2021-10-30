@@ -1,6 +1,7 @@
 package io.github.codeutilities.mod.features.scripting.engine;
 
 import io.github.codeutilities.CodeUtilities;
+import io.github.codeutilities.sys.player.chat.ChatUtil;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -15,10 +16,13 @@ public enum ScriptAction {
         CodeUtilities.MC.player.sendChatMessage(args.fullString());
     }),
     PRINT_CHAT(Category.CHAT,"Print", (args,context) -> {
-        CodeUtilities.MC.player.sendMessage(new LiteralText(args.fullString()),false);
+        ChatUtil.sendMessage(args.fullString());
     }),
     IF_EQUALS(Category.IF,"Equals",(args,context) -> {
         return Objects.equals(args.get(0),args.get(1));
+    }),
+    IF_REGEX(Category.IF, "Regex", (args,context) -> {
+        return args.getString(0).matches(args.getString(1));
     }),
     CLOSE_BRACKET;
 
