@@ -3,6 +3,9 @@ package io.github.codeutilities.mod.events.impl;
 import io.github.codeutilities.mod.events.interfaces.HyperCubeEvents;
 import io.github.codeutilities.mod.features.StateOverlayHandler;
 import io.github.codeutilities.mod.features.discordrpc.DFDiscordRPC;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptContext;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptEvent;
+import io.github.codeutilities.mod.features.scripting.engine.ScriptHandler;
 import io.github.codeutilities.mod.features.social.tab.Client;
 import io.github.codeutilities.mod.features.social.tab.WebMessage;
 import io.github.codeutilities.mod.features.streamer.StreamerModeHandler;
@@ -11,6 +14,7 @@ import io.github.codeutilities.sys.player.chat.MessageGrabber;
 import net.minecraft.util.ActionResult;
 
 public class ChangeStateEvent {
+
     public ChangeStateEvent() {
         HyperCubeEvents.CHANGE_STATE.register(this::run);
     }
@@ -22,11 +26,20 @@ public class ChangeStateEvent {
             MessageGrabber.reset();
         }
 
-        try{
+        ScriptContext ctx = new ScriptContext();
+        ctx.setVar("mode", newstate.mode.name());
+        if (oldstate.mode != null) {
+            ctx.setVar("oldMode", oldstate.mode.name());
+        }
+        ScriptHandler.triggerEvent(ScriptEvent.CHANGE_STATE, ctx);
+
+        try {
             DFDiscordRPC.getInstance().update(newstate);
             StateOverlayHandler.setState(newstate);
-            if(Client.client.isOpen()) Client.client.send(new WebMessage("state", newstate.toJson()).build());
-        }catch(Exception e){
+            if (Client.client.isOpen()) {
+                Client.client.send(new WebMessage("state", newstate.toJson()).build());
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ActionResult.PASS;

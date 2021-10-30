@@ -26,6 +26,7 @@ import io.github.codeutilities.mod.commands.impl.other.PartnerBracketCommand;
 import io.github.codeutilities.mod.commands.impl.other.PlotsCommand;
 import io.github.codeutilities.mod.commands.impl.other.QueueCommand;
 import io.github.codeutilities.mod.commands.impl.other.SchemCommand;
+import io.github.codeutilities.mod.commands.impl.other.ScriptsCommand;
 import io.github.codeutilities.mod.commands.impl.other.SearchCommand;
 import io.github.codeutilities.mod.commands.impl.text.ActionbarCommand;
 import io.github.codeutilities.mod.commands.impl.text.ColorCommand;
@@ -69,7 +70,8 @@ public class CommandHandler implements ILoader {
             new SubTitleCommand(),
             new ActionbarCommand(),
             new CalcCommand(),
-            new CustomTextureCommand()
+            new CustomTextureCommand(),
+            new ScriptsCommand()
         );
 
         if (Config.getBoolean("dfCommands")) {
