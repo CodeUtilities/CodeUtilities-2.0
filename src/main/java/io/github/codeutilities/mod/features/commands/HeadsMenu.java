@@ -121,6 +121,7 @@ public class HeadsMenu extends LightweightGuiDescription implements IMenu, ILoad
 
                     if (cat.equals("food-drinks")) {
                         cat = "food & drinks";
+                    }
 
                     cat = WordUtils.capitalize(cat);
                     categories.add(cat);
