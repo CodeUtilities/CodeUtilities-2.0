@@ -50,4 +50,16 @@ public class ItemdataCommand extends Command {
                 })
         );
     }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/itemdata[reset]\n"
+                + "\n"
+                + "Shows the item NBT of the item you are holding.";
+    }
+
+    @Override
+    public String getName() {
+        return "/itemdata";
+    }
 }

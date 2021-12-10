@@ -68,6 +68,22 @@ public class ColorCommand extends Command {
 
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/color rgb <r> <g> <b>[reset]\n"
+            + "[blue]/color hex <hex>[reset]\n"
+            + "[blue]/color hsb <h> <s> <b>[reset]\n"
+            + "\n"
+            + "Copies the specified color in DiamondFire hex color format.\n"
+            + "The max number is [green]256[reset] for RGB colors, and [green]360[reset] for HSB colors.\n"
+            + "[yellow]Example[reset]: /color 255 0 0 -> &x&f&f&0&0&0&0";
+    }
+
+    @Override
+    public String getName() {
+        return "/color";
+    }
+
     private void copyColor(Color color) {
         String colorName = Integer.toHexString(color.getRGB()).substring(2);
 

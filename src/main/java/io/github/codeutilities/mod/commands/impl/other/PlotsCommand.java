@@ -39,6 +39,18 @@ public class PlotsCommand extends Command {
         }));
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/plots[reset]\n"
+                + "\n"
+                + "Shows the list of your own plots. Click on the icon to join the plot.";
+    }
+
+    @Override
+    public String getName() {
+        return "/plots";
+    }
+
     public static void getItems(CompoundTag recievedTag) {
         try {
             CompoundTag compoundTag = recievedTag;

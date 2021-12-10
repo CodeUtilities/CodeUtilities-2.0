@@ -6,6 +6,7 @@ import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.player.chat.color.MinecraftColors;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.*;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +15,37 @@ import java.awt.*;
 import java.util.List;
 
 public class ChatUtil {
+
+    public static void playSound(SoundEvent sound) {
+        playSound(sound, 1F);
+    }
+
+    public static void playSound(SoundEvent sound, float pitch) {
+        playSound(sound, 2F, pitch);
+    }
+
+    public static void playSound(SoundEvent sound, float pitch, float volume) {
+        if (sound != null) {
+            CodeUtilities.MC.player.playSound(sound, volume, pitch);
+        }
+    }
+
+    public static void chat(String message) {
+        CodeUtilities.MC.player.sendChatMessage(message);
+    }
+
+    public static void executeCommand(String command) {
+        chat("/" + command.replaceFirst("^/", ""));
+    }
+
+    public static void executeCommandSilently(String command, int messageAmount) {
+        executeCommand(command);
+        MessageGrabber.hide(messageAmount);
+    }
+
+    public static void executeCommandSilently(String command) {
+        executeCommandSilently(command, 1);
+    }
 
     public static void sendMessage(String text) {
         sendMessage(new LiteralText(text), null);
@@ -55,8 +87,12 @@ public class ChatUtil {
         }
     }
 
-    // A hacky way of verifying that a message is sent by Hypercube.
-    // im too lazy to reflect or use a mixin. don't ask
+    /**
+     *     A hacky way of verifying that a message is sent by Hypercube.
+     *     im too lazy to reflect or use a mixin. don't ask
+     *
+     *     * Doesn't work
+     */
     public static boolean verifyMessage(Text component) {
         List<Text> siblings = component.getSiblings();
         if (!DFInfo.isOnDF()) return false;

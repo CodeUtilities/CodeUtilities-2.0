@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets; 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -39,14 +40,15 @@ public class WebUtil {
     private static final HostnameVerifier allHostsValid = (hostname, session) -> true;
 
     static {
-        try {
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            e.printStackTrace();
-        }
+        // This was messing up ssl for MinecraftCapes
+//        try {
+//            SSLContext sc = SSLContext.getInstance("SSL");
+//            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+//            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+//            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -65,7 +67,7 @@ public class WebUtil {
 
     public static String getString(String urlToRead) throws IOException {
         //System.out.println(urlToRead);
-        return getString(urlToRead, Charset.defaultCharset());
+        return getString(urlToRead, StandardCharsets.UTF_8);
     }
 
     public static HttpResponse makePost(String url, JsonObject obj) {

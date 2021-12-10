@@ -124,6 +124,19 @@ public class GradientCommand extends Command {
         );
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/gradient <start> <end> <text>[reset]\n"
+            + "\n"
+            + "Generates a text with a color gradient starting at the hex color 'start' and ending at 'end'\n"
+            + "[yellow]Example[reset]: /gradient #ff0000 #00ff00 Something -> INSERT HERE";
+    }
+
+    @Override
+    public String getName() {
+        return "/gradient";
+    }
+
     private double lerp(float x, float y, float p) {
         return x + (y - x) * p;
     }

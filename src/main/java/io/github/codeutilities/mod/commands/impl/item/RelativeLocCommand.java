@@ -55,6 +55,19 @@ public class RelativeLocCommand extends Command {
         );
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/relativeloc <target> <forwards> <upwards> <right> <rot_down> <rot_right>[reset]\n"
+                + "\n"
+                + "Gives you the Relative Location item that you can use in your code."
+                + "[red]Disclaimer[reset]: Relative Locations are deprecated code item that is not recommended to use. Use them on your own risk.";
+    }
+
+    @Override
+    public String getName() {
+        return "/relativeloc";
+    }
+
     private int run(String target, float forwards, float upwards, float right, float rot_down, float rot_right) {
         String[] targetNames = {"Selected Object", "Default", "Damager", "Killer", "Victim", "Shooter", "Projectile"};
         String finalTarget = targetNames[Arrays.asList(TARGET_TYPES).indexOf(target)];

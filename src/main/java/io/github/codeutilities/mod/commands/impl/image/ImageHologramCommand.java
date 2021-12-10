@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import io.github.codeutilities.mod.commands.Command;
 import io.github.codeutilities.mod.commands.arguments.ArgBuilder;
+import io.github.codeutilities.mod.commands.arguments.types.FileArgumentType;
 import io.github.codeutilities.mod.features.commands.image.ImageToHologram;
 import io.github.codeutilities.sys.player.chat.ChatType;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
@@ -24,14 +25,14 @@ public class ImageHologramCommand extends Command {
         cd.register(ArgBuilder.literal("imagehologram")
                 .then(ArgBuilder.literal("load")
                         .then(ArgBuilder.literal("hex")
-                                .then(ArgBuilder.argument("location", StringArgumentType.greedyString())
+                                .then(ArgBuilder.argument("location", FileArgumentType.folder(ExternalFile.IMAGE_FILES.getFile(), true))
                                         .executes(ctx -> {
                                             try {
                                                 String location = StringArgumentType.getString(ctx, "location");
                                                 File f = new File(ExternalFile.IMAGE_FILES.getFile(), location + (location.endsWith(".png") ? "" : ".png"));
 
                                                 if (f.exists()) {
-                                                    String[] strings = ImageToHologram.convert116(f);
+                                                    String[] strings = ImageToHologram.convertWithHex(f);
 
                                                     ItemStack stack = new ItemStack(Items.ENDER_CHEST);
                                                     TemplateUtils.compressTemplateNBT(stack, StringArgumentType.getString(ctx, "location"), mc.player.getName().asString(), convert(strings));
@@ -48,14 +49,14 @@ public class ImageHologramCommand extends Command {
                                             }
                                         })))
                         .then(ArgBuilder.literal("colorcodes")
-                                .then(ArgBuilder.argument("location", StringArgumentType.greedyString())
+                                .then(ArgBuilder.argument("location", FileArgumentType.folder(ExternalFile.IMAGE_FILES.getFile(), true))
                                         .executes(ctx -> {
                                             try {
                                                 String location = StringArgumentType.getString(ctx, "location");
                                                 File f = new File(ExternalFile.IMAGE_FILES.getFile(), location + (location.endsWith(".png") ? "" : ".png"));
 
                                                 if (f.exists()) {
-                                                    String[] strings = ImageToHologram.convert115(f);
+                                                    String[] strings = ImageToHologram.convertWithColorCodes(f);
 
                                                     ItemStack stack = new ItemStack(Items.ENDER_CHEST);
                                                     TemplateUtils.compressTemplateNBT(stack, StringArgumentType.getString(ctx, "location"), mc.player.getName().asString(), convert(strings));
@@ -73,6 +74,20 @@ public class ImageHologramCommand extends Command {
                                         })))
                 )
         );
+    }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/imagehologram load <hex|colorcodes> <file>[reset]\n"
+            + "\n"
+            + "Generates a code template that displays images using holograms.\n"
+            + "Put the image file you want to convert in [green].minecraft/CodeUtilities/Images[reset] folder.\n"
+            + "Maximum image size is [yellow]64x64[reset] for Color Code images, and [yellow]17x17[reset] for Hex Color images.";
+    }
+
+    @Override
+    public String getName() {
+        return "/imagehologram";
     }
 
     private String convert(String[] layers) {

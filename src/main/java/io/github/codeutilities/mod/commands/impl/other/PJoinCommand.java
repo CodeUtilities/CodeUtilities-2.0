@@ -29,6 +29,18 @@ public class PJoinCommand extends Command {
         );
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/pjoin <player>[reset]\n"
+                + "\n"
+                + "Join the plot the specified player is currently playing.";
+    }
+
+    @Override
+    public String getName() {
+        return "/pjoin";
+    }
+
     private int run(MinecraftClient mc, String player) {
 
         if (player.equals(mc.player.getName().asString())) {

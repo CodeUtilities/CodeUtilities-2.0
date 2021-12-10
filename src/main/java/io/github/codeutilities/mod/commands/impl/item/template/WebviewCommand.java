@@ -18,7 +18,19 @@ import org.apache.http.util.EntityUtils;
 public class WebviewCommand extends AbstractTemplateCommand {
 
     @Override
-    protected String getName() {
+    public String getDescription() {
+        return "[blue]/webview[reset]\n"
+                + "\n"
+                + "Sends you a link for previewing the code template in the website.";
+    }
+
+    @Override
+    public String getName() {
+        return "/webview";
+    }
+
+    @Override
+    protected String getCmdName() {
         return "webview";
     }
 

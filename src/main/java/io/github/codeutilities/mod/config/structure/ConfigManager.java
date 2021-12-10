@@ -1,6 +1,5 @@
 package io.github.codeutilities.mod.config.structure;
 
-import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.config.impl.*;
 import io.github.codeutilities.mod.config.internal.ConfigFile;
 import io.github.codeutilities.mod.config.internal.ConfigInstruction;
@@ -29,10 +28,12 @@ public class ConfigManager implements IManager<ConfigGroup> {
         //this.register(new ModulesGroup("modules"));
         this.register(new AutomationGroup("automation"));
         this.register(new CommandsGroup("commands"));
+        this.register(new DiscordRPCGroup("discordRPC"));
         this.register(new HidingGroup("hiding"));
         this.register(new KeybindsGroup("keybinds"));
         this.register(new HighlightGroup("highlight"));
         this.register(new ScreenGroup("screen"));
+        this.register(new SidedChatGroup("sidedchat"));
         this.register(new MiscellaneousGroup("misc"));
 
         // Ignore this
@@ -45,7 +46,7 @@ public class ConfigManager implements IManager<ConfigGroup> {
     }
 
     private void readInstruction(ConfigInstruction configInstruction) {
-        if (configInstruction.isEmpty()) {
+        if (configInstruction == null || configInstruction.isEmpty()) {
             return;
         }
 
@@ -116,6 +117,13 @@ public class ConfigManager implements IManager<ConfigGroup> {
                 BooleanSetting setting = memory.cast();
                 BooleanSetting cast = instruction.cast();
                 setting.setValue(cast.getValue());
+            }
+            if (memory.isEnum()) {
+                // the instructor is deserialized to string since JSON has no enum
+                // oh well can do the conversion myself
+                EnumSetting<?> setting = memory.cast();
+                StringSetting cast = instruction.cast();
+                setting.setFromString(cast.getValue());
             }
         }
     }

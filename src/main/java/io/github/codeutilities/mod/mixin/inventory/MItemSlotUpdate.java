@@ -9,6 +9,8 @@ import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.sys.hypercube.templates.TemplateStorageHandler;
 import io.github.codeutilities.sys.hypercube.templates.TemplateUtils;
+import io.github.codeutilities.sys.player.chat.ChatUtil;
+import io.github.codeutilities.sys.player.chat.MessageGrabber;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.item.ItemStack;
@@ -46,24 +48,21 @@ public class MItemSlotUpdate {
                     && lore.toText().getString().contains("\"Click to open the Game Menu.\"")
                     && lore.toText().getString().contains("\"Hold and type in chat to search.\"")) {
 
-                if (DFInfo.currentState.getMode() != State.Mode.SPAWN) {
-                    DFInfo.currentState.sendLocate();
+                DFInfo.currentState.sendLocate();
 
-                    // Auto fly
-                    if (Config.getBoolean("autofly")) {
-                        if (System.currentTimeMillis() > lobbyTime) { // theres a bug with /fly running twice this is a temp fix.
-                            mc.player.sendChatMessage("/fly");
-                            ReceiveChatMessageEvent.cancelFlyMsg = true;
-                            lobbyTime = System.currentTimeMillis() + 1000;
-                        }
-
+                // Auto fly
+                if (Config.getBoolean("autofly")) {
+                    if (System.currentTimeMillis() > lobbyTime) { // theres a bug with /fly running twice this is a temp fix.
+                        mc.player.sendChatMessage("/fly");
+                        MessageGrabber.hide(1);
+                        lobbyTime = System.currentTimeMillis() + 1000;
                     }
-
-                    CPU_UsageText.lagSlayerEnabled = false;
-
-                    // fs toggle
-                    FlightspeedToggle.fs_is_normal = true;
                 }
+
+                CPU_UsageText.lagSlayerEnabled = false;
+
+                // fs toggle
+                FlightspeedToggle.fs_is_normal = true;
             }
 
             if (DFInfo.isOnDF() && mc.player.isCreative() && stack.getName().getString().contains("Player Event")
@@ -71,44 +70,39 @@ public class MItemSlotUpdate {
                     && lore.toText().getString().contains("\"is done by (or happens to) a player.\"")
                     && lore.toText().getString().contains("\"Example:\"")) {
 
-                if (DFInfo.currentState.getMode() != State.Mode.DEV) {
-                    DFInfo.currentState.sendLocate();
-                    DFInfo.plotCorner = mc.player.getPos().add(10, -50, -10);
+                DFInfo.currentState.sendLocate();
+                DFInfo.plotCorner = mc.player.getPos().add(10, -50, -10);
 
-                    // Auto LagSlayer
-                    if (!CPU_UsageText.lagSlayerEnabled && Config.getBoolean("autolagslayer")) {
-                        mc.player.sendChatMessage("/lagslayer");
-                        ReceiveChatMessageEvent.cancelLagSlayerMsg = true;
-                    }
+                // Auto LagSlayer
+                if (!CPU_UsageText.lagSlayerEnabled && Config.getBoolean("autolagslayer")) {
+                    ChatUtil.executeCommandSilently("lagslayer");
+                }
 
-                    // fs toggle
-                    FlightspeedToggle.fs_is_normal = true;
+                // fs toggle
+                FlightspeedToggle.fs_is_normal = true;
 
-                    long time = System.currentTimeMillis() / 1000L;
-                    if (time - lastDevCheck > 1) {
+                long time = System.currentTimeMillis() / 1000L;
+                if (time - lastDevCheck > 1) {
 
-                        new Thread(() -> {
-                            try {
-                                Thread.sleep(10);
-                                if (Config.getBoolean("autoRC")) {
-                                    mc.player.sendChatMessage("/rc");
-                                }
-                                if (Config.getBoolean("autotime")) {
-                                    mc.player.sendChatMessage("/time " + Config.getLong("autotimeval"));
-                                    ReceiveChatMessageEvent.cancelTimeMsg = true;
-                                }
-                                if (Config.getBoolean("autonightvis")) {
-                                    mc.player.sendChatMessage("/nightvis");
-                                    ReceiveChatMessageEvent.cancelNVisionMsg = true;
-                                }
-                            } catch (Exception e) {
-                                CodeUtilities.log(Level.ERROR, "Error while executing the task!");
-                                e.printStackTrace();
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(10);
+                            if (Config.getBoolean("autoRC")) {
+                                mc.player.sendChatMessage("/rc");
                             }
-                        }).start();
+                            if (Config.getBoolean("autotime")) {
+                                ChatUtil.executeCommandSilently("time " + Config.getLong("autotimeval"));
+                            }
+                            if (Config.getBoolean("autonightvis")) {
+                                ChatUtil.executeCommandSilently("nightvis");
+                            }
+                        } catch (Exception e) {
+                            CodeUtilities.log(Level.ERROR, "Error while executing the task!");
+                            e.printStackTrace();
+                        }
+                    }).start();
 
-                        lastDevCheck = time;
-                    }
+                    lastDevCheck = time;
                 }
             }
         }

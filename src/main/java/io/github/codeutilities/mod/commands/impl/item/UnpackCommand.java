@@ -47,4 +47,14 @@ public class UnpackCommand extends Command {
                 })
         );
     }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/unpack[reset]\n\nExtracts the items in a container you are holding.";
+    }
+
+    @Override
+    public String getName() {
+        return "/unpack";
+    }
 }

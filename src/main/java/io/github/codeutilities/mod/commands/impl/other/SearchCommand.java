@@ -94,6 +94,18 @@ public class SearchCommand extends Command {
 
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/search <query>[reset]\n"
+                + "\n"
+                + "Searches specified Code Block. The block found with the search will glow white.";
+    }
+
+    @Override
+    public String getName() {
+        return "/search";
+    }
+
     private MutableText createMessage(String codeblockid, String actionname, Object codeblock, Object action){
 
         String clickHere = "§x§f§c§6§6§0§3⏩ §x§f§c§d§3§0§3Click to Search §x§f§c§6§6§0§3⏪";

@@ -36,4 +36,17 @@ public class HeadsCommand extends Command {
             return 1;
         })));
     }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/heads [keyword][reset]\n"
+                + "\n"
+                + "[red]*Disabled by default, you can enable it in config*[reset]\n"
+                + "Opens a menu to browse player heads from minecraft-heads.com. Click on a head item to get it in your inventory.";
+    }
+
+    @Override
+    public String getName() {
+        return "/heads";
+    }
 }

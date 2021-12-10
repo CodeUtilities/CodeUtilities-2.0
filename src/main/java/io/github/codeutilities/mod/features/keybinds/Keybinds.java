@@ -1,22 +1,31 @@
 package io.github.codeutilities.mod.features.keybinds;
 
+import io.github.codeutilities.mod.commands.impl.other.PartnerBracketCommand;
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.player.DFInfo;
 import io.github.codeutilities.sys.networking.State;
 import io.github.codeutilities.mod.features.commands.CodeSearcher;
+import io.github.codeutilities.sys.player.chat.ChatType;
+import io.github.codeutilities.sys.sidedchat.ChatShortcut;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.util.InputUtil.Type;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.*;
 
 public class Keybinds implements ClientModInitializer {
 
     final MinecraftClient mc = MinecraftClient.getInstance();
+
+    public static KeyBinding showTags;
 
     @Override
     public void onInitializeClient() {
@@ -125,6 +134,16 @@ public class Keybinds implements ClientModInitializer {
         KeyBinding searchFunction = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.codeutilities.search", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
 
+        // show tags
+
+        showTags = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.codeutilities.showTags", Type.KEYSYM, -1, "key.category.codeutilities"
+        ));
+
+        KeyBinding partnerBracket = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.codeutilities.partnerBracket", Type.KEYSYM, -1, "key.category.codeutilities"
+        ));
+
         // =======
 
         // chat global
@@ -138,6 +157,28 @@ public class Keybinds implements ClientModInitializer {
         // chat none
         KeyBinding chatNone = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.codeutilities.chat_none", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+
+        // Staff Keybinds
+        KeyBinding modv = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.codeutilities.modv", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+        KeyBinding supportAccept = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.codeutilities.support.accept", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+        KeyBinding supportQueue = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.codeutilities.support.queue", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+
+        // register all the keybindings for the chat rooms
+        for (ChatShortcut chatShortcut: ChatShortcut.values()) {
+            ChatShortcut.addKeyBinding(KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                    chatShortcut.getTranslationKey(), -1, "key.category.codeutilities"
+            )), chatShortcut);
+        }
+
+//        // Sided Chat
+//        Map<ChatType, KeyBinding> chatTypeKeyBindingMap = new HashMap<>();
+//        for (ChatRule.ChatRuleType chatType :
+//                ChatType.values()) {
+//            chatTypeKeyBindingMap.put(Chat)
+//        }
 
         // =======================================================
         // Events
@@ -262,17 +303,17 @@ public class Keybinds implements ClientModInitializer {
 
             // chat global
             while (chatGlobal.wasPressed()) {
-                sendChat("/c 2");
+                sendChat("/chat global");
             }
 
             // chat local
             while (chatLocal.wasPressed()) {
-                sendChat("/c 1");
+                sendChat("/chat local");
             }
 
             // chat none
             while (chatNone.wasPressed()) {
-                sendChat("/c 0");
+                sendChat("/chat none");
             }
 
             // search
@@ -293,6 +334,43 @@ public class Keybinds implements ClientModInitializer {
                 }
             }
 
+            while (partnerBracket.wasPressed()) {
+                PartnerBracketCommand.exec();
+            }
+
+            while (modv.wasPressed()) {
+                sendChat("/mod v");
+            }
+
+            while (supportAccept.wasPressed()) {
+                sendChat("/support accept");
+            }
+
+            while (supportQueue.wasPressed()) {
+                sendChat("/support queue");
+            }
+
+            // chat shortcuts
+            Optional<KeyBinding> pressedChatShortcut = ChatShortcut.keyBindings().stream()
+                    .filter(keyBinding -> {
+                        // filter which also needs to consume all of the wasPressed
+                        // e.g. if multiple inputs went by before next frame was drawn
+                        boolean pressed = false;
+                        while (keyBinding.wasPressed()) {
+                            pressed = true;
+                        }
+                        return pressed;
+                    })
+                    // will only handle the first, if for some reason you bind multiple chats to one button
+                    .findFirst();
+
+            // if any chat shortcut was pressed
+            if (pressedChatShortcut.isPresent()) {
+                ChatShortcut chatShortcut = ChatShortcut.getFromKey(pressedChatShortcut.get());
+
+                ChatShortcut.setCurrentChatShortcut(chatShortcut);
+                mc.openScreen(new ChatScreen(""));
+            }
         });
     }
 

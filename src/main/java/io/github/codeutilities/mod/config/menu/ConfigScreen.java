@@ -9,11 +9,11 @@ import io.github.codeutilities.mod.config.types.*;
 import io.github.codeutilities.mod.config.types.list.ListSetting;
 import io.github.codeutilities.mod.config.types.list.StringListSetting;
 import io.github.codeutilities.mod.config.internal.ITranslatable;
-import io.github.codeutilities.sys.player.chat.ChatUtil;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.impl.builders.EnumSelectorBuilder;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.*;
@@ -149,6 +149,7 @@ public class ConfigScreen implements ITranslatable {
 
         if (configSetting.isList()) {
             ListSetting<?> setting = configSetting.cast();
+
             if (setting.isString()) {
                 StringListSetting list = setting.cast();
 
@@ -208,8 +209,36 @@ public class ConfigScreen implements ITranslatable {
                     .setSaveConsumer(setting::setValue)
                     .build();
         }
+        if (configSetting.isText()) {
+            return builder.startTextDescription(title)
+                    .build();
+        }
+        if (configSetting.isEnum()) {
+            EnumSetting<?> setting = configSetting.cast();
+
+            return setupEnumSelector(builder,title,setting)
+                    .setTooltip(tooltip)
+                    .build();
+        }
 
         return null;
+    }
+
+    private static <E extends Enum<E> & IConfigEnum> EnumSelectorBuilder<E> setupEnumSelector(ConfigEntryBuilder builder, Text title, EnumSetting<E> enumList) {
+        return builder
+                .startEnumSelector(title, enumList.getEnumClass(), enumList.getValue())
+                .setEnumNameProvider(ConfigScreen::getEnumName)
+                .setDefaultValue(enumList.getValue())
+                .setSaveConsumer(enumList::setValue);
+    }
+
+    private static Text getEnumName(Enum<?> anEnum) {
+        if (!(anEnum instanceof IConfigEnum)) {
+            throw new IllegalStateException("Enum must implement IConfigEnum");
+        }
+
+        String key = "." + anEnum.toString().toLowerCase();
+        return ITranslatable.get(KEY_TEXT + ((IConfigEnum) anEnum).getKey() + key);
     }
 
     private static Text getTitle(Text origin) {

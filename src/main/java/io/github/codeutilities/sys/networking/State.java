@@ -1,10 +1,19 @@
 package io.github.codeutilities.sys.networking;
 
+import com.google.gson.JsonElement;
+import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.events.impl.ReceiveChatMessageEvent;
 import io.github.codeutilities.mod.events.interfaces.HyperCubeEvents;
+import io.github.codeutilities.mod.features.social.chat.message.Message;
+import io.github.codeutilities.mod.features.social.chat.message.MessageType;
+import io.github.codeutilities.mod.features.social.chat.message.checks.LocateCheck;
 import io.github.codeutilities.mod.features.social.tab.Client;
 import io.github.codeutilities.sys.file.ILoader;
 import io.github.codeutilities.sys.player.DFInfo;
+import io.github.codeutilities.sys.player.chat.ChatUtil;
+import io.github.codeutilities.sys.player.chat.MessageGrabber;
+import java.util.Timer;
+import java.util.TimerTask;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import org.java_websocket.enums.ReadyState;
@@ -19,6 +28,7 @@ public class State {
     private final HyperCubeEvents invoker = HyperCubeEvents.CHANGE_STATE.invoker();
     private static final String EMPTY = "                                       ";
     private static final MinecraftClient mc = MinecraftClient.getInstance();
+    private static Timer locateTimer = new Timer();
 
     public Plot plot;
     public Mode mode;
@@ -144,11 +154,13 @@ public class State {
 
     public static class Plot {
         private final String name;
+        private final String owner;
         private final String id;
         private final String status;
 
-        public Plot(String name, String id, String status){
+        public Plot(String name, String owner, String id, String status){
             this.name = name;
+            this.owner = owner;
             this.id = id;
             this.status = status;
         }
@@ -161,6 +173,11 @@ public class State {
         public String getName() {
             if(this == null) return null;
             return name;
+        }
+
+        public String getOwner() {
+            if(this == null) return null;
+            return owner;
         }
 
         public String getStatus() {
@@ -263,8 +280,10 @@ public class State {
     public State copy() {
         return new State(this);
     }
-    
-    public static State fromLocate(Text msg) {
+
+    public static State fromLocate(Message message) {
+        Text msg = message.getText();
+
         String text = msg.getString().replaceAll("§.", "");
         State finalstate = new State();
 
@@ -276,52 +295,50 @@ public class State {
             finalstate.setNode(node);
         } else {
             // PLOT ID
-            Pattern pattern = Pattern.compile("\\[[0-9]+]\n");
+            Pattern pattern = Pattern.compile("\\[([0-9]+)]\n");
             Matcher matcher = pattern.matcher(text);
             String id = "";
-            while (matcher.find()) {
-                id = matcher.group();
+            if (matcher.find()) {
+                id = matcher.group(1);
             }
-            id = id.replaceAll("[\\[\\]\n]", "");
 
             // PLOT NODE
             pattern = Pattern.compile("Node ([0-9]|Beta)\n");
             matcher = pattern.matcher(text);
             String node = "";
-            while (matcher.find()) {
-                node = matcher.group();
+            if (matcher.find()) {
+                node = matcher.group(1);
             }
 
             // PLOT NAME
-            pattern = Pattern.compile("\n\n→ .+ \\[[0-9]+]\n");
+            pattern = Pattern.compile("\n\n→ (.+) \\[[0-9]+]\n");
             matcher = pattern.matcher(text);
             String name = "";
-            while (matcher.find()) {
-                name = matcher.group();
+            if (matcher.find()) {
+                name = matcher.group(1);
             }
-            name = name.replaceAll("(^\n\n→ )|( \\[[0-9]+]\n$)", "");
+
+            // PLOT OWNER
+            pattern = Pattern.compile("\\n→ Owner: ((?:(?! ).)*)");
+            matcher = pattern.matcher(text);
+            String owner = "";
+            if (matcher.find()) {
+                owner = matcher.group(1);
+            }
 
             // CUSTOM STATUS
+            String lines[] = text.split("\\r?\\n");
             String customStatus = "";
-            if (DFInfo.currentState.getMode() == State.Mode.PLAY) {
-                pattern = Pattern.compile("\n→ ");
-                matcher = pattern.matcher(text);
-                int headerAmt = 0;
-                while (matcher.find()) headerAmt++;
-                if (headerAmt == 4) {
-                    customStatus = text
-                            .replaceFirst("^.*\n.*\n\n→ .*\n→ ", "");
-                    pattern = Pattern.compile("^.*");
-                    matcher = pattern.matcher(customStatus);
-                    while (matcher.find()) {
-                        customStatus = matcher.group();
-                    }
+            if (!lines[4].contains("Owner: ")) {
+                pattern = Pattern.compile("→ (.+)");
+                matcher = pattern.matcher(lines[4]);
+                if (matcher.find()) {
+                    customStatus = matcher.group(1);
                 }
             }
 
-            node = node.replaceFirst("Node ", "").replaceAll("\n", "");
             finalstate.setNode(State.Node.getByIdentifier(node));
-            finalstate.setPlot(new State.Plot(name, id, customStatus));
+            finalstate.setPlot(new State.Plot(name, owner, id, customStatus));
 
             if (text.startsWith(EMPTY + "\nYou are currently playing on:")) {
                 finalstate.setMode(Mode.PLAY);
@@ -338,15 +355,23 @@ public class State {
         return finalstate;
     }
 
-    public String toJson() {
-        return this == null ? "null" : "{\"mode\":"+(this.getMode() == null ? "null" : ("{\"identifier\":\""+this.getMode().getIdentifier()+"\",\"verb\":\""+this.getMode().getContinuousVerb()+"\"}"))+",\"node\":"+(this.getNode() == null ? "null" : ("{\"identifier\":\""+this.getNode().getIdentifier()+"\"}"))+",\"plot\":"+ (this.getPlot() == null ? "null" : ("{\"id\":\""+this.getPlot().getId()+"\",\"name\":\""+this.getPlot().getName()+"\",\"status\":\""+this.getPlot().getStatus()+"\"}"))+"}";
+    public JsonElement toJson() {
+        return CodeUtilities.JSON_PARSER.parse(this == null ? "null" : "{\"mode\":"+(this.getMode() == null ? "null" : ("{\"identifier\":\""+this.getMode().getIdentifier()+"\",\"verb\":\""+this.getMode().getContinuousVerb()+"\"}"))+",\"node\":"+(this.getNode() == null ? "null" : ("{\"identifier\":\""+this.getNode().getIdentifier()+"\"}"))+",\"plot\":"+ (this.getPlot() == null ? "null" : ("{\"id\":\""+this.getPlot().getId()+"\",\"name\":\""+this.getPlot().getName()+"\",\"status\":\""+this.getPlot().getStatus()+"\"}"))+"}");
     }
 
     public void sendLocate() {
         if(mc.player != null){
             if(!mc.player.isDead()){
-                ReceiveChatMessageEvent.locating += 1;
-                mc.player.sendChatMessage("/locate");
+                locateTimer.cancel();
+                locateTimer = new Timer();
+                locateTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+//                        ChatUtil.executeCommandSilently("locate");
+                        ChatUtil.executeCommand("locate");
+                        MessageGrabber.hide(1, MessageType.LOCATE);
+                    }
+                }, 1500L);
             }
         }
     }

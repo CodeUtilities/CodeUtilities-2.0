@@ -2,6 +2,7 @@ package io.github.codeutilities.sys.util;
 
 import com.google.gson.JsonArray;
 import io.github.codeutilities.CodeUtilities;
+import it.unimi.dsi.fastutil.Hash;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -13,9 +14,13 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 public class StringUtil {
+    public static final Pattern STRIP_CHARS_PATTERN = Pattern.compile("(^\\s+|\\s+$)");
 
     public static LiteralText of(String... literalTexts) {
         int length = literalTexts.length;
@@ -132,6 +137,18 @@ public class StringUtil {
             arr.add(toStringArray(array.get(i).getAsJsonArray()));
         }
         return arr;
+    }
+
+
+    //theres probably a 1 method way but i dont feel like doing research
+    public static String generateKey(int length) {
+        String[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890".split("");
+        String returnval = "";
+        Random ran = new Random();
+        for (int i = 0; i < length; i++) {
+            returnval += chars[ran.nextInt(chars.length)];
+        }
+        return returnval;
     }
 
 }

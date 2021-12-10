@@ -19,4 +19,14 @@ public class CodeUtilitiesCommand extends Command {
                 })
         );
     }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/codeutilities[reset]\n\nShows information about this mod, such as this help menu, mod contributors, etc.";
+    }
+
+    @Override
+    public String getName() {
+        return "/codeutilities";
+    }
 }

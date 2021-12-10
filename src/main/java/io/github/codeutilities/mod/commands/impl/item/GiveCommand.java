@@ -66,6 +66,19 @@ public class GiveCommand extends Command {
         );
     }
 
+    @Override
+    public String getDescription() {
+        return "[blue]/dfgive <item|clipboard> [count][reset]\n"
+            + "\n"
+            + "Gives you an item, like in Minecraft /give.\n"
+            + "Use [yellow]/dfgive clipboard[reset] if you have a long /give command copied in your clipboard.";
+    }
+
+    @Override
+    public String getName() {
+        return "/dfgive";
+    }
+
     private void giveItem(MinecraftClient mc, ItemStack item, int count) {
         item.setCount(count);
         if (this.isCreative(mc)) {

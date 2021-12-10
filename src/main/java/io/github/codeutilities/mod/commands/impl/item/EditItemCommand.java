@@ -32,4 +32,16 @@ public class EditItemCommand extends Command {
                 })
         );
     }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/edititem[reset]\n"
+                + "\n"
+                + "Opens a menu to edit item data.";
+    }
+
+    @Override
+    public String getName() {
+        return "/edititem";
+    }
 }

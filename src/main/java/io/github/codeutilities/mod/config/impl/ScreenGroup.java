@@ -12,20 +12,39 @@ public class ScreenGroup extends ConfigGroup {
 
     @Override
     public void initialize() {
+        this.register(new BooleanSetting("plotInfoOverlay", false));
+
         // World Rendering
         ConfigSubGroup worldRendering = new ConfigSubGroup("world_rendering");
         worldRendering.register(new BooleanSetting("chestReplacement", false));
         worldRendering.register(new IntegerSetting("signRenderDistance", 100));
+        worldRendering.register(new BooleanSetting("betaItemTextures", false));
         this.register(worldRendering);
 
-        // Non sub-grouped
-        this.register(new BooleanSetting("chestToolTip", true));
-        this.register(new BooleanSetting("dfButton", true));
-        this.register(new BooleanSetting("dfNodeButtons", false));
-        this.register(new BooleanSetting("variableScopeView", true));
-        this.register(new BooleanSetting("cpuOnScreen", true));
-        this.register(new BooleanSetting("f3Tps", true));
-        this.register(new BooleanSetting("cosmeticsEnabled", true));
-        this.register(new BooleanSetting("loadTabStars", true));
+        // Title Screen
+        ConfigSubGroup titleScreen = new ConfigSubGroup("title_screen");
+        titleScreen.register(new BooleanSetting("dfButton", true));
+        titleScreen.register(new BooleanSetting("dfNodeButtons", false));
+        this.register(titleScreen);
+
+        // Cosmetic
+        ConfigSubGroup cosmetic = new ConfigSubGroup("cosmetic");
+        cosmetic.register(new BooleanSetting("loadTabStars", true));
+        cosmetic.register(new BooleanSetting("relocateTabStars", false));
+        cosmetic.register(new BooleanSetting("cosmeticsEnabled", true));
+        this.register(cosmetic);
+
+        // Code
+        ConfigSubGroup code = new ConfigSubGroup("code");
+        code.register(new BooleanSetting("chestToolTip", true));
+        code.register(new BooleanSetting("templatePeeking", false));
+        code.register(new BooleanSetting("cpuOnScreen", true));
+        code.register(new BooleanSetting("f3Tps", true));
+        code.register(new BooleanSetting("variableScopeView", true));
+        code.register(new BooleanSetting("highlightVarSyntax", true));
+        code.register(new BooleanSetting("showCodeblockDescription", true));
+        code.register(new BooleanSetting("showParameterErrors", true));
+        code.register(new BooleanSetting("previewHeadSkins", true));
+        this.register(code);
     }
 }

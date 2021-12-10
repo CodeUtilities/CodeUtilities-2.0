@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import io.github.codeutilities.mod.commands.Command;
 import io.github.codeutilities.mod.commands.arguments.ArgBuilder;
+import io.github.codeutilities.mod.commands.arguments.types.FileArgumentType;
 import io.github.codeutilities.mod.features.commands.image.ImageToParticle;
 import io.github.codeutilities.mod.features.commands.image.ParticleImage;
 import io.github.codeutilities.sys.player.chat.ChatType;
@@ -27,7 +28,7 @@ public class ImageParticleCommand extends Command {
     public void register(MinecraftClient mc, CommandDispatcher<FabricClientCommandSource> cd) {
         cd.register(ArgBuilder.literal("imageparticle")
                 .then(ArgBuilder.literal("load")
-                        .then(ArgBuilder.argument("filename", StringArgumentType.greedyString())
+                        .then(ArgBuilder.argument("filename", FileArgumentType.folder(ExternalFile.IMAGE_FILES.getFile(), true))
                                 .executes(ctx -> {
                                     try {
                                         String location = StringArgumentType.getString(ctx, "filename");
@@ -76,6 +77,22 @@ public class ImageParticleCommand extends Command {
                         })
                 )
         );
+    }
+
+    @Override
+    public String getDescription() {
+        return "[blue]/imageparticle load <file>[reset]\n"
+            + "[blue]/imageparticle printer[reset]\n"
+            + "\n"
+            + "Generates a code template that displays images using colored particles.\n"
+            + "Put the image file you want to convert in [green].minecraft/CodeUtilities/Images[reset] folder.\n"
+            + "Maximum image size is [yellow]4040[reset].\n"
+            + "Use [yellow]/imageparticle printer[reset] to grab the Image Printer which displays the image.";
+    }
+
+    @Override
+    public String getName() {
+        return "/imageparticle";
     }
 
     private String convertToTemplate(ParticleImage image, String name) {
