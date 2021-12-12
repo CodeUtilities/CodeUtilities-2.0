@@ -4,7 +4,7 @@ import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.event.Event;
 import io.github.codeutilities.event.type.Cancellable;
 import io.github.codeutilities.util.ComponentUtil;
-import org.apache.logging.log4j.util.TriConsumer;
+import io.github.codeutilities.util.TriConsumer;
 
 public enum ScriptActionType {
 
