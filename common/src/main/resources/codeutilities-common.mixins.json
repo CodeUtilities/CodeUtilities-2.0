@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "io.github.codeutilities.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+  ],
+  "mixins": [
+    "MClientPacketListener",
+    "MLocalPlayer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

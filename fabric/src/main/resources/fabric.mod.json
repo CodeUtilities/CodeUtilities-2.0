@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "codeutilities",
+  "version": "${version}",
+  "name": "CodeUtilities",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "Insert License Here",
+  "icon": "assets/codeutilities/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "io.github.codeutilities.fabric.CodeUtilitiesFabric"
+    ]
+  },
+  "mixins": [
+    "codeutilities.mixins.json",
+    "codeutilities-common.mixins.json"
+  ],
+  "depends": {
+    "minecraft": ">=1.17.1"
+  }
+}

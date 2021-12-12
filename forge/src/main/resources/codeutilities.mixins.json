@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "io.github.codeutilities.forge.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

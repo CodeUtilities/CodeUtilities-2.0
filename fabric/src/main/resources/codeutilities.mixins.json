@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "io.github.codeutilities.fabric.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "MSimpleReloadableResourceManager"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
