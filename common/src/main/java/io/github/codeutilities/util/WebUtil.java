@@ -7,18 +7,20 @@ import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-
 public class WebUtil {
 
-    public static void getStringAsync(String url, Consumer<String> callback) {
+    public static CompletableFuture<String> getStringAsync(String url) {
+        CompletableFuture<String> completableFuture = new CompletableFuture<>();
+
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(url))
             .build();
 
-        CompletableFuture<HttpResponse<String>> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> completableFuture.complete(response.body()));
 
-        future.thenAccept(response -> callback.accept(response.body()));
+        return completableFuture;
     }
 
 }
