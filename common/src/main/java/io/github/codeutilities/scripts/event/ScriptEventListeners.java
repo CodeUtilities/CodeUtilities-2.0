@@ -10,8 +10,8 @@ public class ScriptEventListeners {
     public static void init() {
         EventHandler.register(SendChatEvent.class, (event) -> {
             ScriptContext ctx = new ScriptContext();
-            ctx.setVar("message", event.message());
-            ScriptHandler.triggerEvent(ScriptEventType.SEND_CHAT, ctx);
+            ctx.setVar("message", event.getMessage());
+            ScriptHandler.triggerEvent(ScriptEventType.SEND_CHAT, ctx, event);
         });
     }
 

@@ -23,7 +23,11 @@ public abstract class MLocalPlayer {
                     ci.cancel();
                 }
             }
-            EventHandler.invoke(new SendChatEvent(msg));
+            SendChatEvent evn = new SendChatEvent(msg);
+            EventHandler.invoke(evn);
+            if (evn.isCancelled()) {
+                ci.cancel();
+            }
         } catch (Exception err) {
             err.printStackTrace();
         }

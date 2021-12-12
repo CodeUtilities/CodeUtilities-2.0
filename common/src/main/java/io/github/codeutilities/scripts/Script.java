@@ -1,5 +1,6 @@
 package io.github.codeutilities.scripts;
 
+import io.github.codeutilities.event.Event;
 import io.github.codeutilities.scripts.event.ScriptEvent;
 import io.github.codeutilities.scripts.event.ScriptEventType;
 import io.github.codeutilities.util.ChatUtil;
@@ -30,17 +31,17 @@ public class Script {
         }
     }
 
-    public void triggerEvent(ScriptEventType evn, ScriptContext ectx) {
+    public void triggerEvent(ScriptEventType scriptEvent, ScriptContext ectx, Event cuEvent) {
         try {
             context.getVars().putAll(ectx.getVars());
             for (ScriptEvent event : events) {
-                if (event.type == evn) {
-                    event.execute();
+                if (event.type == scriptEvent) {
+                    event.execute(cuEvent);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ChatUtil.displayClientMessage("§cError in script '" + name + "' at event '" + evn.name + "':");
+            ChatUtil.displayClientMessage("§cError in script '" + name + "' at event '" + scriptEvent.name + "':");
             ChatUtil.displayClientMessage("§c" + e.getMessage());
         }
     }
