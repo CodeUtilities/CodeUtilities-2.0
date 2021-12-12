@@ -1,4 +1,4 @@
-package io.github.codeutilities.menus.sys;
+package io.github.codeutilities.menu.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.codeutilities.CodeUtilities;
@@ -8,7 +8,23 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
 
-public record CButton(int x, int y, int width, int height, String text, Runnable onClick) implements CWidget {
+public class CButton implements CWidget {
+
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int height;
+    private final String text;
+    private final Runnable onClick;
+
+    public CButton(int x, int y, int width, int height, String text, Runnable onClick) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.text = text;
+        this.onClick = onClick;
+    }
 
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float tickDelta) {

@@ -1,9 +1,9 @@
-package io.github.codeutilities.menus;
+package io.github.codeutilities.menu;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.menus.sys.CPanel;
-import io.github.codeutilities.menus.sys.CTextField;
+import io.github.codeutilities.menu.widget.CPanel;
+import io.github.codeutilities.menu.widget.CTextField;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;

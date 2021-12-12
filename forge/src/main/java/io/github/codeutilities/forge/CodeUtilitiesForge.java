@@ -1,7 +1,7 @@
 package io.github.codeutilities.forge;
 
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.Platform;
+import io.github.codeutilities.util.Platform;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod("codeutilities")

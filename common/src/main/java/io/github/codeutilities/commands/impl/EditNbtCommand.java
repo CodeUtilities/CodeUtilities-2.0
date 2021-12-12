@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.commands.Command;
 import io.github.codeutilities.commands.CommandHandler;
-import io.github.codeutilities.menus.EditNbtMenu;
+import io.github.codeutilities.menu.EditNbtMenu;
 import io.github.codeutilities.util.ChatUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.SharedSuggestionProvider;

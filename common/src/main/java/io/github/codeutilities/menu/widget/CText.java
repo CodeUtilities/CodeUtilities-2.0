@@ -1,4 +1,4 @@
-package io.github.codeutilities.menus.sys;
+package io.github.codeutilities.menu.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.codeutilities.CodeUtilities;

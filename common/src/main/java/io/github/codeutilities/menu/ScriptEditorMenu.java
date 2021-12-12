@@ -1,9 +1,9 @@
-package io.github.codeutilities.menus;
+package io.github.codeutilities.menu;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.codeutilities.menus.sys.CPanel;
-import io.github.codeutilities.menus.sys.CScriptTextField;
-import io.github.codeutilities.menus.sys.CText;
+import io.github.codeutilities.menu.widget.CPanel;
+import io.github.codeutilities.menu.widget.CScriptTextField;
+import io.github.codeutilities.menu.widget.CText;
 import io.github.codeutilities.scripts.Script;
 import io.github.codeutilities.scripts.ScriptHandler;
 import io.github.codeutilities.scripts.ScriptParser;

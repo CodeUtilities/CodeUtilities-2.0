@@ -1,11 +1,11 @@
-package io.github.codeutilities.menus;
+package io.github.codeutilities.menu;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.menus.sys.CButton;
-import io.github.codeutilities.menus.sys.CImage;
-import io.github.codeutilities.menus.sys.CPanel;
-import io.github.codeutilities.menus.sys.CText;
+import io.github.codeutilities.menu.widget.CButton;
+import io.github.codeutilities.menu.widget.CImage;
+import io.github.codeutilities.menu.widget.CPanel;
+import io.github.codeutilities.menu.widget.CText;
 import java.net.URL;
 import net.minecraft.Util;
 import net.minecraft.client.gui.screens.Screen;
@@ -20,7 +20,7 @@ public class CodeUtilitiesMenu extends Screen {
         panel = new CPanel(120, 70);
 
         String version = "3.0.0-BETA";//TODO: Get version from config
-        String env = CodeUtilities.platform.displayName;
+        String env = CodeUtilities.platform.getDisplayName();
 
         panel.add(new CImage(0, -5, 60, 60, "codeutilities:icon.png"));
 
