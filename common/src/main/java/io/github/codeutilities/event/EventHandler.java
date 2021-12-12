@@ -15,7 +15,7 @@ public class EventHandler {
         eventListeners.get(tClass).add((EventListener<Event>) listener);
     }
 
-    public void invoke(Event event) {
+    public static void invoke(Event event) {
         eventListeners.get(event.getClass()).forEach(f -> f.fire(event));
     }
 

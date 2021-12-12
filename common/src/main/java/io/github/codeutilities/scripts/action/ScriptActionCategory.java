@@ -5,7 +5,8 @@ public enum ScriptActionCategory {
     PLAYER("Player"),
     IF("If"),
     REPEAT("Repeat"),
-    VAR("Var");
+    VAR("Var"),
+    CONTROL("Control");
 
     final String name;
     ScriptActionCategory(String name) {

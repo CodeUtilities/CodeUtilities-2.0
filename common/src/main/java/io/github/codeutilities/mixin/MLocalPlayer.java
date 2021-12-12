@@ -2,9 +2,8 @@ package io.github.codeutilities.mixin;
 
 import com.mojang.brigadier.StringReader;
 import io.github.codeutilities.commands.CommandHandler;
-import io.github.codeutilities.scripts.ScriptContext;
-import io.github.codeutilities.scripts.ScriptHandler;
-import io.github.codeutilities.scripts.event.ScriptEventType;
+import io.github.codeutilities.event.EventHandler;
+import io.github.codeutilities.event.impl.SendChatEvent;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,9 +23,11 @@ public abstract class MLocalPlayer {
                     ci.cancel();
                 }
             }
-            ScriptContext ctx = new ScriptContext();
-            ctx.setVar("message", msg);
-            ScriptHandler.triggerEvent(ScriptEventType.SEND_CHAT, ctx);
+            SendChatEvent evn = new SendChatEvent(msg);
+            EventHandler.invoke(evn);
+            if (evn.isCancelled()) {
+                ci.cancel();
+            }
         } catch (Exception err) {
             err.printStackTrace();
         }

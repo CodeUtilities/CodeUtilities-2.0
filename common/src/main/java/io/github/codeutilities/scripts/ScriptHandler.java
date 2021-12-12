@@ -1,5 +1,6 @@
 package io.github.codeutilities.scripts;
 
+import io.github.codeutilities.event.Event;
 import io.github.codeutilities.scripts.event.ScriptEventType;
 import io.github.codeutilities.util.FileUtil;
 import java.io.File;
@@ -33,13 +34,13 @@ public class ScriptHandler {
         LOGGER.info("Loaded scripts!");
     }
 
-    public static void triggerEvent(ScriptEventType evn) {
-        triggerEvent(evn, new ScriptContext());
+    public static void triggerEvent(ScriptEventType scriptEvent, Event cuEvent) {
+        triggerEvent(scriptEvent, new ScriptContext(), cuEvent);
     }
 
-    public static void triggerEvent(ScriptEventType evn, ScriptContext ctx) {
+    public static void triggerEvent(ScriptEventType scriptEvent, ScriptContext ctx, Event cuEvent) {
         for (Script script : scripts) {
-            script.triggerEvent(evn, ctx);
+            script.triggerEvent(scriptEvent, ctx, cuEvent);
         }
     }
 
