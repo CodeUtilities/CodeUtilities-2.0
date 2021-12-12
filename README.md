@@ -1,6 +1,4 @@
-[![Build](https://github.com/CodeUtilities/CodeUtilities/actions/workflows/gradle.yml/badge.svg)](https://github.com/CodeUtilities/CodeUtilities/actions/workflows/gradle.yml)
-# CodeUtilities
-CodeUtilities is a mod created specifically for DiamondFire by members of the community which aims to provide Quality of Life features.
+# CodeUtilities 3.0
+This is the 3.0 branch for the CodeUtilities mod, it is currently work in progress.
 
-
-You can report issues on [our discord](https://discord.gg/WY6tPFE).
+There is no restrictions on contribution and anyone is free to do so!
