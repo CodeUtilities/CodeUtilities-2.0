@@ -7,9 +7,9 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
 
-public class TextUtil {
+public class ComponentUtil {
 
-    public static TextComponent txt2Comp(String message) {
+    public static TextComponent fromString(String message) {
         TextComponent result = new TextComponent("");
 
         try {

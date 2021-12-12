@@ -1,10 +1,11 @@
-package io.github.codeutilities.commands;
+package io.github.codeutilities.commands.impl;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.commands.sys.Command;
-import io.github.codeutilities.commands.sys.FileArgumentType;
+import io.github.codeutilities.commands.Command;
+import io.github.codeutilities.commands.CommandHandler;
+import io.github.codeutilities.commands.FileArgumentType;
 import io.github.codeutilities.menus.ScriptEditorMenu;
 import io.github.codeutilities.scripts.Script;
 import io.github.codeutilities.scripts.ScriptHandler;
@@ -37,7 +38,7 @@ public class ScriptsCommand implements Command {
                 for (Script script : scripts) {
                     ChatUtil.displayClientMessage("§a- " + script.getName());
                 }
-                return CommandHandler.CANCEL_MESSAGE;
+                return 1;
             })
             .then(CommandHandler.literal("create")
                 .then(CommandHandler.argument("name", StringArgumentType.greedyString())
@@ -52,7 +53,7 @@ public class ScriptsCommand implements Command {
                                 ChatUtil.displayClientMessage("§cFailed to create script " + name);
                             }
 
-                            return CommandHandler.CANCEL_MESSAGE;
+                            return 1;
                         }
                     )
                 )
@@ -69,7 +70,7 @@ public class ScriptsCommand implements Command {
                                 ChatUtil.displayClientMessage("§cScript " + name + " does not exist.");
                             }
 
-                            return CommandHandler.CANCEL_MESSAGE;
+                            return 1;
                         }
                     )
                 )
@@ -78,7 +79,7 @@ public class ScriptsCommand implements Command {
                 .executes(ctx -> {
                         ScriptHandler.load();
                         ChatUtil.displayClientMessage("§aReloaded scripts");
-                        return CommandHandler.CANCEL_MESSAGE;
+                        return 1;
                     }
                 )
             )
@@ -95,7 +96,7 @@ public class ScriptsCommand implements Command {
                             ChatUtil.displayClientMessage("§cFailed to delete script " + name);
                         }
 
-                        return CommandHandler.CANCEL_MESSAGE;
+                        return 1;
                     })
                 )
             )

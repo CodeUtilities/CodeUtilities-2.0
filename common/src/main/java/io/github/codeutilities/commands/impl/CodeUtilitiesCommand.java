@@ -1,8 +1,9 @@
-package io.github.codeutilities.commands;
+package io.github.codeutilities.commands.impl;
 
 import com.mojang.brigadier.CommandDispatcher;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.commands.sys.Command;
+import io.github.codeutilities.commands.Command;
+import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.menus.CodeUtilitiesMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -16,7 +17,7 @@ public class CodeUtilitiesCommand implements Command {
                 Minecraft mc = CodeUtilities.MC;
 
                 mc.tell(() -> mc.setScreen(new CodeUtilitiesMenu()));
-                return CommandHandler.CANCEL_MESSAGE;
+                return 1;
             })
         );
     }

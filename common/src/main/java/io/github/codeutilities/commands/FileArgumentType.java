@@ -1,4 +1,4 @@
-package io.github.codeutilities.commands.sys;
+package io.github.codeutilities.commands;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;

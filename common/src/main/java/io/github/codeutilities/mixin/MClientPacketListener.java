@@ -1,6 +1,8 @@
 package io.github.codeutilities.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.tree.RootCommandNode;
+import io.github.codeutilities.commands.Command;
 import io.github.codeutilities.commands.CommandHandler;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -16,9 +18,11 @@ public abstract class MClientPacketListener {
 
     @Shadow public abstract CommandDispatcher<SharedSuggestionProvider> getCommands();
 
-    @Inject(method = "handleCommands", at = @At("RETURN"))
+    @Inject(method = "handleCommands", at = @At("HEAD"))
     private void handleCommands(ClientboundCommandsPacket packet, CallbackInfo ci) {
-        CommandHandler.init(getCommands());
+        // inject our own command info into the root command node.
+        RootCommandNode<SharedSuggestionProvider> rootCommandNode = packet.getRoot();
+        CommandHandler.dispatcher.getRoot().getChildren().forEach(rootCommandNode::addChild);
     }
 
 }

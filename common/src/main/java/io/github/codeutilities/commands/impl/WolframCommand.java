@@ -1,4 +1,4 @@
-package io.github.codeutilities.commands;
+package io.github.codeutilities.commands.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -6,7 +6,8 @@ import com.google.gson.JsonObject;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.commands.sys.Command;
+import io.github.codeutilities.commands.Command;
+import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.util.ChatUtil;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -82,7 +83,7 @@ public class WolframCommand implements Command {
                         }
                     });
 
-                    return CommandHandler.CANCEL_MESSAGE;
+                    return 1;
                 })
             )
         );

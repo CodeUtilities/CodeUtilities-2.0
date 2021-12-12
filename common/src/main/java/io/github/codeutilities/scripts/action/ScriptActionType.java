@@ -1,13 +1,13 @@
 package io.github.codeutilities.scripts.action;
 
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.util.TextUtil;
+import io.github.codeutilities.util.ComponentUtil;
 import java.util.function.BiConsumer;
 
 public enum ScriptActionType {
 
     PRINT(ScriptActionCategory.PLAYER, "Print", "Txt", "Prints the given message to the chat.", false,
-        (args, inner) -> CodeUtilities.MC.player.displayClientMessage(TextUtil.txt2Comp(args[0].getText()), false)
+        (args, inner) -> CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(args[0].getText()), false)
     ),
 
     INCREASE(ScriptActionCategory.VAR, "Increase", "Var, Num", "Increases the value of the given variable by a given number.", false,

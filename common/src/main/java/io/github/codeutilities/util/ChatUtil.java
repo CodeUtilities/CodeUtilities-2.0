@@ -8,6 +8,6 @@ public class ChatUtil {
     public static void displayClientMessage(String msg) {
         LocalPlayer player = CodeUtilities.MC.player;
 
-        if (player != null) player.displayClientMessage(TextUtil.txt2Comp(msg), false);
+        if (player != null) player.displayClientMessage(ComponentUtil.fromString(msg), false);
     }
 }

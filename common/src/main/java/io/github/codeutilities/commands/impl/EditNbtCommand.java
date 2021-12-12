@@ -1,8 +1,9 @@
-package io.github.codeutilities.commands;
+package io.github.codeutilities.commands.impl;
 
 import com.mojang.brigadier.CommandDispatcher;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.commands.sys.Command;
+import io.github.codeutilities.commands.Command;
+import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.menus.EditNbtMenu;
 import io.github.codeutilities.util.ChatUtil;
 import net.minecraft.client.Minecraft;
@@ -31,17 +32,17 @@ public class EditNbtCommand implements Command {
 
                 if (item.isEmpty()) {
                     ChatUtil.displayClientMessage("§cYou must be holding an item to use this command.");
-                    return CommandHandler.CANCEL_MESSAGE;
+                    return 1;
                 }
 
                 if (!mc.player.isCreative()) {
                     ChatUtil.displayClientMessage("§cYou must be in creative mode to use this command.");
-                    return CommandHandler.CANCEL_MESSAGE;
+                    return 1;
                 }
 
                 mc.tell(() -> mc.setScreen(new EditNbtMenu(item)));
 
-                return CommandHandler.CANCEL_MESSAGE;
+                return 1;
             })
         );
     }

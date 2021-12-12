@@ -1,6 +1,7 @@
 package io.github.codeutilities;
 
 import com.google.gson.Gson;
+import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.scripts.ScriptHandler;
 import io.github.codeutilities.util.FileUtil;
 import java.util.concurrent.ExecutorService;
@@ -25,6 +26,7 @@ public class CodeUtilities {
             FileUtil.cuFolder().toFile().mkdirs();
         }
         ScriptHandler.load();
+        CommandHandler.init();
 
         LOGGER.info("CodeUtilities initialized!");
     }
