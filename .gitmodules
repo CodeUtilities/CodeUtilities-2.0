@@ -1,0 +1,4 @@
+[submodule "/mnt/coding/CodeUtilities/2.0"]
+	path = /mnt/coding/CodeUtilities/2.0
+	url = https://github.com/CodeUtilities/CodeUtilities
+	branch = master
