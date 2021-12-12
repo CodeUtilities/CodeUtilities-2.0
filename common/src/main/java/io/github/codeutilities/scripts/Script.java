@@ -1,5 +1,7 @@
 package io.github.codeutilities.scripts;
 
+import io.github.codeutilities.scripts.event.ScriptEvent;
+import io.github.codeutilities.scripts.event.ScriptEventType;
 import io.github.codeutilities.util.ChatUtil;
 import io.github.codeutilities.util.FileUtil;
 import java.io.File;
@@ -8,10 +10,10 @@ import java.util.List;
 
 public class Script {
 
-    String name;
-    List<ScriptEvent> events;
-    ScriptContext context = new ScriptContext();
-    String source;
+    private final String name;
+    private List<ScriptEvent> events;
+    private final ScriptContext context = new ScriptContext();
+    private String source;
 
     public Script(String name, File source) {
         try {
@@ -30,7 +32,7 @@ public class Script {
 
     public void triggerEvent(ScriptEventType evn, ScriptContext ectx) {
         try {
-            context.vars.putAll(ectx.vars);
+            context.getVars().putAll(ectx.getVars());
             for (ScriptEvent event : events) {
                 if (event.type == evn) {
                     event.execute();
@@ -49,5 +51,9 @@ public class Script {
 
     public String getSource() {
         return source;
+    }
+
+    public ScriptContext getContext() {
+        return context;
     }
 }

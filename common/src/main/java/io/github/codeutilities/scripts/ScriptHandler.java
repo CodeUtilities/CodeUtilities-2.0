@@ -1,5 +1,6 @@
 package io.github.codeutilities.scripts;
 
+import io.github.codeutilities.scripts.event.ScriptEventType;
 import io.github.codeutilities.util.FileUtil;
 import java.io.File;
 import java.util.ArrayList;

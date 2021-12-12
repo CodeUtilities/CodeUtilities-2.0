@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ScriptContext {
 
-    HashMap<String,Object> vars = new HashMap<>();
+    private final HashMap<String,Object> vars = new HashMap<>();
 
     public void setVar(String name, Object value){
         vars.put(name,value);
@@ -16,5 +16,9 @@ public class ScriptContext {
 
     public boolean hasVar(String name){
         return vars.containsKey(name);
+    }
+
+    public HashMap<String, Object> getVars() {
+        return vars;
     }
 }

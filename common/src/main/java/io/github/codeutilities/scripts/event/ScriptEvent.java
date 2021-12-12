@@ -1,4 +1,6 @@
-package io.github.codeutilities.scripts;
+package io.github.codeutilities.scripts.event;
+
+import io.github.codeutilities.scripts.action.ScriptAction;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,13 @@
 package io.github.codeutilities.scripts;
 
-import io.github.codeutilities.scripts.ScriptActionArgument.ScriptActionArgumentType;
+import io.github.codeutilities.scripts.action.ScriptAction;
+import io.github.codeutilities.scripts.action.ScriptActionArgument;
+import io.github.codeutilities.scripts.action.ScriptActionArgument.ScriptActionArgumentType;
+import io.github.codeutilities.scripts.action.ScriptActionCategory;
+import io.github.codeutilities.scripts.action.ScriptActionType;
+import io.github.codeutilities.scripts.event.ScriptEvent;
+import io.github.codeutilities.scripts.event.ScriptEventType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -65,7 +72,7 @@ public class ScriptParser {
                         event.actions.add(action);
                     }
 
-                    if (action.type.curly) {
+                    if (action.getType().isCurly()) {
                         if (actionMatcher.group(4).equals("{")) {
                             trace.add(action);
                         } else {

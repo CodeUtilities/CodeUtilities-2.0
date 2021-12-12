@@ -1,4 +1,6 @@
-package io.github.codeutilities.scripts;
+package io.github.codeutilities.scripts.action;
+
+import io.github.codeutilities.scripts.Script;
 
 public class ScriptActionArgument {
 
@@ -26,12 +28,12 @@ public class ScriptActionArgument {
         if (type == ScriptActionArgumentType.TEXT || type == ScriptActionArgumentType.NUMBER) {
             return value;
         }
-        return script.context.vars.get(value.toString());
+        return script.getContext().getVar(value.toString());
     }
 
     public void set(Object value) {
         if (type == ScriptActionArgumentType.VARIABLE) {
-            script.context.vars.put(this.value.toString(), value);
+            script.getContext().setVar(this.value.toString(), value);
         } else {
             throw new IllegalArgumentException("Cannot set value! (Not a variable)");
         }

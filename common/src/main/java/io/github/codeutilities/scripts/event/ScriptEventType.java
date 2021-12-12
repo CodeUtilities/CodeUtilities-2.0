@@ -1,6 +1,7 @@
-package io.github.codeutilities.scripts;
+package io.github.codeutilities.scripts.event;
 
 public enum ScriptEventType {
+
     SEND_CHAT("SendChat","Runs when the player sends a message into the chat. Sets the message variable to the message sent.");
 
     public final String name;

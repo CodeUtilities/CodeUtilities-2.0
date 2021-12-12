@@ -5,7 +5,7 @@ import com.mojang.brigadier.StringReader;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.scripts.ScriptContext;
-import io.github.codeutilities.scripts.ScriptEventType;
+import io.github.codeutilities.scripts.event.ScriptEventType;
 import io.github.codeutilities.scripts.ScriptHandler;
 import java.util.Objects;
 import net.minecraft.client.player.LocalPlayer;

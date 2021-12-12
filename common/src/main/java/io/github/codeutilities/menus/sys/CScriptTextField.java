@@ -2,9 +2,9 @@ package io.github.codeutilities.menus.sys;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.codeutilities.CodeUtilities;
-import io.github.codeutilities.scripts.ScriptActionCategory;
-import io.github.codeutilities.scripts.ScriptActionType;
-import io.github.codeutilities.scripts.ScriptEventType;
+import io.github.codeutilities.scripts.action.ScriptActionCategory;
+import io.github.codeutilities.scripts.action.ScriptActionType;
+import io.github.codeutilities.scripts.event.ScriptEventType;
 import io.github.codeutilities.util.RenderUtil;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;

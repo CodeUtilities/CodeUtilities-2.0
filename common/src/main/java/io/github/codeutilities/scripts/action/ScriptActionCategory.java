@@ -1,4 +1,4 @@
-package io.github.codeutilities.scripts;
+package io.github.codeutilities.scripts.action;
 
 public enum ScriptActionCategory {
 

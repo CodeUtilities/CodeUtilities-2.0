@@ -1,4 +1,4 @@
-package io.github.codeutilities.scripts;
+package io.github.codeutilities.scripts.action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class ScriptAction {
 
     public List<ScriptAction> inner = new ArrayList<>();
-    ScriptActionType type;
+    private final ScriptActionType type;
     List<ScriptActionArgument> args;
 
     public ScriptAction(ScriptActionType type, List<ScriptActionArgument> args) {
@@ -15,11 +15,14 @@ public class ScriptAction {
     }
 
     public void execute() {
-        type.code.accept(args.toArray(new ScriptActionArgument[0]), () -> {
+        type.getCode().accept(args.toArray(new ScriptActionArgument[0]), () -> {
             for (ScriptAction action : inner) {
                 action.execute();
             }
         });
     }
 
+    public ScriptActionType getType() {
+        return type;
+    }
 }

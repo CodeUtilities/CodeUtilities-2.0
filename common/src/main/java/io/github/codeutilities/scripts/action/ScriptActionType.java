@@ -1,4 +1,4 @@
-package io.github.codeutilities.scripts;
+package io.github.codeutilities.scripts.action;
 
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.util.TextUtil;
@@ -145,10 +145,10 @@ public enum ScriptActionType {
         }
     });
 
-    final String name, args, desc;
-    final boolean curly;
-    final BiConsumer<ScriptActionArgument[], Runnable> code;
-    final ScriptActionCategory cat;
+    private final String name, args, desc;
+    private final boolean curly;
+    private final BiConsumer<ScriptActionArgument[], Runnable> code;
+    private final ScriptActionCategory cat;
 
     ScriptActionType(ScriptActionCategory cat, String name, String args, String desc, boolean curly, BiConsumer<ScriptActionArgument[], Runnable> code) {
         this.cat = cat;
@@ -182,5 +182,13 @@ public enum ScriptActionType {
 
     public String getArguments() {
         return args;
+    }
+
+    public boolean isCurly() {
+        return curly;
+    }
+
+    public BiConsumer<ScriptActionArgument[], Runnable> getCode() {
+        return code;
     }
 }
