@@ -1,15 +1,9 @@
 package io.github.codeutilities.event.type;
 
-public class Cancellable {
+public interface Cancellable {
 
-    private boolean cancelled = false;
+    boolean isCancelled();
 
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
-    }
-
-    public boolean isCancelled() {
-        return cancelled;
-    }
+    void setCancelled(boolean cancel);
 
 }
