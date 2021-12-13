@@ -5,11 +5,16 @@ import io.github.codeutilities.event.Event;
 import io.github.codeutilities.event.type.Cancellable;
 import io.github.codeutilities.util.ComponentUtil;
 import io.github.codeutilities.util.TriConsumer;
+import net.minecraft.network.chat.TextComponent;
 
 public enum ScriptActionType {
 
-    PRINT(ScriptActionCategory.PLAYER, "Print", "Txt", "Prints the given message to the chat.", false,
-        (args, inner, event) -> CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(args[0].getText()), false)
+    PRINT(ScriptActionCategory.PLAYER, "Print", "Txt", "Prints the given message to the chat without colorcodes applied.", false,
+        (args, inner, event) -> CodeUtilities.MC.player.displayClientMessage(new TextComponent(args[0].getText()), false)
+    ),
+
+    PRINT_FORMATTED(ScriptActionCategory.PLAYER, "PrintFormatted", "Txt", "Prints the given message to the chat with colorcodes applied.", false,
+        (args, inner, event) -> CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(args[0].getText().replaceAll("&","§")), false)
     ),
 
     INCREASE(ScriptActionCategory.VAR, "Increase", "Var, Num", "Increases the value of the given variable by a given number.", false,
@@ -76,8 +81,8 @@ public enum ScriptActionType {
         }
     }),
 
-    EQUAL(ScriptActionCategory.IF, "Equal", "Num, Num", "True if the first variable is equal to the second.", true, (args, inner, event) -> {
-        if (args[0].getNumber() == args[1].getNumber()) {
+    EQUAL(ScriptActionCategory.IF, "Equal", "Val, Val", "True if the first variable is equal to the second.", true, (args, inner, event) -> {
+        if (args[0].get().equals(args[1].get())) {
             inner.run();
         }
     }),

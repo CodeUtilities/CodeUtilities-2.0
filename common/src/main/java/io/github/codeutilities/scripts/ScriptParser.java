@@ -18,8 +18,8 @@ public class ScriptParser {
     public static List<ScriptEvent> parseFile(String source, Script script) {
         ScriptEvent event = null;
         String[] lines = source.split("\n");
-        Pattern actionP = Pattern.compile("^(\\w+)#(\\w+)\\((.*)\\) ?(\\{?)$");
-        Pattern eventP = Pattern.compile("^Event#(\\w+):$");
+        Pattern actionP = Pattern.compile("^(\\w+)\\.(\\w+)\\((.*)\\) ?(\\{?)$");
+        Pattern eventP = Pattern.compile("^Event\\.(\\w+):$");
         List<ScriptEvent> events = new ArrayList<>();
         List<ScriptAction> trace = new ArrayList<>();
 
