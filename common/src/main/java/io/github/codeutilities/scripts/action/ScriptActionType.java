@@ -28,6 +28,16 @@ public enum ScriptActionType {
         CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(sb.toString().replaceAll("&", "§")), false);
     }),
 
+    ACTIONBAR(ScriptActionCategory.PLAYER, "ActionBar", "Txts", "Sends the given message to the player's action bar with colorcodes applied.", false, (args, inner, event) -> {
+       StringBuilder sb = new StringBuilder();
+
+        for (ScriptActionArgument arg : args) {
+            sb.append(arg.getText());
+        }
+
+        CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(sb.toString().replaceAll("&", "§")), true);
+    }),
+
     INCREASE(ScriptActionCategory.VAR, "Increase", "Var, Nums", "Increases the value of the given variable by the given number(s).", false, (args, inner, event) -> {
         double result = 0;
         for (ScriptActionArgument arg : args) {
@@ -95,6 +105,22 @@ public enum ScriptActionType {
         }
         args[0].set(sb.toString());
     }),
+
+    ROUND(ScriptActionCategory.VAR, "Round", "Var, Num", "Sets the variable to the number rounded to the nearest integer.", false,
+        (args, inner, event) -> args[0].set(Math.round(args[1].getNumber()))
+    ),
+
+    FLOOR(ScriptActionCategory.VAR, "Floor", "Var, Num", "Sets the variable to the number rounded down to the nearest integer.", false,
+        (args, inner, event) -> args[0].set(Math.floor(args[1].getNumber()))
+    ),
+
+    CEILING(ScriptActionCategory.VAR, "Ceiling", "Var, Num", "Sets the variable to the number rounded up to the nearest integer.", false,
+        (args, inner, event) -> args[0].set(Math.ceil(args[1].getNumber()))
+    ),
+
+    ABSOLUTE(ScriptActionCategory.VAR, "Absolute", "Var, Num", "Sets the variable to the absolute value of the number.", false,
+        (args, inner, event) -> args[0].set(Math.abs(args[1].getNumber()))
+    ),
 
     GREATER(ScriptActionCategory.IF, "Greater", "Num, Num", "True if the first variable is greater than the second.", true, (args, inner, event) -> {
         if (args[0].getNumber() > args[1].getNumber()) {
