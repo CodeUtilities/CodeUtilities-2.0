@@ -9,37 +9,64 @@ import net.minecraft.network.chat.TextComponent;
 
 public enum ScriptActionType {
 
-    PRINT(ScriptActionCategory.PLAYER, "Print", "Txt", "Prints the given message to the chat without colorcodes applied.", false,
-        (args, inner, event) -> CodeUtilities.MC.player.displayClientMessage(new TextComponent(args[0].getText()), false)
-    ),
+    PRINT(ScriptActionCategory.PLAYER, "Print", "Txts", "Prints the given message to the chat without colorcodes applied.", false, (args, inner, event) -> {
+        StringBuilder sb = new StringBuilder();
 
-    PRINT_FORMATTED(ScriptActionCategory.PLAYER, "PrintFormatted", "Txt", "Prints the given message to the chat with colorcodes applied.", false,
-        (args, inner, event) -> CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(args[0].getText().replaceAll("&","§")), false)
-    ),
+        for (ScriptActionArgument arg : args) {
+            sb.append(arg.getText());
+        }
 
-    INCREASE(ScriptActionCategory.VAR, "Increase", "Var, Num", "Increases the value of the given variable by a given number.", false,
-        (args, inner, event) -> args[0].set(args[0].getNumber() + args[1].getNumber())
-    ),
+        CodeUtilities.MC.player.displayClientMessage(new TextComponent(sb.toString()), false);
+    }),
 
-    DECREASE(ScriptActionCategory.VAR, "Decrease", "Var, Num", "Decreases the value of the given variable by a given number.", false,
-        (args, inner, event) -> args[0].set(args[0].getNumber() - args[1].getNumber())
-    ),
+    PRINT_FORMATTED(ScriptActionCategory.PLAYER, "PrintFormatted", "Txts", "Prints the given message to the chat with colorcodes applied.", false, (args, inner, event) -> {
+        StringBuilder sb = new StringBuilder();
+
+        for (ScriptActionArgument arg : args) {
+            sb.append(arg.getText());
+        }
+        CodeUtilities.MC.player.displayClientMessage(ComponentUtil.fromString(sb.toString().replaceAll("&", "§")), false);
+    }),
+
+    INCREASE(ScriptActionCategory.VAR, "Increase", "Var, Nums", "Increases the value of the given variable by the given number(s).", false, (args, inner, event) -> {
+        double result = 0;
+        for (ScriptActionArgument arg : args) {
+            result += arg.getNumber();
+        }
+        args[0].set(result);
+    }),
+
+    DECREASE(ScriptActionCategory.VAR, "Decrease", "Var, Nums", "Decreases the value of the given variable by the given number(s).", false, (args, inner, event) -> {
+        double result = args[0].getNumber();
+        for (int i = 1; i < args.length; i++) {
+            result += args[i].getNumber();
+        }
+        args[0].set(result);
+    }),
 
     SET(ScriptActionCategory.VAR, "Set", "Var, Val", "Sets one variable to a given value.", false,
         (args, inner, event) -> args[0].set(args[1].get())
     ),
 
-    ADD(ScriptActionCategory.VAR, "Add", "Var, Num, Num", "Sets the variable to the sum of the two numbers.", false,
-        (args, inner, event) -> args[0].set(args[1].getNumber() + args[2].getNumber())
-    ),
+    ADD(ScriptActionCategory.VAR, "Add", "Var, Nums", "Sets the variable to the sum of the numbers.", false, (args, inner, event) -> {
+        double result = 0;
+        for (int i = 1; i < args.length; i++) {
+            result += args[i].getNumber();
+        }
+        args[0].set(result);
+    }),
 
     SUBTRACT(ScriptActionCategory.VAR, "Subtract", "Var, Num, Num", "Sets the variable to the difference of the two numbers.", false,
         (args, inner, event) -> args[0].set(args[1].getNumber() - args[2].getNumber())
     ),
 
-    MULTIPLY(ScriptActionCategory.VAR, "Multiply", "Var, Num, Num", "Sets the variable to the product of the two numbers.", false,
-        (args, inner, event) -> args[0].set(args[1].getNumber() * args[2].getNumber())
-    ),
+    MULTIPLY(ScriptActionCategory.VAR, "Multiply", "Var, Nums", "Sets the variable to the product of the numbers.", false, (args, inner, event) -> {
+        double result = 1;
+        for (int i = 1; i < args.length; i++) {
+            result *= args[i].getNumber();
+        }
+        args[0].set(result);
+    }),
 
     DIVIDE(ScriptActionCategory.VAR, "Divide", "Var, Num, Num", "Sets the variable to the quotient of the two numbers.", false,
         (args, inner, event) -> args[0].set(args[1].getNumber() / args[2].getNumber())
