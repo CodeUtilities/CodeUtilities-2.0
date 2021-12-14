@@ -32,6 +32,7 @@ public class ScriptHandler {
             }
         }
         LOGGER.info("Loaded scripts!");
+        triggerEvent(ScriptEventType.INIT, null);
     }
 
     public static void triggerEvent(ScriptEventType scriptEvent, Event cuEvent) {

@@ -4,6 +4,7 @@ import com.mojang.brigadier.StringReader;
 import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.event.EventHandler;
 import io.github.codeutilities.event.impl.SendChatEvent;
+import io.github.codeutilities.event.impl.TickEvent;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,6 +32,11 @@ public abstract class MLocalPlayer {
         } catch (Exception err) {
             err.printStackTrace();
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tick(CallbackInfo ci) {
+        EventHandler.invoke(new TickEvent());
     }
 
 }

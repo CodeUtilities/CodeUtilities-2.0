@@ -57,6 +57,18 @@ public enum ScriptActionType {
         (args, inner, event) -> args[0].set(Math.floor(Math.random() * (args[2].getNumber() - args[1].getNumber()) + args[1].getNumber()))
     ),
 
+    TIMESTAMP(ScriptActionCategory.VAR, "Timestamp", "Var", "Sets the variable to the current timestamp in seconds with very high accuracy.", false,
+        (args, inner, event) -> args[0].set(System.currentTimeMillis() / 1000.0)
+    ),
+
+    CONCAT(ScriptActionCategory.VAR, "Concat", "Var, Vals", "Sets the variable to the concatenation of the strings.", false,(args, inner, event) -> {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < args.length; i++) {
+            sb.append(args[i].getText());
+        }
+        args[0].set(sb.toString());
+    }),
+
     GREATER(ScriptActionCategory.IF, "Greater", "Num, Num", "True if the first variable is greater than the second.", true, (args, inner, event) -> {
         if (args[0].getNumber() > args[1].getNumber()) {
             inner.run();
