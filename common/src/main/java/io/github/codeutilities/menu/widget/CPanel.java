@@ -54,7 +54,7 @@ public class CPanel {
         }
     }
 
-    private double translateMouseX(double mouseX) {
+    public double translateMouseX(double mouseX) {
         Minecraft mc = CodeUtilities.MC;
         float s = (float) mc.getWindow().getGuiScale();
         mouseX += -mc.screen.width/2;
@@ -63,7 +63,7 @@ public class CPanel {
         return mouseX;
     }
 
-    private double translateMouseY(double mouseY) {
+    public double translateMouseY(double mouseY) {
         Minecraft mc = CodeUtilities.MC;
         float s = (float) mc.getWindow().getGuiScale();
         mouseY += -mc.screen.height/2;
