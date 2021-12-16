@@ -15,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.protocol.game.ClientboundCommandsPacket;
@@ -41,6 +40,7 @@ public class ScriptHandler {
     }
 
     public static void load() {
+        triggerEvent(ScriptEventType.FINALIZE,null);
         scripts.clear();
         LOGGER.info("Loading scripts...");
         File folder = FileUtil.cuFolder("Scripts").toFile();

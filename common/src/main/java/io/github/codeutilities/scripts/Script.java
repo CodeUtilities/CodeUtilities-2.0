@@ -36,7 +36,7 @@ public class Script {
             context.getVars().putAll(ectx.getVars());
             for (ScriptEvent event : events) {
                 if (event.type == scriptEvent) {
-                    event.execute(cuEvent);
+                    event.execute(cuEvent,this);
                 }
             }
         } catch (Exception e) {

@@ -9,7 +9,8 @@ public enum ScriptEventType {
     TICK("Tick","Runs every tick."),
     INIT("Init","Runs when the script is loaded."),
     REGISTER_CMDS("RegisterCmds","Runs whenever commands are supposed to be registered."),
-    SEND_COMMAND("SendCommand","Runs when the player sends a command. Sets the command variable to the entire command sent with the slash removed. Only meant for commands that are registered via scripts.");
+    SEND_COMMAND("SendCommand","Runs when the player sends a command. Sets the command variable to the entire command sent with the slash removed. Only meant for commands that are registered via scripts."),
+    FINALIZE("Finalize","Runs when the script is unloaded.");
 
     public final String name;
     public final String description;
