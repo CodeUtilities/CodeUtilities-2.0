@@ -1,39 +1,30 @@
 package io.github.codeutilities.scripts.action;
 
 import io.github.codeutilities.scripts.Script;
+import io.github.codeutilities.scripts.types.ScriptValue;
 
 public class ScriptActionArgument {
 
     ScriptActionArgumentType type;
-    Object value;
+    ScriptValue value;
     Script script;
 
-    public ScriptActionArgument(ScriptActionArgumentType type, Object value, Script script) {
+    public ScriptActionArgument(ScriptActionArgumentType type, ScriptValue value, Script script) {
         this.type = type;
         this.value = value;
         this.script = script;
     }
 
-    public String getText() {
-        return String.valueOf(get());
-    }
-
-    public double getNumber() {
-        Object value = get();
-        if (value == null) return 0;
-        return (double) value;
-    }
-
-    public Object get() {
+    public ScriptValue get() {
         if (type == ScriptActionArgumentType.TEXT || type == ScriptActionArgumentType.NUMBER) {
             return value;
         }
-        return script.getContext().getVar(value.toString());
+        return script.getContext().getVar(value.text());
     }
 
-    public void set(Object value) {
+    public void set(ScriptValue value) {
         if (type == ScriptActionArgumentType.VARIABLE) {
-            script.getContext().setVar(this.value.toString(), value);
+            script.getContext().setVar(this.value.text(), value);
         } else {
             throw new IllegalArgumentException("Cannot set value! (Not a variable)");
         }

@@ -28,6 +28,7 @@ public class CodeUtilities {
         if (!FileUtil.cuFolder().toFile().exists()) {
             FileUtil.cuFolder().toFile().mkdirs();
         }
+        ScriptHandler.init();
         ScriptHandler.load();
         ScriptEventListeners.init();
         CommandHandler.init();

@@ -5,6 +5,7 @@ import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.event.EventHandler;
 import io.github.codeutilities.event.impl.SendChatEvent;
 import io.github.codeutilities.event.impl.TickEvent;
+import io.github.codeutilities.scripts.ScriptHandler;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,6 +22,9 @@ public abstract class MLocalPlayer {
             StringReader reader = new StringReader(msg);
             if (reader.canRead() && reader.read() == '/') {
                 if (CommandHandler.dispatch(reader)) {
+                    ci.cancel();
+                }
+                if (ScriptHandler.dispatchCmd(reader)) {
                     ci.cancel();
                 }
             }

@@ -9,10 +9,12 @@ import io.github.codeutilities.commands.arg.FileArgumentType;
 import io.github.codeutilities.menu.ScriptEditorMenu;
 import io.github.codeutilities.scripts.Script;
 import io.github.codeutilities.scripts.ScriptHandler;
+import io.github.codeutilities.scripts.types.ScriptValue;
 import io.github.codeutilities.util.ChatUtil;
 import io.github.codeutilities.util.FileUtil;
 import java.io.File;
 import java.util.List;
+import java.util.Map.Entry;
 import net.minecraft.commands.SharedSuggestionProvider;
 
 public class ScriptsCommand implements Command {
@@ -94,6 +96,22 @@ public class ScriptsCommand implements Command {
                             ChatUtil.displayClientMessage("§aReloaded scripts");
                         } else {
                             ChatUtil.displayClientMessage("§cFailed to delete script " + name);
+                        }
+
+                        return 1;
+                    })
+                )
+            ).then(CommandHandler.literal("vars")
+                .then(CommandHandler.argument("script", new FileArgumentType(scriptFolder))
+                    .executes(ctx -> {
+                        String name = StringArgumentType.getString(ctx, "script");
+
+                        for (Script s : ScriptHandler.scripts) {
+                            if (s.getName().equals(name)) {
+                                for (Entry<String, ScriptValue> entry : s.getContext().getVars().entrySet()) {
+                                    ChatUtil.displayClientMessage("§a" + entry.getKey() + ": §b" + entry.getValue().text());
+                                }
+                            }
                         }
 
                         return 1;

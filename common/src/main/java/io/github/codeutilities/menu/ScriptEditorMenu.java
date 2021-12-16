@@ -30,10 +30,10 @@ public class ScriptEditorMenu extends Screen {
         if (script == null) {
             throw new IllegalStateException("Script not found!");
         }
-        panel = new CPanel(120, 110);
+        panel = new CPanel(150, 110);
 
-        field = new CScriptTextField(script.getSource(), 2, 2, 116, 96, true);
-        CText errorMsg = new CText( 60, 105, "§aValid", 0, 1, true, true);
+        field = new CScriptTextField(script.getSource(), 2, 2, 146, 96, true);
+        CText errorMsg = new CText( 75, 105, "§aValid", 0, 1, true, true);
 
         field.setChangedListener(() -> {
             try {
