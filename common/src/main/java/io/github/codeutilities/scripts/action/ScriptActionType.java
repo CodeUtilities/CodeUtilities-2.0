@@ -1,6 +1,8 @@
 package io.github.codeutilities.scripts.action;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.event.impl.ReloadCommandsEvent;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
@@ -269,22 +272,39 @@ public enum ScriptActionType {
 
     REGISTER_COMMAND(ScriptActionCategory.CONTROL, "RegisterCommand", "Txt", "Registers a command with a specific name. Only works on Event#RegisterCmds!", false, info -> {
         if (info.event() instanceof ReloadCommandsEvent) {
-            ScriptHandler.getScriptCmdDispatcher().register(CommandHandler.literal(info.args()[0].get().text())
-                .executes(ctx -> {
-                    ScriptContext sCtx = new ScriptContext();
-                    sCtx.setVar("command",new ScriptText(ctx.getInput().substring(1)));
-                    ScriptHandler.triggerEvent(ScriptEventType.SEND_COMMAND,sCtx,null);
-                    return 1;
-                })
-                .then(CommandHandler.argument("args", StringArgumentType.greedyString())
-                    .executes(ctx -> {
+            CommandDispatcher<SharedSuggestionProvider> cd = ScriptHandler.getScriptCmdDispatcher();
+
+            String[] path = info.args()[0].get().text().split(" ");
+
+            if (path.length == 0) {
+                return;
+            }
+
+            LiteralArgumentBuilder<SharedSuggestionProvider> current = null;
+
+            for (int i = path.length - 1; i >= 0; i--) {
+                if (current == null) {
+                    current = CommandHandler.literal(path[i]);
+                    current.then(CommandHandler.argument("args", StringArgumentType.greedyString()).executes(ctx -> {
                         ScriptContext sCtx = new ScriptContext();
-                        sCtx.setVar("command",new ScriptText(ctx.getInput().substring(1)));
-                        ScriptHandler.triggerEvent(ScriptEventType.SEND_COMMAND,sCtx,null);
+                        sCtx.setVar("command", new ScriptText(ctx.getInput().substring(1)));
+                        ScriptHandler.triggerEvent(ScriptEventType.SEND_COMMAND, sCtx, null);
                         return 1;
-                    })
-                )
-            );
+                    }));
+                } else {
+                    LiteralArgumentBuilder<SharedSuggestionProvider> newCurrent = CommandHandler.literal(path[i]);
+                    newCurrent.then(current);
+                    current = newCurrent;
+                }
+                current.executes(ctx -> {
+                    ScriptContext sCtx = new ScriptContext();
+                    sCtx.setVar("command", new ScriptText(ctx.getInput().substring(1)));
+                    ScriptHandler.triggerEvent(ScriptEventType.SEND_COMMAND, sCtx, null);
+                    return 1;
+                });
+            }
+
+            cd.register(current);
         }
     }),
 
