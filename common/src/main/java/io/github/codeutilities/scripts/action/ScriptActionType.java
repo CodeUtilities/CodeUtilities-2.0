@@ -7,7 +7,9 @@ import io.github.codeutilities.event.impl.ReloadCommandsEvent;
 import io.github.codeutilities.event.type.Cancellable;
 import io.github.codeutilities.scripts.ScriptContext;
 import io.github.codeutilities.scripts.ScriptHandler;
+import io.github.codeutilities.scripts.ScriptUtil;
 import io.github.codeutilities.scripts.event.ScriptEventType;
+import io.github.codeutilities.scripts.types.ScriptDictionary;
 import io.github.codeutilities.scripts.types.ScriptList;
 import io.github.codeutilities.scripts.types.ScriptNumber;
 import io.github.codeutilities.scripts.types.ScriptText;
@@ -16,22 +18,32 @@ import io.github.codeutilities.util.ComponentUtil;
 import io.github.codeutilities.util.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 
 public enum ScriptActionType {
 
-    PRINT(ScriptActionCategory.PLAYER, "Print", "Txts", "Prints the given message to the chat without colorcodes applied.", false, info -> {
+    LOG(ScriptActionCategory.CONTROL, "Log", "Txts", "Prints the given message and the script name to the chat.", false, info -> {
         StringBuilder sb = new StringBuilder();
+
+        sb.append("[")
+            .append(info.script().getName())
+            .append("] ");
 
         for (ScriptActionArgument arg : info.args()) {
             sb.append(arg.get().text());
         }
 
-        CodeUtilities.MC.player.displayClientMessage(new TextComponent(sb.toString()), false);
+        CodeUtilities.MC.player.displayClientMessage(new TextComponent(sb.toString()).withStyle(ChatFormatting.GRAY), false);
     }),
 
-    PRINT_FORMATTED(ScriptActionCategory.PLAYER, "PrintFormatted", "Txts", "Prints the given message to the chat with colorcodes applied.", false, info -> {
+    PRINT_FORMATTED(ScriptActionCategory.PLAYER, "Print", "Txts", "Prints the given message to the chat with colorcodes applied.", false, info -> {
         StringBuilder sb = new StringBuilder();
 
         for (ScriptActionArgument arg : info.args()) {
@@ -284,7 +296,7 @@ public enum ScriptActionType {
         info -> info.args()[0].get().list().add(info.args()[1].get())
     ),
 
-    GET_VALUE(ScriptActionCategory.VAR, "GetValue", "Var, List, Num", "Gets the value at the specified index from the list and stores it in the variable.", false,
+    GET_LIST_VALUE(ScriptActionCategory.VAR, "GetListValue", "Var, List, Num", "Gets the value at the specified index from the list and stores it in the variable.", false,
         info -> info.args()[0].set(info.args()[1].get().list().get((int) info.args()[2].get().number()))
     ),
 
@@ -380,6 +392,69 @@ public enum ScriptActionType {
             result.add(new ScriptText(part));
         }
         info.args()[0].set(new ScriptList(result));
+    }),
+
+    GAMEMODE(ScriptActionCategory.IF, "Gamemode", "Txt", "True if the player is in the specified gamemode.", true, info -> {
+        String input = info.args()[0].get().text();
+        GameType type = CodeUtilities.MC.gameMode.getPlayerMode();
+        String nameTarget = type.getName();
+        String idTarget = String.valueOf(type.getId());
+
+        if (input.equalsIgnoreCase(nameTarget) || input.equalsIgnoreCase(idTarget)) {
+            info.inner().run();
+        }
+    }),
+
+    GET_HELD_ITEM(ScriptActionCategory.PLAYER, "GetHeldItem", "Var", "Sets the variable to the item the player is holding as a dictionary.", false, info -> {
+        CompoundTag item = new CompoundTag();
+        CodeUtilities.MC.player.getMainHandItem().save(item);
+        info.args()[0].set(ScriptUtil.tagToValue(item));
+    }),
+
+    SET_HELD_ITEM(ScriptActionCategory.PLAYER, "SetHeldItem", "Dict", "Sets the item the player is holding. Creative mode only.", false, info -> {
+        if (CodeUtilities.MC.gameMode.getPlayerMode() == GameType.CREATIVE) {
+            ItemStack item = ItemStack.of((CompoundTag) ScriptUtil.valueToTag(info.args()[0].get()));
+
+            CodeUtilities.MC.gameMode.handleCreativeModeItemAdd(item, CodeUtilities.MC.player.getInventory().selected+36);
+        }
+    }),
+
+    GET_DICT_VALUE(ScriptActionCategory.VAR, "GetDictValue", "Var, Dict, Txt", "Sets the variable to the value of the specified key in the dictionary.", false, info -> {
+        info.args()[0].set(info.args()[1].get().dictionary().get(info.args()[2].get().text()));
+    }),
+
+    SET_DICT_VALUE(ScriptActionCategory.VAR, "SetDictValue", "Dict, Txt, Val", "Sets the value of the specified key in the dictionary.", false, info -> {
+        info.args()[0].get().dictionary().put(info.args()[1].get().text(), info.args()[2].get());
+    }),
+
+    DICT_SIZE(ScriptActionCategory.VAR, "DictSize", "Var, Dict", "Sets the variable to the size of the dictionary.", false, info -> {
+        info.args()[0].set(new ScriptNumber(info.args()[1].get().dictionary().size()));
+    }),
+
+    CREATE_DICT(ScriptActionCategory.VAR, "CreateDict", "Var", "Creates a new dictionary.", false, info -> {
+        info.args()[0].set(new ScriptDictionary(new HashMap<>()));
+    }),
+
+    DICT_FOR_EACH(ScriptActionCategory.REPEAT, "DictForEach", "Var, Var, Dict", "Runs the specified action for each key value pair in the dictionary. Sets the vars to the current key/value.", true, info -> {
+        for (Entry<String, ScriptValue> entry : info.args()[2].get().dictionary().entrySet()) {
+            info.args()[0].set(new ScriptText(entry.getKey()));
+            info.args()[1].set(entry.getValue());
+            info.inner().run();
+        }
+    }),
+
+    DICT_KEY(ScriptActionCategory.IF, "DictKey", "Dict, Txt", "True if the key is in the dictionary.", true, info -> {
+        if (info.args()[0].get().dictionary().containsKey(info.args()[1].get().text())) {
+            info.inner().run();
+        }
+    }),
+
+    REMOVE_DICT_ENTRY(ScriptActionCategory.VAR, "RemoveDictEntry", "Dict, Txt", "Removes the specified key from the dictionary.", false, info -> {
+        info.args()[0].get().dictionary().remove(info.args()[1].get().text());
+    }),
+
+    PARSE_NUM(ScriptActionCategory.VAR, "ParseNum", "Var, Txt", "Parses the text as a number and sets the variable to it.", false, info -> {
+        info.args()[0].set(new ScriptNumber(Double.parseDouble(info.args()[1].get().text())));
     });
 
     private final String name, args, desc;

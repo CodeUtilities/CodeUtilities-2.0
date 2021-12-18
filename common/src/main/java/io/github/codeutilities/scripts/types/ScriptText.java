@@ -15,4 +15,9 @@ public record ScriptText(String value) implements ScriptValue {
             return 0;
         }
     }
+
+    @Override
+    public String toString() {
+        return text();
+    }
 }

@@ -14,4 +14,9 @@ public record ScriptNumber(double value) implements ScriptValue {
     public double number() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return text();
+    }
 }

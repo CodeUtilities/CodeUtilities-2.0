@@ -18,4 +18,9 @@ public record ScriptList(ArrayList<ScriptValue> value) implements ScriptValue{
     public ArrayList<ScriptValue> list() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return text();
+    }
 }
