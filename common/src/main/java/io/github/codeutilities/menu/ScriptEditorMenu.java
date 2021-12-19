@@ -18,6 +18,7 @@ public class ScriptEditorMenu extends Screen {
     final CPanel panel;
     Script script;
     CScriptTextField field;
+    CText errorMsg;
 
     public ScriptEditorMenu(String name) {
         super(new TextComponent("Script Editor"));
@@ -33,21 +34,24 @@ public class ScriptEditorMenu extends Screen {
         panel = new CPanel(150, 110);
 
         field = new CScriptTextField(script.getSource(), 2, 2, 146, 96, true);
-        CText errorMsg = new CText( 75, 105, "§aValid", 0, 1, true, true);
+        errorMsg = new CText( 75, 105, "§aValid", 0, 1, true, true);
 
-        field.setChangedListener(() -> {
-            try {
-                ScriptParser.parseFile(field.getText(),script);
-                field.textColor = 0xFFFFFFFF;
-                errorMsg.setText("§aScript Valid");
-            } catch (Exception err) {
-                field.textColor = 0xFFFF3333;
-                errorMsg.setText("§c" + err.getMessage());
-            }
-        });
+        field.setChangedListener(this::validateScript);
+        validateScript();
 
         panel.add(errorMsg);
         panel.add(field);
+    }
+
+    private void validateScript() {
+        try {
+            ScriptParser.parseFile(field.getText(), script);
+            field.textColor = 0xFFFFFFFF;
+            errorMsg.setText("§aScript Valid");
+        } catch (Exception err) {
+            field.textColor = 0xFFFF3333;
+            errorMsg.setText("§c" + err.getMessage());
+        }
     }
 
     @Override

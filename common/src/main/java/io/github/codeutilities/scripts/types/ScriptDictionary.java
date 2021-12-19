@@ -10,6 +10,15 @@ public record ScriptDictionary(HashMap<String,ScriptValue> value) implements Scr
     }
 
     @Override
+    public ScriptValue copy() {
+        HashMap<String, ScriptValue> copy = new HashMap<>();
+        for(String key : value.keySet()){
+            copy.put(key, value.get(key).copy());
+        }
+        return new ScriptDictionary(copy);
+    }
+
+    @Override
     public String text() {
         return value.toString();
     }

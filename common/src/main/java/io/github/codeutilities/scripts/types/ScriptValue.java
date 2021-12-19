@@ -12,4 +12,6 @@ public interface ScriptValue {
     default ArrayList<ScriptValue> list() {return new ArrayList<>();}
 
     default HashMap<String,ScriptValue> dictionary() {return new HashMap<>();}
+
+    ScriptValue copy();
 }

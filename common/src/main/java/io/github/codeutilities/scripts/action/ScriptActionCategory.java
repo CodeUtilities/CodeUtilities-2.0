@@ -3,10 +3,15 @@ package io.github.codeutilities.scripts.action;
 public enum ScriptActionCategory {
 
     PLAYER("Player"),
-    IF("If"),
     REPEAT("Repeat"),
-    VAR("Var"),
-    CONTROL("Control");
+    VALUE("Value"),
+    FILES("Files"),
+    NUMBER("Number"),
+    DICTIONARY("Dictionary"),
+    TEXT("Text"),
+    LIST("List"),
+    SCRIPT("Script"),
+    RENDER("Render");
 
     final String name;
     ScriptActionCategory(String name) {

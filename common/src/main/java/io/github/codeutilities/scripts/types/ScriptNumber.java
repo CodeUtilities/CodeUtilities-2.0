@@ -16,6 +16,11 @@ public record ScriptNumber(double value) implements ScriptValue {
     }
 
     @Override
+    public ScriptValue copy() {
+        return new ScriptNumber(value);
+    }
+
+    @Override
     public String toString() {
         return text();
     }

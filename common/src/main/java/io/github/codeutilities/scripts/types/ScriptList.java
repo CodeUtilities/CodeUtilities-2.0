@@ -20,6 +20,15 @@ public record ScriptList(ArrayList<ScriptValue> value) implements ScriptValue{
     }
 
     @Override
+    public ScriptValue copy() {
+        ArrayList<ScriptValue> newList = new ArrayList<>();
+        for(ScriptValue value : this.value){
+            newList.add(value.copy());
+        }
+        return new ScriptList(newList);
+    }
+
+    @Override
     public String toString() {
         return text();
     }

@@ -1,6 +1,7 @@
 package io.github.codeutilities;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import io.github.codeutilities.commands.CommandHandler;
 import io.github.codeutilities.scripts.ScriptHandler;
 import io.github.codeutilities.scripts.event.ScriptEventListeners;
@@ -19,6 +20,7 @@ public class CodeUtilities {
     public static final Minecraft MC = Minecraft.getInstance();
     public static final Gson GSON = new Gson();
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final JsonParser JSON_PARSER = new JsonParser();
 
     public static Platform platform = Platform.UNKNOWN;
 

@@ -17,6 +17,11 @@ public record ScriptText(String value) implements ScriptValue {
     }
 
     @Override
+    public ScriptValue copy() {
+        return new ScriptText(value);
+    }
+
+    @Override
     public String toString() {
         return text();
     }

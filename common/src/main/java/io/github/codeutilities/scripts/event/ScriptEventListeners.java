@@ -4,10 +4,12 @@ import io.github.codeutilities.event.EventHandler;
 import io.github.codeutilities.event.impl.KeyPressEvent;
 import io.github.codeutilities.event.impl.ReceiveChatEvent;
 import io.github.codeutilities.event.impl.ReloadCommandsEvent;
+import io.github.codeutilities.event.impl.RenderGuiEvent;
 import io.github.codeutilities.event.impl.SendChatEvent;
 import io.github.codeutilities.event.impl.TickEvent;
 import io.github.codeutilities.scripts.ScriptContext;
 import io.github.codeutilities.scripts.ScriptHandler;
+import io.github.codeutilities.scripts.types.ScriptNumber;
 import io.github.codeutilities.scripts.types.ScriptText;
 import io.github.codeutilities.util.ComponentUtil;
 
@@ -47,6 +49,13 @@ public class ScriptEventListeners {
 
         EventHandler.register(ReloadCommandsEvent.class, (event) -> {
             ScriptHandler.triggerEvent(ScriptEventType.REGISTER_CMDS, event);
+        });
+
+        EventHandler.register(RenderGuiEvent.class, (event) -> {
+            ScriptContext ctx = new ScriptContext();
+            ctx.setVar("screenWidth", new ScriptNumber(event.scaledWindowWidth()));
+            ctx.setVar("screenHeight", new ScriptNumber(event.scaledWindowHeight()));
+            ScriptHandler.triggerEvent(ScriptEventType.RENDER_GUI, ctx, event);
         });
     }
 

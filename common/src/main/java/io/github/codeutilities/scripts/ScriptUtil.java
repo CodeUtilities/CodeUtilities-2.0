@@ -1,5 +1,10 @@
 package io.github.codeutilities.scripts;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.scripts.types.ScriptDictionary;
 import io.github.codeutilities.scripts.types.ScriptList;
@@ -9,6 +14,7 @@ import io.github.codeutilities.scripts.types.ScriptUnknownValue;
 import io.github.codeutilities.scripts.types.ScriptValue;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.nbt.ByteArrayTag;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
@@ -95,5 +101,54 @@ public class ScriptUtil {
         }
 
         return IntTag.valueOf(0);
+    }
+
+    public static JsonElement valueToJson(ScriptValue value) {
+        if (value instanceof ScriptDictionary dict) {
+            JsonObject json = new JsonObject();
+            for (String key : dict.dictionary().keySet()) {
+                json.add(key, valueToJson(dict.dictionary().get(key)));
+            }
+            return json;
+        } else if (value instanceof ScriptList list) {
+            JsonArray json = new JsonArray();
+            for (ScriptValue v : list.list()) {
+                json.add(valueToJson(v));
+            }
+            return json;
+        } else if (value instanceof ScriptNumber number) {
+            return new JsonPrimitive(number.number());
+        } else if (value instanceof ScriptText text) {
+            return new JsonPrimitive(text.text());
+        }
+
+        return JsonNull.INSTANCE;
+    }
+
+    public static ScriptValue jsonToValue(JsonElement json) {
+        if (json.isJsonObject()) {
+            JsonObject jsonObject = json.getAsJsonObject();
+            HashMap<String, ScriptValue> dict = new HashMap<>();
+            for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                dict.put(entry.getKey(), jsonToValue(entry.getValue()));
+            }
+            return new ScriptDictionary(dict);
+        } else if (json.isJsonArray()) {
+            JsonArray jsonArray = json.getAsJsonArray();
+            ArrayList<ScriptValue> list = new ArrayList<>();
+            for (JsonElement element : jsonArray) {
+                list.add(jsonToValue(element));
+            }
+            return new ScriptList(list);
+        } else if (json.isJsonPrimitive()) {
+            JsonPrimitive jsonPrimitive = json.getAsJsonPrimitive();
+            if (jsonPrimitive.isNumber()) {
+                return new ScriptNumber(jsonPrimitive.getAsDouble());
+            } else if (jsonPrimitive.isString()) {
+                return new ScriptText(jsonPrimitive.getAsString());
+            }
+        }
+
+        return new ScriptUnknownValue();
     }
 }

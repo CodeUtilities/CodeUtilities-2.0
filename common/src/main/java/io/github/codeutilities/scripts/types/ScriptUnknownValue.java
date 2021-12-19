@@ -6,4 +6,9 @@ public class ScriptUnknownValue implements ScriptValue {
     public String toString() {
         return "Unknown";
     }
+
+    @Override
+    public ScriptValue copy() {
+        return this;
+    }
 }
