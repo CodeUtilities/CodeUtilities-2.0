@@ -15,7 +15,9 @@ import io.github.codeutilities.util.FileUtil;
 import java.io.File;
 import java.util.List;
 import java.util.Map.Entry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.TextComponent;
 
 public class ScriptsCommand implements Command {
 
@@ -36,9 +38,9 @@ public class ScriptsCommand implements Command {
         dispatcher.register(CommandHandler.literal("scripts")
             .executes(ctx -> {
                 List<Script> scripts = ScriptHandler.scripts;
-                ChatUtil.displayClientMessage("§aScripts: " + scripts.size());
+                ChatUtil.displaySuccess("Scripts: " + scripts.size());
                 for (Script script : scripts) {
-                    ChatUtil.displayClientMessage("§a- " + script.getName());
+                    ChatUtil.displaySuccess("- " + script.getName());
                 }
                 return 1;
             })
@@ -48,11 +50,11 @@ public class ScriptsCommand implements Command {
                             String name = StringArgumentType.getString(ctx, "name");
 
                             if (ScriptHandler.createScript(name)) {
-                                ChatUtil.displayClientMessage("§aCreated script " + name);
+                                ChatUtil.displaySuccess("Created script " + name);
                                 ScriptHandler.load();
-                                ChatUtil.displayClientMessage("§aReloaded scripts");
+                                ChatUtil.displaySuccess("Reloaded scripts");
                             } else {
-                                ChatUtil.displayClientMessage("§cFailed to create script " + name);
+                                ChatUtil.displayError("Failed to create script " + name);
                             }
 
                             return 1;
@@ -69,7 +71,7 @@ public class ScriptsCommand implements Command {
                             if (ScriptHandler.scripts.stream().anyMatch(script -> script.getName().equalsIgnoreCase(finalName))) {
                                 CodeUtilities.MC.tell(() -> CodeUtilities.MC.setScreen(new ScriptEditorMenu(finalName)));
                             } else {
-                                ChatUtil.displayClientMessage("§cScript " + name + " does not exist.");
+                                ChatUtil.displayError("Script " + name + " does not exist.");
                             }
 
                             return 1;
@@ -80,7 +82,7 @@ public class ScriptsCommand implements Command {
             .then(CommandHandler.literal("reload")
                 .executes(ctx -> {
                         ScriptHandler.load();
-                        ChatUtil.displayClientMessage("§aReloaded scripts");
+                        ChatUtil.displaySuccess("Reloaded scripts");
                         return 1;
                     }
                 )
@@ -91,11 +93,11 @@ public class ScriptsCommand implements Command {
                         String name = StringArgumentType.getString(ctx, "name");
 
                         if (ScriptHandler.deleteScript(name)) {
-                            ChatUtil.displayClientMessage("§aDeleted script " + name);
+                            ChatUtil.displaySuccess("Deleted script " + name);
                             ScriptHandler.load();
-                            ChatUtil.displayClientMessage("§aReloaded scripts");
+                            ChatUtil.displaySuccess("Reloaded scripts");
                         } else {
-                            ChatUtil.displayClientMessage("§cFailed to delete script " + name);
+                            ChatUtil.displayError("Failed to delete script " + name);
                         }
 
                         return 1;
@@ -109,7 +111,12 @@ public class ScriptsCommand implements Command {
                         for (Script s : ScriptHandler.scripts) {
                             if (s.getName().equals(name)) {
                                 for (Entry<String, ScriptValue> entry : s.getContext().getVars().entrySet()) {
-                                    ChatUtil.displayClientMessage("§a" + entry.getKey() + ": §b" + entry.getValue().text());
+                                    ChatUtil.displayClientMessage(new TextComponent(entry.getKey()+": ")
+                                        .withStyle(ChatFormatting.GREEN)
+                                        .append(new TextComponent(entry.getValue().text())
+                                            .withStyle(ChatFormatting.AQUA)
+                                        )
+                                    );
                                 }
                             }
                         }

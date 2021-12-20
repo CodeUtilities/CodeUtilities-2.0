@@ -3,18 +3,20 @@ package io.github.codeutilities.menu.widget;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.codeutilities.CodeUtilities;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
 public class CText implements CWidget {
 
     int x;
     int y;
-    String text;
+    Component text;
     int color;
     float scale;
     boolean centered;
     boolean shadow;
 
-    public CText(int x, int y, String text, int color, float scale, boolean centered, boolean shadow) {
+    public CText(int x, int y, Component text, int color, float scale, boolean centered, boolean shadow) {
         this.x = x;
         this.y = y;
         this.text = text;
@@ -45,7 +47,7 @@ public class CText implements CWidget {
         stack.popPose();
     }
 
-    public void setText(String t) {
+    public void setText(Component t) {
         text = t;
     }
 }

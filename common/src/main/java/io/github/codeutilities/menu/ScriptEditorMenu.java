@@ -10,6 +10,7 @@ import io.github.codeutilities.scripts.ScriptParser;
 import io.github.codeutilities.util.ChatUtil;
 import io.github.codeutilities.util.FileUtil;
 import java.io.File;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TextComponent;
 
@@ -34,7 +35,7 @@ public class ScriptEditorMenu extends Screen {
         panel = new CPanel(150, 110);
 
         field = new CScriptTextField(script.getSource(), 2, 2, 146, 96, true);
-        errorMsg = new CText( 75, 105, "§aValid", 0, 1, true, true);
+        errorMsg = new CText( 75, 105, new TextComponent("Valid").withStyle(ChatFormatting.GREEN), 0, 1, true, true);
 
         field.setChangedListener(this::validateScript);
         validateScript();
@@ -47,10 +48,10 @@ public class ScriptEditorMenu extends Screen {
         try {
             ScriptParser.parseFile(field.getText(), script);
             field.textColor = 0xFFFFFFFF;
-            errorMsg.setText("§aScript Valid");
+            errorMsg.setText(new TextComponent("Script Valid").withStyle(ChatFormatting.RED));
         } catch (Exception err) {
             field.textColor = 0xFFFF3333;
-            errorMsg.setText("§c" + err.getMessage());
+            errorMsg.setText(new TextComponent(err.getMessage()).withStyle(ChatFormatting.RED));
         }
     }
 
@@ -66,7 +67,7 @@ public class ScriptEditorMenu extends Screen {
         }
 
         ScriptHandler.load();
-        ChatUtil.displayClientMessage("§aReloaded scripts!");
+        ChatUtil.displaySuccess("Reloaded scripts");
         super.onClose();
     }
 

@@ -31,12 +31,12 @@ public class EditNbtCommand implements Command {
                 ItemStack item = mc.player.getMainHandItem();
 
                 if (item.isEmpty()) {
-                    ChatUtil.displayClientMessage("§cYou must be holding an item to use this command.");
+                    ChatUtil.displayError("You must be holding an item to use this command.");
                     return 1;
                 }
 
                 if (!mc.player.isCreative()) {
-                    ChatUtil.displayClientMessage("§cYou must be in creative mode to use this command.");
+                    ChatUtil.displayError("You must be in creative mode to use this command.");
                     return 1;
                 }
 

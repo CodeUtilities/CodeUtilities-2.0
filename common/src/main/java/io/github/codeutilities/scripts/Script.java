@@ -41,8 +41,8 @@ public class Script {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ChatUtil.displayClientMessage("§cError in script '" + name + "' at event '" + scriptEvent.name + "':");
-            ChatUtil.displayClientMessage("§c" + e.getMessage());
+            ChatUtil.displayError("Error in script '" + name + "' at event '" + scriptEvent.name + "':");
+            ChatUtil.displayError(e.getMessage());
         }
     }
 
