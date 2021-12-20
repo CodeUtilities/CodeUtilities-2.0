@@ -36,13 +36,13 @@ public class Script {
             context.getVars().putAll(ectx.getVars());
             for (ScriptEvent event : events) {
                 if (event.type == scriptEvent) {
-                    event.execute(cuEvent);
+                    event.execute(cuEvent,this);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ChatUtil.displayClientMessage("§cError in script '" + name + "' at event '" + scriptEvent.name + "':");
-            ChatUtil.displayClientMessage("§c" + e.getMessage());
+            ChatUtil.displayError("Error in script '" + name + "' at event '" + scriptEvent.name + "':");
+            ChatUtil.displayError(e.getMessage());
         }
     }
 

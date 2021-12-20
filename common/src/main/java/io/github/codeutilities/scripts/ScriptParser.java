@@ -8,6 +8,8 @@ import io.github.codeutilities.scripts.action.ScriptActionType;
 import io.github.codeutilities.scripts.event.ScriptEvent;
 import io.github.codeutilities.scripts.event.ScriptEventType;
 
+import io.github.codeutilities.scripts.types.ScriptNumber;
+import io.github.codeutilities.scripts.types.ScriptText;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,8 +20,8 @@ public class ScriptParser {
     public static List<ScriptEvent> parseFile(String source, Script script) {
         ScriptEvent event = null;
         String[] lines = source.split("\n");
-        Pattern actionP = Pattern.compile("^(\\w+)#(\\w+)\\((.*)\\) ?(\\{?)$");
-        Pattern eventP = Pattern.compile("^Event#(\\w+):$");
+        Pattern actionP = Pattern.compile("^(\\w+)\\.(\\w+)\\((.*)\\) ?(\\{?)$");
+        Pattern eventP = Pattern.compile("^Event\\.(\\w+):$");
         List<ScriptEvent> events = new ArrayList<>();
         List<ScriptAction> trace = new ArrayList<>();
 
@@ -138,12 +140,12 @@ public class ScriptParser {
 
         for (String arg : stringArgs) {
             if (arg.startsWith("\"")) {
-                args.add(new ScriptActionArgument(ScriptActionArgumentType.TEXT, arg.substring(1), script));
+                args.add(new ScriptActionArgument(ScriptActionArgumentType.TEXT, new ScriptText(arg.substring(1)), script));
             } else {
                 try {
-                    args.add(new ScriptActionArgument(ScriptActionArgumentType.NUMBER, Double.parseDouble(arg), script));
+                    args.add(new ScriptActionArgument(ScriptActionArgumentType.NUMBER, new ScriptNumber(Double.parseDouble(arg)), script));
                 } catch (Exception err) {
-                    args.add(new ScriptActionArgument(ScriptActionArgumentType.VARIABLE, arg, script));
+                    args.add(new ScriptActionArgument(ScriptActionArgumentType.VARIABLE, new ScriptText(arg), script));
                 }
             }
         }

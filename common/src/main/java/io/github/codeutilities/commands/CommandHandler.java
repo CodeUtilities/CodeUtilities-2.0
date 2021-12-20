@@ -7,11 +7,14 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.exceptions.BuiltInExceptionProvider;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.tree.CommandNode;
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.commands.impl.CodeUtilitiesCommand;
 import io.github.codeutilities.commands.impl.EditNbtCommand;
 import io.github.codeutilities.commands.impl.ScriptsCommand;
 import io.github.codeutilities.commands.impl.WolframCommand;
+import io.github.codeutilities.event.EventHandler;
+import io.github.codeutilities.event.impl.ReloadCommandsEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TextComponent;
@@ -33,6 +36,12 @@ public class CommandHandler {
                 new EditNbtCommand(),
                 new ScriptsCommand()
         );
+
+        EventHandler.register(ReloadCommandsEvent.class, event -> {
+            for (CommandNode<SharedSuggestionProvider> child : dispatcher.getRoot().getChildren()) {
+                event.modifiableDispatcher().getRoot().addChild(child);
+            }
+        });
     }
 
     private static void register(Command... cmds) {

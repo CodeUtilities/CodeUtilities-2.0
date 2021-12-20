@@ -5,7 +5,10 @@
   "client": [
   ],
   "mixins": [
+    "MChatComponent",
     "MClientPacketListener",
+    "MGui",
+    "MKeyboardHandler",
     "MLocalPlayer"
   ],
   "injectors": {

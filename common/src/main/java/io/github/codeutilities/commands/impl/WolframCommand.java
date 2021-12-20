@@ -16,11 +16,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 
 public class WolframCommand implements Command {
 
-    private final String prefix = "§x§f§1§6§d§3§aWolframAlpha: ";
-    private final String color = "§x§f§1§6§d§3§a";
+    private final String prefix = "WolframAlpha: ";
+    private final Style style = Style.EMPTY.withColor(TextColor.parseColor("#f16d3a"));
 
     @Override
     public void register(CommandDispatcher<SharedSuggestionProvider> dispatcher) {
@@ -29,7 +31,7 @@ public class WolframCommand implements Command {
                 .executes(ctx -> {
                     String expression = StringArgumentType.getString(ctx, "expression");
 
-                    ChatUtil.displayClientMessage(prefix + "Calculating...");
+                    ChatUtil.displayClientMessage(prefix + "Calculating...", style);
 
                     String encoded = URLEncoder.encode(expression, StandardCharsets.UTF_8);
 
@@ -71,15 +73,15 @@ public class WolframCommand implements Command {
                             }
 
                             if (input == null || output == null) {
-                                ChatUtil.displayClientMessage(prefix + "Error");
+                                ChatUtil.displayClientMessage(prefix + "Error", style);
                             } else {
-                                ChatUtil.displayClientMessage(prefix);
-                                ChatUtil.displayClientMessage(color + "In: " + input);
-                                ChatUtil.displayClientMessage(color + "Out: " + output);
+                                ChatUtil.displayClientMessage(prefix, style);
+                                ChatUtil.displayClientMessage("In: " + input, style);
+                                ChatUtil.displayClientMessage("Out: " + output, style);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            ChatUtil.displayClientMessage(prefix + "Error");
+                            ChatUtil.displayClientMessage(prefix + "Error", style);
                         }
                     });
 

@@ -3,6 +3,7 @@ package io.github.codeutilities.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
@@ -49,5 +50,42 @@ public class ComponentUtil {
         }
 
         return result;
+    }
+
+    public static String toFormattedString(Component message) {
+        StringBuilder result = new StringBuilder();
+
+        Style style = message.getStyle();
+
+        String format = "";
+
+        if (style.getColor() != null) {
+            format += "§x§" + String.join("§", String.format("%06X", style.getColor().getValue()).split(""));
+        }
+
+        if (style.isBold()) {
+            format += "§l";
+        }
+        if (style.isItalic()) {
+            format += "§o";
+        }
+        if (style.isUnderlined()) {
+            format += "§n";
+        }
+        if (style.isStrikethrough()) {
+            format += "§m";
+        }
+        if (style.isObfuscated()) {
+            format += "§k";
+        }
+
+        result.append(format);
+        result.append(message.getContents());
+
+        for (Component sibling : message.getSiblings()) {
+            result.append(toFormattedString(sibling));
+        }
+
+        return result.toString();
     }
 }
