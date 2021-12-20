@@ -5,9 +5,13 @@
   "client": [
   ],
   "mixins": [
+    "MChatComponent",
     "MClientPacketListener",
     "MLocalPlayer",
-    "MOptionsScreen"
+    "MOptionsScreen",
+    "MGui",
+    "MKeyboardHandler",
+    "MLocalPlayer"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -39,7 +39,7 @@ public class CodeUtilities {
         initializer.add(new ConfigFile());
         initializer.add(new ConfigManager());
 
-        ScriptHandler.load();
+        ScriptHandler.init();
         ScriptEventListeners.init();
         CommandHandler.init();
 

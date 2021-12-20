@@ -14,7 +14,7 @@ public class ScriptHandler {
     public static final Logger LOGGER = LogManager.getLogger("CuScripts");
     public static List<Script> scripts = new ArrayList<>();
 
-    public static void load() {
+    public static void init() {
         scripts.clear();
         LOGGER.info("Loading scripts...");
         File folder = FileUtil.cuFolder("Scripts").toFile();
