@@ -51,7 +51,7 @@ public class ScriptsCommand implements Command {
 
                             if (ScriptHandler.createScript(name)) {
                                 ChatUtil.displaySuccess("Created script " + name);
-                                ScriptHandler.load();
+                                ScriptHandler.loadScripts();
                                 ChatUtil.displaySuccess("Reloaded scripts");
                             } else {
                                 ChatUtil.displayError("Failed to create script " + name);
@@ -81,7 +81,7 @@ public class ScriptsCommand implements Command {
             )
             .then(CommandHandler.literal("reload")
                 .executes(ctx -> {
-                        ScriptHandler.load();
+                        ScriptHandler.loadScripts();
                         ChatUtil.displaySuccess("Reloaded scripts");
                         return 1;
                     }
@@ -94,7 +94,7 @@ public class ScriptsCommand implements Command {
 
                         if (ScriptHandler.deleteScript(name)) {
                             ChatUtil.displaySuccess("Deleted script " + name);
-                            ScriptHandler.load();
+                            ScriptHandler.loadScripts();
                             ChatUtil.displaySuccess("Reloaded scripts");
                         } else {
                             ChatUtil.displayError("Failed to delete script " + name);

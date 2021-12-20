@@ -14,6 +14,8 @@ import io.github.codeutilities.util.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.codeutilities.util.codeinit.ILoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TextComponent;
@@ -21,7 +23,7 @@ import net.minecraft.network.protocol.game.ClientboundCommandsPacket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ScriptHandler {
+public class ScriptHandler implements ILoader {
 
     public static final Logger LOGGER = LogManager.getLogger("CuScripts");
     public static List<Script> scripts = new ArrayList<>();
@@ -38,8 +40,12 @@ public class ScriptHandler {
             }
         });
     }
+    @Override
+    public void load() {
+        loadScripts();
+    }
 
-    public static void init() {
+    public static void loadScripts() {
 
         triggerEvent(ScriptEventType.FINALIZE,null);
 

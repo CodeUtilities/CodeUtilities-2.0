@@ -40,12 +40,9 @@ public class CodeUtilities {
         CodeInitializer initializer = new CodeInitializer();
         initializer.add(new ConfigFile());
         initializer.add(new ConfigManager());
-
-
-        ScriptHandler.init();
-
-        ScriptEventListeners.init();
-        CommandHandler.init();
+        initializer.add(new ScriptHandler());
+        initializer.add(new ScriptEventListeners());
+        initializer.add(new CommandHandler());
 
         LOGGER.info("CodeUtilities initialized!");
     }
