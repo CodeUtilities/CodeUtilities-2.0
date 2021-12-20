@@ -6,7 +6,8 @@
   ],
   "mixins": [
     "MClientPacketListener",
-    "MLocalPlayer"
+    "MLocalPlayer",
+    "MOptionsScreen"
   ],
   "injectors": {
     "defaultRequire": 1
