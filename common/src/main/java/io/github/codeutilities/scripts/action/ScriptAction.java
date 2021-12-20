@@ -1,6 +1,7 @@
 package io.github.codeutilities.scripts.action;
 
 import io.github.codeutilities.event.Event;
+import io.github.codeutilities.scripts.Script;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,17 @@ public class ScriptAction {
         this.args = args;
     }
 
-    public void execute(Event event) {
-        type.getCode().accept(args.toArray(new ScriptActionArgument[0]), () -> {
-            for (ScriptAction action : inner) {
-                action.execute(event);
-            }
-        }, event);
+    public void execute(Event event, Script script) {
+        type.getCode().accept(new ScriptActionInfo(
+            args.toArray(new ScriptActionArgument[0]),
+            () -> {
+                for (ScriptAction action : inner) {
+                    action.execute(event,script);
+                }
+            },
+            event,
+            script
+        ));
     }
 
     public ScriptActionType getType() {

@@ -19,6 +19,7 @@ import net.minecraft.client.gui.GuiComponent;
 public class CScriptTextField extends CTextField {
 
     String tabCompletion = "";
+    boolean showCompletions = false;
 
     public CScriptTextField(String text, int x, int y, int width, int height, boolean editable) {
         super(text, x, y, width, height, editable);
@@ -27,8 +28,8 @@ public class CScriptTextField extends CTextField {
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float tickDelta) {
         String oldText = text;
-        Pattern eventP = Pattern.compile("^( *)Event#(\\w+):$");
-        Pattern actionP = Pattern.compile("^( *)(\\w+)#(\\w+)\\((.*)\\)( ?\\{?)$");
+        Pattern eventP = Pattern.compile("^( *)Event\\.(\\w+):$");
+        Pattern actionP = Pattern.compile("^( *)(\\w+)\\.(\\w+)\\((.*)\\)( ?\\{?)$");
 
         if (textColor == 0xFFFFFFFF) {
             text = Arrays.stream(text.split("\n")).map(s -> {
@@ -38,11 +39,11 @@ public class CScriptTextField extends CTextField {
                     Matcher m = eventP.matcher(s);
 
                     if (m.find()) {
-                        return m.group(1) + "§fEvent§b#§f" + m.group(2) + ":";
+                        return m.group(1) + "§fEvent§b.§f" + m.group(2) + ":";
                     } else {
                         m = actionP.matcher(s);
                         if (m.find()) {
-                            return m.group(1) + "§f" + m.group(2) + "§b#§f" + m.group(3) + "§6(§e" + m.group(4) + "§6)§e" + m.group(5);
+                            return m.group(1) + "§f" + m.group(2) + "§b.§f" + m.group(3) + "§6(§e" + m.group(4) + "§6)§e" + m.group(5);
                         } else {
                             return "§e" + s;
                         }
@@ -74,29 +75,33 @@ public class CScriptTextField extends CTextField {
 
         Font f = CodeUtilities.MC.font;
         String[] lines = text.split("\n");
+        String[] oldLines = oldText.split("\n");
 
-        stack.pushPose();
+            stack.pushPose();
         int selectionStart = Math.min(selectionPos, cursorPos);
         int selectionEnd = Math.max(selectionPos, cursorPos);
 
+        int index = 0;
         for (String line : lines) {
+            String oldLine = oldLines[index];
             if (hasSelection) {
-                int lineSelectionStart = Math.max(0, Math.min(selectionStart, line.length()));
-                int lineSelectionEnd = Math.max(0, Math.min(selectionEnd, line.length()));
+                int lineSelectionStart = Math.max(0, Math.min(selectionStart, oldLine.length()));
+                int lineSelectionEnd = Math.max(0, Math.min(selectionEnd, oldLine.length()));
 
                 stack.pushPose();
 
-                stack.translate(f.width(line.substring(0, lineSelectionStart)), 0, 0);
-                GuiComponent.fill(stack, 0, 0, f.width(line.substring(lineSelectionStart, lineSelectionEnd)), f.lineHeight, 0xFF5555FF);
+                stack.translate(f.width(oldLine.substring(0, lineSelectionStart)), 0, 0);
+                GuiComponent.fill(stack, 0, 0, f.width(oldLine.substring(lineSelectionStart, lineSelectionEnd)), f.lineHeight, 0xFF5555FF);
 
                 stack.popPose();
             }
             f.draw(stack, line, 0, 0, textColor);
 
-            selectionStart -= line.length() + 1;
-            selectionEnd -= line.length() + 1;
+            selectionStart -= oldLine.length() + 1;
+            selectionEnd -= oldLine.length() + 1;
 
             stack.translate(0, f.lineHeight, 0);
+            index++;
         }
         stack.popPose();
 
@@ -127,20 +132,20 @@ public class CScriptTextField extends CTextField {
 
         tabCompletion = "";
         List<String> suggestions = new ArrayList<>();
-        if (lineText.contains("#")) {
-            String text = lineText.split("#", -1)[0].trim();
+        if (lineText.contains(".")) {
+            String text = lineText.split("\\.", -1)[0].trim();
             completionsX -= f.width(text);
 
             ScriptActionCategory cat = ScriptActionCategory.get(text);
             if (cat != null || text.equals("Event")) {
-                String t2 = lineText.substring(lineText.indexOf("#") + 1).trim().toLowerCase();
+                String t2 = lineText.substring(lineText.indexOf(".") + 1).trim().toLowerCase();
                 if (cat != null) {
                     for (ScriptActionType t : ScriptActionType.values()) {
                         if (t.getCategory() == cat) {
                             if (t.getName().toLowerCase().startsWith(t2)) {
-                                suggestions.add(cat.getName() + "#" + t.getName() + "(" + t.getArguments() + ")");
+                                suggestions.add(cat.getName() + "." + t.getName() + "(" + t.getArguments() + ")");
                                 if (tabCompletion.isEmpty()) {
-                                    tabCompletion = cat.getName() + "#" + t.getName()+"()";
+                                    tabCompletion = cat.getName() + "." + t.getName()+"()";
                                 }
                             }
                         }
@@ -148,9 +153,9 @@ public class CScriptTextField extends CTextField {
                 } else {
                     for (ScriptEventType t : ScriptEventType.values()) {
                         if (t.getName().toLowerCase().startsWith(t2)) {
-                            suggestions.add("Event#" + t.getName());
+                            suggestions.add("Event." + t.getName());
                             if (tabCompletion.isEmpty()) {
-                                tabCompletion = "Event#" + t.getName() + ":";
+                                tabCompletion = "Event." + t.getName() + ":";
                             }
                         }
                     }
@@ -164,11 +169,11 @@ public class CScriptTextField extends CTextField {
                 if (cat.getName().toLowerCase().startsWith(text)) suggestions.add(cat.getName());
             }
             if (!suggestions.isEmpty()) {
-                tabCompletion = suggestions.get(0)+"#";
+                tabCompletion = suggestions.get(0)+".";
             }
         }
 
-        if (suggestions.size() > 0) {
+        if (suggestions.size() > 0 && showCompletions) {
             if (suggestions.size() > 5) {
                 suggestions = suggestions.subList(0, 5);
             }
@@ -240,6 +245,7 @@ public class CScriptTextField extends CTextField {
     @Override
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (editable) {
+            showCompletions = true;
             if (keyCode == 258) { //tab
                 if (!tabCompletion.isEmpty()) {
                     Pattern spaceP = Pattern.compile("^\\s+");
@@ -287,5 +293,11 @@ public class CScriptTextField extends CTextField {
             }
         }
         super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public void mouseClicked(double x, double y, int button) {
+        showCompletions = false;
+        super.mouseClicked(x, y, button);
     }
 }

@@ -1,8 +1,8 @@
 package io.github.codeutilities.scripts.event;
 
 import io.github.codeutilities.event.Event;
+import io.github.codeutilities.scripts.Script;
 import io.github.codeutilities.scripts.action.ScriptAction;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +19,9 @@ public class ScriptEvent {
         }
     }
 
-    public void execute(Event event) {
+    public void execute(Event event, Script script) {
         for(ScriptAction action : actions) {
-            action.execute(event);
+            action.execute(event,script);
         }
     }
 }
