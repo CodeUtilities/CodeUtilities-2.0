@@ -12,10 +12,12 @@ import io.github.codeutilities.scripts.ScriptHandler;
 import io.github.codeutilities.scripts.types.ScriptNumber;
 import io.github.codeutilities.scripts.types.ScriptText;
 import io.github.codeutilities.util.ComponentUtil;
+import io.github.codeutilities.util.codeinit.ILoader;
 
-public class ScriptEventListeners {
+public class ScriptEventListeners implements ILoader {
 
-    public static void init() {
+    @Override
+    public void load() {
         EventHandler.register(SendChatEvent.class, (event) -> {
             ScriptContext ctx = new ScriptContext();
             ctx.setVar("message", new ScriptText(event.getMessage()));
@@ -58,5 +60,4 @@ public class ScriptEventListeners {
             ScriptHandler.triggerEvent(ScriptEventType.RENDER_GUI, ctx, event);
         });
     }
-
 }

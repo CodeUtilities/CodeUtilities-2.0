@@ -15,6 +15,7 @@ import io.github.codeutilities.commands.impl.ScriptsCommand;
 import io.github.codeutilities.commands.impl.WolframCommand;
 import io.github.codeutilities.event.EventHandler;
 import io.github.codeutilities.event.impl.ReloadCommandsEvent;
+import io.github.codeutilities.util.codeinit.ILoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TextComponent;
@@ -22,27 +23,10 @@ import net.minecraft.network.chat.TextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandHandler {
+public class CommandHandler implements ILoader {
 
     private static final List<Command> commands = new ArrayList<>();
     public static CommandDispatcher<SharedSuggestionProvider> dispatcher;
-
-    public static void init() {
-        CommandHandler.dispatcher = new CommandDispatcher<>();
-
-        register(
-                new CodeUtilitiesCommand(),
-                new WolframCommand(),
-                new EditNbtCommand(),
-                new ScriptsCommand()
-        );
-
-        EventHandler.register(ReloadCommandsEvent.class, event -> {
-            for (CommandNode<SharedSuggestionProvider> child : dispatcher.getRoot().getChildren()) {
-                event.modifiableDispatcher().getRoot().addChild(child);
-            }
-        });
-    }
 
     private static void register(Command... cmds) {
         commands.addAll(List.of(cmds));
@@ -83,5 +67,23 @@ public class CommandHandler {
 
     public static List<Command> getCommands() {
         return commands;
+    }
+
+    @Override
+    public void load() {
+        CommandHandler.dispatcher = new CommandDispatcher<>();
+
+        register(
+                new CodeUtilitiesCommand(),
+                new WolframCommand(),
+                new EditNbtCommand(),
+                new ScriptsCommand()
+        );
+
+        EventHandler.register(ReloadCommandsEvent.class, event -> {
+            for (CommandNode<SharedSuggestionProvider> child : dispatcher.getRoot().getChildren()) {
+                event.modifiableDispatcher().getRoot().addChild(child);
+            }
+        });
     }
 }

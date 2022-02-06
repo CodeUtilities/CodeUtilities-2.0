@@ -66,7 +66,7 @@ public class ScriptEditorMenu extends Screen {
             err.printStackTrace();
         }
 
-        ScriptHandler.load();
+        ScriptHandler.loadScripts();
         ChatUtil.displaySuccess("Reloaded scripts");
         super.onClose();
     }
