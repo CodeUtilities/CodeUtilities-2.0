@@ -3,24 +3,17 @@ package io.github.codeutilities.mod.commands.impl.other;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.PlotHistoryRecorder;
 import io.github.codeutilities.mod.commands.Command;
 import io.github.codeutilities.mod.commands.arguments.ArgBuilder;
-import io.github.codeutilities.mod.commands.arguments.types.FreeStringArgumentType;
 import io.github.codeutilities.mod.config.Config;
-import io.github.codeutilities.mod.features.commands.queue.QueueEntry;
-import io.github.codeutilities.mod.features.social.tab.CodeUtilitiesServer;
-import io.github.codeutilities.mod.features.social.tab.WebMessage;
 import io.github.codeutilities.sys.SimplePlot;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.*;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 public class HistoryCommand extends Command {
 
@@ -86,6 +79,6 @@ public class HistoryCommand extends Command {
 
     @Override
     public String getName() {
-        return "/queue";
+        return "/history";
     }
 }

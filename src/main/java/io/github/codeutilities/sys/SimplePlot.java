@@ -3,7 +3,6 @@ package io.github.codeutilities.sys;
 import io.github.codeutilities.sys.networking.State;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SimplePlot {
     private final String id;
