@@ -27,7 +27,7 @@ public class PlotHistoryRecorder {
         while(plots.size() > Config.getInteger("plotHistoryLength")) {
             plots.remove(0);
         }
-        plots.add(plot);
+        plots.add(0, plot);
         writeToFile(SimplePlot.serializePlots(plots));
     }
 
