@@ -37,6 +37,11 @@ public class MiscellaneousGroup extends ConfigGroup {
         quickNum.register(new DoubleSetting("quicknumTertiaryAmount", 0.1));
         this.register(quickNum);
 
+        // Plot History
+        ConfigSubGroup plotHistory = new ConfigSubGroup("plotHistory");
+        plotHistory.register(new BooleanSetting("plotHistory", true));
+        plotHistory.register(new IntegerSetting("plotHistoryLength", 20));
+        this.register(plotHistory);
     }
 
 

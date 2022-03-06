@@ -1,5 +1,6 @@
 package io.github.codeutilities.mod.features.social.chat.message.checks;
 
+import io.github.codeutilities.mod.PlotHistoryRecorder;
 import io.github.codeutilities.mod.features.social.chat.message.Message;
 import io.github.codeutilities.mod.features.social.chat.message.MessageCheck;
 import io.github.codeutilities.mod.features.social.chat.message.MessageType;
@@ -22,6 +23,8 @@ public class LocateCheck extends MessageCheck {
 
     @Override
     public void onReceive(Message message) {
-        DFInfo.setCurrentState(State.fromLocate(message));
+        State state = State.fromLocate(message);
+        DFInfo.setCurrentState(state);
+        PlotHistoryRecorder.record(state.getPlot());
     }
 }

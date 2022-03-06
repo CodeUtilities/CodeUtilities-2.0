@@ -174,5 +174,12 @@
     "key.codeutilities.node3": "Node 3",
     "key.codeutilities.node4": "Node 4",
     "key.codeutilities.node5": "Node 5",
-    "key.codeutilities.node_beta": "Node Beta"
-  }
+    "key.codeutilities.node_beta": "Node Beta",
+
+    "config.codeutilities.subcategory.misc_plotHistory": "Plot Verlauf",
+    "config.codeutilities.subcategory.misc_plotHistory.tooltip": "Verlauf von kürzlich betretenen plots.",
+    "config.codeutilities.option.plotHistory.tooltip": "dieses feature aktivieren.",
+    "config.codeutilities.option.plotHistory": "Aktiviert",
+    "config.codeutilities.option.plotHistoryLength": "Maximale Plots",
+    "config.codeutilities.option.plotHistoryLength.tooltip": "Maximale anzahl an plots im Plot Verlauf."
+}

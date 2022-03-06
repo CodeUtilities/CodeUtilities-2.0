@@ -219,6 +219,13 @@
     "config.codeutilities.option.quicknumTertiaryAmount": "Secondary Amount",
     "config.codeutilities.option.quicknumTertiaryAmount.tooltip": "Change how much a scroll changes the number. (When holding SHIFT)",
 
+    "config.codeutilities.subcategory.misc_plotHistory": "Recent Plots History",
+    "config.codeutilities.subcategory.misc_plotHistory.tooltip": "History of recent plots you joined.",
+    "config.codeutilities.option.plotHistory.tooltip": "Enable this feature.",
+    "config.codeutilities.option.plotHistory": "Enabled",
+    "config.codeutilities.option.plotHistoryLength": "Maximum Plots",
+    "config.codeutilities.option.plotHistoryLength.tooltip": "How many plots can be in the history at a time.",
+
     "config.codeutilities.option.chestToolTip": "Chest Tooltip",
     "config.codeutilities.option.chestToolTip.tooltip": "Display chest params when you are in dev",
     "config.codeutilities.option.chestToolTipType": "Chest Tooltip Style",
