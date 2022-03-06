@@ -14,6 +14,7 @@ public class PlotHistoryRecorder {
 
     private static String lastPlot = null;
     public static void record(State.Plot statePlot) {
+        if(statePlot == null) return;
         if(!Config.getBoolean("plotHistory")) return;
         if(lastPlot != null && lastPlot.equals(statePlot.getId())) return;
 
