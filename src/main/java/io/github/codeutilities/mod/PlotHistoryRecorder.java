@@ -21,21 +21,21 @@ public class PlotHistoryRecorder {
         SimplePlot plot = SimplePlot.fromStatePlot(statePlot);
         lastPlot = plot.getId();
 
-        String leFile = readLeFile();
+        String leFile = readFile();
 
         ArrayList<SimplePlot> plots = SimplePlot.toPlotList(leFile);
         while(plots.size() > Config.getInteger("plotHistoryLength")) {
             plots.remove(0);
         }
         plots.add(plot);
-        writeLeFile(SimplePlot.serializePlots(plots));
+        writeToFile(SimplePlot.serializePlots(plots));
     }
 
     public static ArrayList<SimplePlot> getHistory() {
-        return SimplePlot.toPlotList(readLeFile());
+        return SimplePlot.toPlotList(readFile());
     }
 
-    private static String readLeFile() {
+    private static String readFile() {
         File file = new File(FILE_PATH);
 
         try {
@@ -58,7 +58,7 @@ public class PlotHistoryRecorder {
         }
     }
 
-    private static void writeLeFile(String content) {
+    private static void writeToFile(String content) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
             writer.write(content);
