@@ -8,6 +8,7 @@ import io.github.codeutilities.mod.commands.Command;
 import io.github.codeutilities.mod.commands.arguments.ArgBuilder;
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.SimplePlot;
+import io.github.codeutilities.sys.player.chat.ChatType;
 import io.github.codeutilities.sys.player.chat.ChatUtil;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
@@ -22,27 +23,28 @@ public class HistoryCommand extends Command {
         LiteralArgumentBuilder<FabricClientCommandSource> cmd = ArgBuilder.literal("history")
                 .executes(ctx -> {
                     if(!Config.getBoolean("plotHistory")) {
-                        ChatUtil.sendMessage(new LiteralText("§cYou need to enable §lplot history§c in the settings to use this command."), null);
+                        ChatUtil.sendMessage(new LiteralText("Plot history is not enabled in the settings."), ChatType.FAIL);
                         return 1;
                     }
 
                     ArrayList<SimplePlot> plots = PlotHistoryRecorder.getHistory();
                     if(plots.size() == 0) {
-                        ChatUtil.sendMessage(new LiteralText("§cno plots in the history."), null);
+                        ChatUtil.sendMessage(new LiteralText("no plots in the history."), ChatType.FAIL);
                         return 1;
                     }
+
+                    ChatUtil.sendMessage("");
                     ChatUtil.sendMessage(
-                            new LiteralText("\n§r §r §r §r §r §r §r §r §r §r §r §r ").append(
                                     new LiteralText("⏪  ")
                                             .styled(style -> style.withColor(TextColor.fromRgb(0x1f9947))).append(
-                                                    new LiteralText("CodeUtilities Plot History  ")
+                                                    new LiteralText("            CodeUtilities Plot History  ")
                                                             .styled(style -> style.withColor(TextColor.fromRgb(0x33ffa7))).append(
                                                                     new LiteralText("⏩")
                                                                             .styled(style -> style.withColor(TextColor.fromRgb(0x1f9947)))
-                                                            ))), null);
+                                                            )), null);
 
                     for (SimplePlot entry : plots) {
-                        MutableText entrymsg = new LiteralText("" + entry.getName())
+                        MutableText entrymsg = new LiteralText(entry.getName())
                                 .styled(style -> style.withColor(TextColor.fromRgb(0x00bbff)
                                                 ).withClickEvent(
                                                         new ClickEvent(
@@ -52,16 +54,14 @@ public class HistoryCommand extends Command {
                                                 .withHoverEvent(
                                                         new HoverEvent(
                                                                 HoverEvent.Action.SHOW_TEXT,
-                                                                new LiteralText("§7Click to join!")
+                                                                new LiteralText("Click to join!").styled(style2 -> style2.withColor(TextColor.fromRgb(0xaaaaaa)))
                                                         )
                                                 )
                                 ).append(
-                                        new LiteralText("§8 - ").append(
-                                                new LiteralText( "§7" + entry.getId())
+                                        new LiteralText(" - ").styled(style -> style.withColor(TextColor.fromRgb(0x555555))).append(
+                                                new LiteralText(entry.getId()).styled(style -> style.withColor(TextColor.fromRgb(0xaaaaaa)))
                                                         .append(
-                                                                new LiteralText("§8 by " + entry.getOwner())
-
-                                                                        )));
+                                                                new LiteralText(" by " + entry.getOwner()).styled(style -> style.withColor(TextColor.fromRgb(0x555555))))));
                         ChatUtil.sendMessage(entrymsg, null);
                     }
 

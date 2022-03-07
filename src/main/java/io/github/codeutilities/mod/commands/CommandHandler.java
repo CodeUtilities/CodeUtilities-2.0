@@ -60,7 +60,7 @@ public class CommandHandler implements ILoader {
             new ActionbarCommand(),
             new CalcCommand(),
             new CustomTextureCommand(),
-           new HistoryCommand()
+            new HistoryCommand()
         );
 
         if (Config.getBoolean("dfCommands")) {
