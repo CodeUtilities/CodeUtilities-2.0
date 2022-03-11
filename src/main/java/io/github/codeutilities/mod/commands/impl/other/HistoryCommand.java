@@ -33,11 +33,10 @@ public class HistoryCommand extends Command {
                         return 1;
                     }
 
-                    ChatUtil.sendMessage("");
                     ChatUtil.sendMessage(
-                                    new LiteralText("⏪  ")
+                                    new LiteralText("\n⏪")
                                             .styled(style -> style.withColor(TextColor.fromRgb(0x1f9947))).append(
-                                                    new LiteralText("            CodeUtilities Plot History  ")
+                                                    new LiteralText("     CodeUtilities Plot History     ")
                                                             .styled(style -> style.withColor(TextColor.fromRgb(0x33ffa7))).append(
                                                                     new LiteralText("⏩")
                                                                             .styled(style -> style.withColor(TextColor.fromRgb(0x1f9947)))
