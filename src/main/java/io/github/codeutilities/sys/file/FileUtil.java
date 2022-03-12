@@ -29,10 +29,9 @@ public class FileUtil {
 
             }
 
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-            reader.close();
-            return line == null ? "" : line;
+            String contents = Files.readString(path);
+
+            return contents == null ? "" : contents;
         } catch(IOException exception) {
             CodeUtilities.log(Level.WARN, "Failed to read " + path);
             exception.printStackTrace();
@@ -42,10 +41,7 @@ public class FileUtil {
 
     public static void writeStringToFile(Path path, String content) {
         try {
-            File file = path.toFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(content);
-            writer.close();
+            Files.writeString(path, content);
         } catch (IOException e) {
             CodeUtilities.log(Level.WARN, "Failed writing to " + path);
             e.printStackTrace();
