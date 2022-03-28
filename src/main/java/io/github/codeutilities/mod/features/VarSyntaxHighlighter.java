@@ -18,6 +18,7 @@ public class VarSyntaxHighlighter {
 
     private static final List<String> percentcodes = Arrays.asList(
         "%default",
+	"%player",
         "%damager",
         "%killer",
         "%shooter",
