@@ -78,6 +78,14 @@ public class Keybinds implements ClientModInitializer {
         KeyBinding node5 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.codeutilities.node5", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
 
+        // node6
+        KeyBinding node6 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.codeutilities.node6", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+
+        // node7
+        KeyBinding node7 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.codeutilities.node7", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
+
         // node beta
         KeyBinding nodeBeta = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.codeutilities.node_beta", InputUtil.Type.KEYSYM, -1, "key.category.codeutilities"));
@@ -238,6 +246,16 @@ public class Keybinds implements ClientModInitializer {
             // node5
             while (node5.wasPressed()) {
                 sendChat("/node 5");
+            }
+
+            // node6
+            while (node6.wasPressed()) {
+                sendChat("/node 6");
+            }
+
+            // node7
+            while (node7.wasPressed()) {
+                sendChat("/node 7");
             }
 
             // node beta
