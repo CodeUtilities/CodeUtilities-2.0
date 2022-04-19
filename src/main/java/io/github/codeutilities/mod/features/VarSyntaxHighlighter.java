@@ -44,7 +44,8 @@ public class VarSyntaxHighlighter {
         "/ils N",
         "/sll N",
         "/p name ",
-        "/plot name "
+        "/plot name ",
+        "/item name "
     );
 
     public static Text highlight(String msg) {
