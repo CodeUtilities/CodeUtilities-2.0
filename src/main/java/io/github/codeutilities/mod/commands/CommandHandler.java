@@ -1,5 +1,8 @@
 package io.github.codeutilities.mod.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.codeutilities.CodeUtilities;
 import io.github.codeutilities.mod.commands.impl.image.ImageHologramCommand;
 import io.github.codeutilities.mod.commands.impl.image.ImageParticleCommand;
@@ -8,7 +11,6 @@ import io.github.codeutilities.mod.commands.impl.item.CodeVaultCommand;
 import io.github.codeutilities.mod.commands.impl.item.CustomTextureCommand;
 import io.github.codeutilities.mod.commands.impl.item.EditItemCommand;
 import io.github.codeutilities.mod.commands.impl.item.GiveCommand;
-import io.github.codeutilities.mod.commands.impl.item.HeadsCommand;
 import io.github.codeutilities.mod.commands.impl.item.ImportFileCommand;
 import io.github.codeutilities.mod.commands.impl.item.ItemdataCommand;
 import io.github.codeutilities.mod.commands.impl.item.RelativeLocCommand;
@@ -31,14 +33,13 @@ import io.github.codeutilities.mod.commands.impl.text.ActionbarCommand;
 import io.github.codeutilities.mod.commands.impl.text.ColorCommand;
 import io.github.codeutilities.mod.commands.impl.text.ColorsCommand;
 import io.github.codeutilities.mod.commands.impl.text.CopyTextCommand;
+import io.github.codeutilities.mod.commands.impl.text.GenTextCommand;
 import io.github.codeutilities.mod.commands.impl.text.GradientCommand;
 import io.github.codeutilities.mod.commands.impl.text.SubTitleCommand;
 import io.github.codeutilities.mod.commands.impl.text.TitleCommand;
 import io.github.codeutilities.mod.commands.impl.text.UuidCommand;
 import io.github.codeutilities.mod.config.Config;
 import io.github.codeutilities.sys.file.ILoader;
-import java.util.ArrayList;
-import java.util.List;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 
 public class CommandHandler implements ILoader {
@@ -69,7 +70,8 @@ public class CommandHandler implements ILoader {
             new SubTitleCommand(),
             new ActionbarCommand(),
             new CalcCommand(),
-            new CustomTextureCommand()
+            new CustomTextureCommand(),
+            new GenTextCommand()
         );
 
         if (Config.getBoolean("dfCommands")) {
