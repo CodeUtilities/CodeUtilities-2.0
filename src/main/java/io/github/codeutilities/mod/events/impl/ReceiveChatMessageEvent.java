@@ -169,7 +169,7 @@ public class ReceiveChatMessageEvent {
             cancel = true;
         }
 
-        if (Config.getBoolean("autoClickEditMsgs") && stripped.startsWith("⏵ Click to edit variable: ")) {
+        if (Config.getBoolean("autoClickEditMsgs") && stripped.startsWith("⏵ Click to edit")) {
             if (text.getStyle().getClickEvent().getAction() == Action.SUGGEST_COMMAND) {
                 String toOpen = text.getStyle().getClickEvent().getValue();
                 MinecraftClient.getInstance().send(() -> MinecraftClient.getInstance().openScreen(new ChatScreen(toOpen)));
