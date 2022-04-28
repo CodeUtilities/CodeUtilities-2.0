@@ -124,11 +124,6 @@ public class MMessageListener {
                     // update state on server join
                     DFInfo.currentState.setInSession(false);
 
-                    // auto chat local
-                    if (Config.getBoolean("autoChatLocal")) {
-                        //Deprecated ChatUtil.executeCommandSilently("c 1");
-                        ChatUtil.executeCommandSilently("chat local");
-                    }
                 }
             } catch (Exception e) {
                 CodeUtilities.log(Level.INFO, "Error on parsing patch number!");
@@ -148,13 +143,19 @@ public class MMessageListener {
         }
 
         // Play Mode
-        if (text.matches("^Joined game: .* by .*$")) {
+        if (text.matches("^» Joined game: .* by .*$")) {     	
+        	
             DFInfo.currentState.sendLocate();
 
             // Auto LagSlayer
             System.out.println(CPU_UsageText.lagSlayerEnabled);
             if (!CPU_UsageText.lagSlayerEnabled && Config.getBoolean("autolagslayer")) {
                 ChatUtil.executeCommandSilently("lagslayer");
+            }
+            
+            // auto chat local
+            if (Config.getBoolean("autoChatLocal")) {
+                ChatUtil.executeCommandSilently("chat local");
             }
 
             // fs toggle
